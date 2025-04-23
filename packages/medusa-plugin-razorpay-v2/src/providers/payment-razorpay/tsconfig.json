@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    
+      "target": "ES2021",
+      "esModuleInterop": true,
+      "module": "Node16",
+      "moduleResolution": "Node16",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "skipLibCheck": true,
+      "skipDefaultLibCheck": true,
+      "declaration": true,
+      "sourceMap": false,
+      "inlineSourceMap": true,
+      "outDir": "./dist",
+
+      "jsx": "react-jsx",
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "checkJs": false,
+      "lib": ["ES2021"],
+    
+    "declarationMap": true,
+    "noUnusedLocals": true,
+    
+    "noImplicitReturns": true,
+    
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "allowJs": true,
+    "incremental": false,
+      "paths": {
+      "@models": ["./src/models"],
+      "@services": ["./src/services"],
+      "@repositories": ["./src/repositories"],
+      "@types": ["./src/types"],
+      "@utils": ["./src/utils"]
+    }
+  },
+  "ts-node": {
+    "swc": true
+  },
+  "include": [
+    "src",
+    ".medusa/types/*",
+  ],
+  "exclude": [
+    "node_modules",
+    ".medusa/server",
+    ".medusa/admin",
+    ".cache",
+    "__tests__",
+    "dist"
+  ]
+  }
