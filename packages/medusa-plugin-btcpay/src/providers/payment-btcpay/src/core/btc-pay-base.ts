@@ -27,7 +27,8 @@ import {
     RetrievePaymentInput,
     RetrievePaymentOutput,
     UpdatePaymentInput,
-    UpdatePaymentOutput
+    UpdatePaymentOutput,
+    IPaymentModuleService
 } from "@medusajs/types/dist/payment";
 import {
     AbstractPaymentProvider,
@@ -50,31 +51,42 @@ import {
     StoresRatesApi,
     CreateInvoiceRequest
 } from "./api";
+import { isContext } from "node:vm";
 /**
  * The paymentIntent object corresponds to a btcpay order.
  *
  */
 
 class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
-    static identifier = "btcpay"; 
+    static identifier = "btcpay";
 
     protected readonly options_: BtcOptions;
     protected btcpay_: Btcpay;
     protected logger: Logger;
     customerService: ICustomerModuleService;
     btcadmin_: StoresApi;
-    btcRatesApi_:StoresRatesApi;
+    btcRatesApi_: StoresRatesApi;
+    paymentService: IPaymentModuleService;
 
     protected constructor(container: MedusaContainer, options: BtcOptions) {
         super(container, options);
 
         this.options_ = options;
         this.logger = container[ContainerRegistrationKeys.LOGGER] as Logger;
-        this.customerService = container[Modules.CUSTOMER] as any;
+        this.paymentService = container[
+            Modules.PAYMENT
+        ] as IPaymentModuleService;
+        this.customerService = container[
+            Modules.CUSTOMER
+        ] as ICustomerModuleService;
         this.options_ = options;
         this.btcpay_ = new Btcpay(options, options.basePath, fetch);
         this.btcadmin_ = new StoresApi(options, options.basePath, fetch);
-        this.btcRatesApi_ = new StoresRatesApi(options, options.basePath, fetch);
+        this.btcRatesApi_ = new StoresRatesApi(
+            options,
+            options.basePath,
+            fetch
+        );
     }
 
     async initiatePayment(
@@ -121,6 +133,14 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             body,
             storeId
         );
+        const id = input.context?.idempotency_key as string;
+
+        await this.paymentService.updatePaymentSession({
+            id: id,
+            data: { ...response },
+            currency_code,
+            amount
+        });
 
         return {
             id: response.id!,
@@ -209,19 +229,20 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         /** sometimes this even fires before the order is updated in the remote system */
         let outstanding = 0;
 
-        const store = await this.btcadmin_.storesGetStore(
+        const store = (await this.btcadmin_.storesGetStore(
             paymentEvent.storeId!
-        ) as StoreId;
+        )) as StoreId;
 
         const rates = await this.btcRatesApi_.storesGetStoreRates(
             paymentEvent.storeId!
-        ) 
+        );
 
-        const CURRENCY_RATE = rates.find(rate=>
-            rate.currencyPair === (this.options_.currency_pair ?? "USD_BTC")
-        )?.rate
+        const CURRENCY_RATE = rates.find(
+            (rate) =>
+                rate.currencyPair === (this.options_.currency_pair ?? "USD_BTC")
+        )?.rate;
 
-        const CURRENCY_RATE_NUMBER = parseFloat(CURRENCY_RATE ?? "0")
+        const CURRENCY_RATE_NUMBER = parseFloat(CURRENCY_RATE ?? "0");
 
         outstanding =
             parseFloat(btcpayInvoice.amount ?? "0") * CURRENCY_RATE_NUMBER -
@@ -347,7 +368,14 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         input: AuthorizePaymentInput
     ): Promise<AuthorizePaymentOutput> {
         const { data, context } = input;
-        if (!data || !data.id || !data.storeId) {
+
+        const paymentSessionId = context?.idempotency_key as string;
+        const paymentSession = await this.paymentService.retrievePaymentSession(
+            paymentSessionId
+        );
+        const providerData = data ?? paymentSession.data;
+
+        if (!providerData || !providerData.id || !providerData.storeId) {
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
                 "Invoice ID and Store ID are required to authorize payment"
@@ -357,8 +385,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             {
                 metadata: input
             },
-            data.id as string,
-            data.storeId as string
+            providerData.id as string,
+            providerData.storeId as string
         );
 
         return {

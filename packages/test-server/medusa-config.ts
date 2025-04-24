@@ -18,6 +18,7 @@ module.exports = defineConfig({
             cookieSecret: process.env.COOKIE_SECRET || "supersecret"
         }
     },
+    plugins: ["medusa-plugin-razorpay-v2", "medusa-plugin-btcpay"],
     modules: [
         // {
         //     resolve: "@rokmohar/medusa-plugin-meilisearch",
@@ -89,6 +90,7 @@ module.exports = defineConfig({
             dependencies: [
                 Modules.CUSTOMER,
                 Modules.ORDER,
+                Modules.PAYMENT,
                 ContainerRegistrationKeys.LOGGER
             ],
             options: {

@@ -10251,6 +10251,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ws@npm:^8":
+  version: 8.18.1
+  resolution: "@types/ws@npm:8.18.1"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/61aff1129143fcc4312f083bc9e9e168aa3026b7dd6e70796276dcfb2c8211c4292603f9c4864fae702f2ed86e4abd4d38aa421831c2fd7f856c931a481afbab
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 21.0.3
   resolution: "@types/yargs-parser@npm:21.0.3"
@@ -16941,7 +16950,7 @@ __metadata:
 
 "medusa-plugin-btcpay@file:.yalc/medusa-plugin-btcpay::locator=test-server%40workspace%3Apackages%2Ftest-server":
   version: 0.0.1
-  resolution: "medusa-plugin-btcpay@file:.yalc/medusa-plugin-btcpay#.yalc/medusa-plugin-btcpay::hash=984d14&locator=test-server%40workspace%3Apackages%2Ftest-server"
+  resolution: "medusa-plugin-btcpay@file:.yalc/medusa-plugin-btcpay#.yalc/medusa-plugin-btcpay::hash=919700&locator=test-server%40workspace%3Apackages%2Ftest-server"
   dependencies:
     isomorphic-fetch: "npm:^3.0.0"
   peerDependencies:
@@ -16959,7 +16968,7 @@ __metadata:
     "@mikro-orm/postgresql": 6.4.3
     awilix: ^8.0.1
     pg: ^8.13.0
-  checksum: 10c0/eaefd7adc00d2afad34ec60a73a2e74f794b5f4ad2351054883e3843a3247e1e269ee380195c288f778a1c6d74608c78aaad1321448184dbdb28aa70a7af4937
+  checksum: 10c0/b97ec537b3bed17ec541c5c1621368596cbe1457abc39b1bbf1082af3a2a9c3bb6c772b26ef35139d61029495ff33039d3a3aba576453689e57f02e610cca059
   languageName: node
   linkType: hard
 
@@ -16983,12 +16992,14 @@ __metadata:
     "@types/node": "npm:^20.0.0"
     "@types/react": "npm:^18.3.2"
     "@types/react-dom": "npm:^18.2.25"
+    "@types/ws": "npm:^8"
     awilix: "npm:^8.0.1"
     isomorphic-fetch: "npm:^3.0.0"
     pg: "npm:^8.13.0"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    ws: "npm:^8.18.1"
   peerDependencies:
     "@medusajs/admin-sdk": 2.7.1
     "@medusajs/cli": 2.7.1
@@ -22448,6 +22459,21 @@ __metadata:
     type-fest: "npm:^0.4.1"
     write-json-file: "npm:^3.2.0"
   checksum: 10c0/8e20db5fa444dad04e3703c18d8e0f89679caa60accbee5da9ea3aa076430b3f32d99f50d8860d29044245775795455c62d12d16a7856d407e30df7b79f39505
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.18.1":
+  version: 8.18.1
+  resolution: "ws@npm:8.18.1"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 10c0/e498965d6938c63058c4310ffb6967f07d4fa06789d3364829028af380d299fe05762961742971c764973dce3d1f6a2633fe8b2d9410c9b52e534b4b882a99fa
   languageName: node
   linkType: hard
 

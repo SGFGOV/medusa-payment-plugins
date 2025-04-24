@@ -48,7 +48,8 @@
   },
   "packageManager": "yarn@4.6.0",
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0"
+    "isomorphic-fetch": "^3.0.0",
+    "ws": "^8.18.1"
   },
-  "yalcSig": "a8caa6aff472bb57a8fceb2b1fc08dd2"
+  "yalcSig": "d1cb1d475eb8baa1b6758595c55c2331"
 }

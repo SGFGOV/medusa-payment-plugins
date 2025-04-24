@@ -25,7 +25,7 @@
   "include": [
     "**/*",
     ".medusa/types/*"
-  ],
+, "../medusa-plugin-btcpay/src/api/middlewares.ts"  ],
   "exclude": [
     "node_modules",
     ".medusa/server",

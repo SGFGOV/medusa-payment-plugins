@@ -9,8 +9,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "declaration": false,
-    "sourceMap": false,
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "outDir": "./.medusa/server",
     "rootDir": "./",
     "jsx": "react-jsx",
@@ -25,7 +24,7 @@
   "include": [
     "**/*",
     ".medusa/types/*"
-  ],
+, "src/api/middlewares.ts", "../test-server/medusa-config.ts"  ],
   "exclude": [
     "node_modules",
     ".medusa/server",
