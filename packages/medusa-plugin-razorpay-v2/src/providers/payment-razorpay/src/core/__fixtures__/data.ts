@@ -210,6 +210,7 @@ export const updatePaymentContextWithWrongEmail = {
 };
 
 export const updatePaymentContextWithDifferentAmount = {
+    customer_id: "cust_test12345",
     email: WRONG_CUSTOMER_EMAIL,
     currency_code: "inr",
     amount: 2000,

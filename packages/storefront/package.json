@@ -28,6 +28,7 @@
     "react": "19.0.0-rc-66855b96-20241106",
     "react-country-flag": "^3.1.0",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-razorpay": "^3.0.1",
     "server-only": "^0.0.1",
     "tailwindcss-radix": "^2.8.0",
     "webpack": "^5"

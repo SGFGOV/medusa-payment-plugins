@@ -5,27 +5,46 @@
     "version": "0.2.0",
     "configurations": [
 
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/packages/providers/medusa-plugin-btcpay/src/providers/payment-btcpay/src/core/btc-pay-base.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug Backend-v2 debug seed",
+        
+        "program": "node_modules/@medusajs/cli/cli.js",
+        "cwd": "${workspaceFolder}/packages/test-server",
+        "args": [ 
+          "exec",
+          "./src/scripts/seed.ts"
+        ],
+        "runtimeArgs": [
+          "--preserve-symlinks",
+          "--preserve-symlinks-main",
+          "--trace-warnings","--experimental-modules"
+        ],
+        "env": {
+        "DEBUG": "express:*",
+        "PORT":"9000"
         },
+        "sourceMaps": true,
+        "resolveSourceMapLocations": [
+          "${workspaceFolder}/../**",
+          "!**/node_modules/**"
+        ],
+        "console": "integratedTerminal",
+        "trace": true
+      },
         {
             "type": "node",
             "request": "launch",
             "name": "Debug Backend-v2 debug",
             
-            "program": "${workspaceFolder}/node_modules/@medusajs/medusa/dist/bin/medusa.js",
-            "cwd": "${workspaceFolder}",
-            "args": [
-              "start"
+            "program": "node_modules/@medusajs/cli/cli.js",
+            "cwd": "${workspaceFolder}/packages/test-server",
+            "args": [ 
+              "develop",
+              "--port",
+              "9000",
+              "--verbose"
             ],
             "runtimeArgs": [
               "--preserve-symlinks",
@@ -34,7 +53,7 @@
             ],
             "env": {
             "DEBUG": "expres:*",
-            "PORT":"9500"
+            "PORT":"9000"
             },
             "sourceMaps": true,
             "resolveSourceMapLocations": [
@@ -44,5 +63,66 @@
             "console": "integratedTerminal",
             "trace": true
           },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Backend-v2 debug migrate",
+            "localRoot": "${workspaceFolder}",
+            "program": "${workspaceFolder}/node_modules/@medusajs/cli/cli.js",
+            "cwd": "${workspaceFolder}/packages/test-server",
+            "envFile": "${workspaceFolder}/packages/test-server/.env",
+            "args": [ 
+              "db:migrate",
+              
+              "--verbose"
+            ],
+            "runtimeArgs": [
+              "--preserve-symlinks",
+              "--preserve-symlinks-main",
+              "--trace-warnings","--experimental-modules"
+            ],
+            "env": {
+            "DEBUG": "expres:*",
+            "PORT":"9000"
+            },
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+              "${workspaceFolder}/../**",
+              "!**/node_modules/**"
+            ],
+            "console": "integratedTerminal",
+            "trace": true
+          },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Homesound vision Debug Backend-v2 debug",
+            
+            "program": "node_modules/@medusajs/cli/cli.js",
+            "cwd": "${workspaceFolder}/packages/test-server",
+            "args": [ 
+              "develop",
+              "--port",
+              "9000",
+              "--verbose"
+            ],
+            "runtimeArgs": [
+              "--preserve-symlinks",
+              "--preserve-symlinks-main",
+              "--trace-warnings","--experimental-modules"
+            ],
+            "env": {
+            "DEBUG": "expres:*",
+            "PORT":"9000"
+            },
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+              "${workspaceFolder}/../**",
+              "!**/node_modules/**"
+            ],
+            "console": "integratedTerminal",
+            "trace": true
+          },
+      
     ]
 }

@@ -1,9 +1,10 @@
 "use client"
 
-import { isManual, isStripe } from "@lib/constants"
+import { isBtcpay, isManual, isRazorpay, isStripe } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
+import {RazorpayPaymentButton} from "./razorpay-payment-button"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
@@ -17,6 +18,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   cart,
   "data-testid": dataTestId,
 }) => {
+  const [btcClicked, setBtcClicked] = useState(false)
   const notReady =
     !cart ||
     !cart.shipping_address ||
@@ -25,7 +27,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     (cart.shipping_methods?.length ?? 0) < 1
 
   const paymentSession = cart.payment_collection?.payment_sessions?.[0]
-
+  if(!paymentSession) {
+    return <Button disabled>Select a payment method</Button>
+  }
+  console.log(`paymentSession: `+JSON.stringify(paymentSession))
+  console.log(`cart: `+JSON.stringify(cart))
   switch (true) {
     case isStripe(paymentSession?.provider_id):
       return (
@@ -39,6 +45,17 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
       return (
         <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
       )
+    case isRazorpay(paymentSession?.provider_id):
+        return <RazorpayPaymentButton session={paymentSession!} notReady={notReady} cart={cart} />
+    
+    case isBtcpay(paymentSession?.provider_id):
+        return (  
+          <Button disabled={btcClicked} onClick={() => {setBtcClicked(true);
+            window.open(paymentSession?.data.checkoutLink as string, "_blank")}}>
+            Pay with BtcPay
+          </Button>
+        )
+
     default:
       return <Button disabled>Select a payment method</Button>
   }

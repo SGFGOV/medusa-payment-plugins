@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "build": "medusa build",
+    "clean": "rm -rf .medusa",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
@@ -30,9 +31,10 @@
     "@mikro-orm/knex": "6.4.3",
     "@mikro-orm/migrations": "6.4.3",
     "@mikro-orm/postgresql": "6.4.3",
+    "@rokmohar/medusa-plugin-meilisearch": "^1.1.3",
     "awilix": "^8.0.1",
-    "medusa-plugin-btcpay": "workspace:*",
-    "medusa-plugin-razorpay-v2": "workspace:*",
+    "medusa-plugin-btcpay": "file:.yalc/medusa-plugin-btcpay",
+    "medusa-plugin-razorpay-v2": "file:.yalc/medusa-plugin-razorpay-v2",
     "pg": "^8.13.0"
   },
   "devDependencies": {

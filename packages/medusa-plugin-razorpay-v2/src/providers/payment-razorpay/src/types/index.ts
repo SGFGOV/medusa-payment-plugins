@@ -1,17 +1,21 @@
 import { Orders } from "razorpay/dist/types/orders";
 
-export interface RazorpayOptions {
+export interface Options {
+    key_id: string;
+    key_secret: string;
+    razorpay_account: string;
     automatic_expiry_period: number;
     manual_expiry_period: number;
     refund_speed: "normal" | "optimum";
-    key_secret: string | undefined;
-    razorpay_account: string | undefined;
-    key_id: string;
     webhook_secret: string;
-    /**
-     * Use this flag to capture payment immediately (default is false)
-     */
-    auto_capture?: boolean;
+    auto_capture: boolean;
+}
+
+export interface RazorpayOptions extends Options {
+    automatic_expiry_period: number;
+    manual_expiry_period: number;
+    refund_speed: "normal" | "optimum";
+
     /**
      * set `automatic_payment_methods` to `{ enabled: true }`
      */
@@ -52,17 +56,6 @@ export interface Provider {
     resolve: string;
     id: string;
     options: Options;
-}
-
-export interface Options {
-    key_id: string;
-    key_secret: string;
-    razorpay_account: string;
-    automatic_expiry_period: number;
-    manual_expiry_period: number;
-    refund_speed: "normal" | "optimum";
-    webhook_secret: string;
-    auto_capture: boolean;
 }
 
 export interface Database {

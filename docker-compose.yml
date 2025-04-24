@@ -1,0 +1,107 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: backend:starter
+    container_name: medusa-server-default
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./packages/test-server/.env
+    environment:
+  
+      # DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-docker
+      # REDIS_URL: redis://redis
+      # NODE_ENV: development
+      # JWT_SECRET: something
+      # COOKIE_SECRET: something
+      PORT: 9000
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/app/medusa
+      - node_modules:/app/medusa/node_modules
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: medusa-docker
+    volumes:
+      - ./docker-volumes/postgres-data:/var/lib/postgresql/data
+  redis:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      -  "6379:6379"
+    restart: always
+  # strapi:
+  #     image: strapi/strapi
+  #     environment:
+  #       DATABASE_CLIENT: postgres
+  #       DATABASE_NAME: medusa-docker
+  #       DATABASE_HOST: postgres
+  #       DATABASE_PORT: 5432
+  #       DATABASE_USERNAME: postgres
+  #       DATABASE_PASSWORD: postgres
+  #     working_dir: /srv/app
+  #     volumes:
+  #       - ./docker-volumes/strapi-medusa/:/srv/app
+  #     ports:
+  #       - '1337:1337'
+  #     depends_on:
+  #       - postgres
+  search:
+      image: getmeili/meilisearch
+      restart: always
+      ports:
+        - "7700:7700"
+      environment:
+        - MEILI_MASTER_KEY=MASTER_KEY
+      volumes:
+        - ./data/db:/var/lib/postgres:cached
+  
+  # zookeeper:
+  #   restart: always
+  #   image: docker.io/bitnami/zookeeper:3.8
+  #   ports:
+  #     - "2181:2181"
+  #   volumes:
+  #     - "zookeeper-volume:/bitnami"
+  #   environment:
+  #     - ALLOW_ANONYMOUS_LOGIN=yes
+
+  # kafka:
+  #   restart: always
+  #   image: docker.io/bitnami/kafka:3.3
+  #   ports:
+  #     - "9092:9092"
+  #   volumes:
+  #     - "kafka-volume:/bitnami"
+  #   environment:
+  #     - KAFKA_BROKER_ID=1
+  #     - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #     - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+  #     - KAFKA_CFG_LISTENERS=CLIENT://0.0.0.0:9092,EXTERNAL://:9093
+  #     - KAFKA_ADVERTISED_LISTENERS=CLIENT://172.31.13.116:9092
+  #     - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+  #     - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+  #   depends_on:
+  #     - zookeeper
+
+volumes:
+  kafka-volume:
+  zookeeper-volume:
+
+  node_modules:
+  

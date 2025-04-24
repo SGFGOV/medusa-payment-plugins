@@ -1219,7 +1219,7 @@ export interface GenericPaymentMethodData {
      * @type {LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map}
      * @memberof GenericPaymentMethodData
      */
-    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map;
+    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map<string,unknown>;
 }
 /**
  * 
@@ -3985,22 +3985,22 @@ export type TimeSpan = number
  * @export
  * @interface TimeSpanDays
  */
-export interface TimeSpanDays extends TimeSpan {
-}
+export type TimeSpanDays = TimeSpan 
+
 /**
  * A span of times in minutes
  * @export
  * @interface TimeSpanMinutes
  */
-export interface TimeSpanMinutes extends TimeSpan {
-}
+export type TimeSpanMinutes = TimeSpan 
+
 /**
  * A span of times in seconds
  * @export
  * @interface TimeSpanSeconds
  */
-export interface TimeSpanSeconds extends TimeSpan {
-}
+export type TimeSpanSeconds = TimeSpan 
+
 /**
  * 
  * @export
@@ -4140,7 +4140,7 @@ export interface UpdatePaymentMethodConfig {
      * @type {LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map | string}
      * @memberof UpdatePaymentMethodConfig
      */
-    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map | string;
+    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map<string,unknown> | string;
 }
 /**
  * 
@@ -4667,7 +4667,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling apiKeysCreateUserApiKey.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/api-keys`
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent(idOrEmail));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -4714,7 +4714,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
                 throw new RequiredError('apikey','Required parameter apikey was null or undefined when calling apiKeysDeleteApiKey.');
             }
             const localVarPath = `/api/v1/api-keys/{apikey}`
-                .replace(`{${"apikey"}}`, encodeURIComponent(string(apikey)));
+                .replace(`{${"apikey"}}`, encodeURIComponent(apikey));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -4793,8 +4793,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
                 throw new RequiredError('apikey','Required parameter apikey was null or undefined when calling apiKeysDeleteUserApiKey.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/api-keys/{apikey}`
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)))
-                .replace(`{${"apikey"}}`, encodeURIComponent(string(apikey)));
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)))
+                .replace(`{${"apikey"}}`, encodeURIComponent((apikey)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5160,8 +5160,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('fileId','Required parameter fileId was null or undefined when calling appDeleteAppItemImage.');
             }
             const localVarPath = `/api/v1/apps/{appId}/image/{fileId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)))
-                .replace(`{${"fileId"}}`, encodeURIComponent(string(fileId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)))
+                .replace(`{${"fileId"}}`, encodeURIComponent((fileId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5209,7 +5209,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsCreateCrowdfundApp.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps/crowdfund`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5261,7 +5261,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsCreatePointOfSaleApp.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps/pos`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5308,7 +5308,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsDeleteApp.');
             }
             const localVarPath = `/api/v1/apps/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5388,7 +5388,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsGetAllAppsForStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5431,7 +5431,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetApp.');
             }
             const localVarPath = `/api/v1/apps/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5475,7 +5475,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetAppSales.');
             }
             const localVarPath = `/api/v1/apps/{appId}/sales`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5524,7 +5524,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetAppTopItems.');
             }
             const localVarPath = `/api/v1/apps/{appId}/top-items`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5575,7 +5575,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetCrowdfundApp.');
             }
             const localVarPath = `/api/v1/apps/crowdfund/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5618,7 +5618,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetPointOfSaleApp.');
             }
             const localVarPath = `/api/v1/apps/pos/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5666,7 +5666,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsPutPointOfSaleApp.');
             }
             const localVarPath = `/api/v1/apps/pos/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5714,7 +5714,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsUploadAppItemImage.');
             }
             const localVarPath = `/api/v1/apps/{appId}/image`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -5745,7 +5745,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            localVarRequestOptions.body = localVarFormParams.tostring();
+            localVarRequestOptions.body = localVarFormParams.toString();
 
             return {
                 url: url.format(localVarUrlObj),
@@ -6503,7 +6503,7 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsCreateCrowdfundApp.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps/crowdfund`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -6550,7 +6550,7 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetCrowdfundApp.');
             }
             const localVarPath = `/api/v1/apps/crowdfund/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -6713,7 +6713,7 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
                 throw new RequiredError('fileId','Required parameter fileId was null or undefined when calling filesDeleteFile.');
             }
             const localVarPath = `/api/v1/files/{fileId}`
-                .replace(`{${"fileId"}}`, encodeURIComponent(string(fileId)));
+                .replace(`{${"fileId"}}`, encodeURIComponent((fileId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -6756,7 +6756,7 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
                 throw new RequiredError('fileId','Required parameter fileId was null or undefined when calling filesGetFile.');
             }
             const localVarPath = `/api/v1/files/{fileId}`
-                .replace(`{${"fileId"}}`, encodeURIComponent(string(fileId)));
+                .replace(`{${"fileId"}}`, encodeURIComponent((fileId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -6862,7 +6862,7 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            localVarRequestOptions.body = localVarFormParams.tostring();
+            localVarRequestOptions.body = localVarFormParams.toString();
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7184,9 +7184,9 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesActivatePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods/{paymentMethodId}/activate`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7234,8 +7234,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesArchiveInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7283,7 +7283,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesCreateInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7335,8 +7335,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesGetInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7386,8 +7386,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesGetInvoicePaymentMethods.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7445,7 +7445,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesGetInvoices.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7526,8 +7526,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesMarkInvoiceStatus.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/status`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7584,8 +7584,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesRefund.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/refund`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7637,8 +7637,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesUnarchiveInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/unarchive`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -7691,8 +7691,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesUpdateInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8260,8 +8260,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
                 throw new RequiredError('username','Required parameter username was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses/{username}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"username"}}`, encodeURIComponent(string(username)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"username"}}`, encodeURIComponent((username)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8313,8 +8313,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
                 throw new RequiredError('username','Required parameter username was null or undefined when calling storeLightningAddressesGetStoreLightningAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses/{username}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"username"}}`, encodeURIComponent(string(username)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"username"}}`, encodeURIComponent((username)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8357,7 +8357,7 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningAddressesGetStoreLightningAddresses.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8405,8 +8405,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
                 throw new RequiredError('username','Required parameter username was null or undefined when calling storeLightningAddressesRemoveStoreLightningAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses/{username}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"username"}}`, encodeURIComponent(string(username)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"username"}}`, encodeURIComponent((username)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8665,7 +8665,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiConnectToNode.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/connect`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8717,7 +8717,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiCreateInvoice.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8764,7 +8764,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetBalance.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/balance`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8807,7 +8807,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetChannels.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/channels`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8850,7 +8850,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetDepositAddress.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/address`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8893,7 +8893,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetHistogram.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/histogram`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8936,7 +8936,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInfo.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/info`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -8984,8 +8984,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('id','Required parameter id was null or undefined when calling internalLightningNodeApiGetInvoice.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices/{id}`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"id"}}`, encodeURIComponent(string(id)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"id"}}`, encodeURIComponent((id)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9030,7 +9030,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInvoices.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9086,8 +9086,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('paymentHash','Required parameter paymentHash was null or undefined when calling internalLightningNodeApiGetPayment.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/payments/{paymentHash}`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"paymentHash"}}`, encodeURIComponent(string(paymentHash)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"paymentHash"}}`, encodeURIComponent((paymentHash)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9132,7 +9132,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetPayments.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/payments`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9188,7 +9188,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiOpenChannel.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/channels`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9240,7 +9240,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiPayInvoice.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices/pay`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9895,8 +9895,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiConnectToNode.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/connect`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -9953,8 +9953,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiCreateInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10006,8 +10006,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetBalance.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/balance`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10055,8 +10055,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetChannels.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/channels`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10104,8 +10104,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetDepositAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/address`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10153,8 +10153,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetHistogram.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/histogram`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10202,8 +10202,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInfo.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/info`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10256,9 +10256,9 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('id','Required parameter id was null or undefined when calling storeLightningNodeApiGetInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/{id}`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"id"}}`, encodeURIComponent(string(id)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"id"}}`, encodeURIComponent((id)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10308,8 +10308,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInvoices.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10370,9 +10370,9 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('paymentHash','Required parameter paymentHash was null or undefined when calling storeLightningNodeApiGetPayment.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/payments/{paymentHash}`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"paymentHash"}}`, encodeURIComponent(string(paymentHash)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"paymentHash"}}`, encodeURIComponent((paymentHash)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10422,8 +10422,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetPayments.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/payments`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10484,8 +10484,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiOpenChannel.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/channels`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -10542,8 +10542,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiPayInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/pay`
-                .replace(`{${"cryptoCode"}}`, encodeURIComponent(string(cryptoCode)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -11251,7 +11251,7 @@ export const MiscelleneousApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoiceCheckout.');
             }
             const localVarPath = `/i/{invoiceId}`
-                .replace(`{${"invoiceId"}}`, encodeURIComponent(string(invoiceId)));
+                .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -11523,7 +11523,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
                 throw new RequiredError('id','Required parameter id was null or undefined when calling notificationsDeleteNotification.');
             }
             const localVarPath = `/api/v1/users/me/notifications/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(string(id)));
+                .replace(`{${"id"}}`, encodeURIComponent((id)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -11566,7 +11566,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
                 throw new RequiredError('id','Required parameter id was null or undefined when calling notificationsGetNotification.');
             }
             const localVarPath = `/api/v1/users/me/notifications/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(string(id)));
+                .replace(`{${"id"}}`, encodeURIComponent((id)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -11708,7 +11708,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
                 throw new RequiredError('id','Required parameter id was null or undefined when calling notificationsUpdateNotification.');
             }
             const localVarPath = `/api/v1/users/me/notifications/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(string(id)));
+                .replace(`{${"id"}}`, encodeURIComponent((id)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12096,8 +12096,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
                 throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsArchivePaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"paymentRequestId"}}`, encodeURIComponent(string(paymentRequestId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"paymentRequestId"}}`, encodeURIComponent((paymentRequestId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12145,7 +12145,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsCreatePaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12197,8 +12197,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
                 throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsGetPaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"paymentRequestId"}}`, encodeURIComponent(string(paymentRequestId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"paymentRequestId"}}`, encodeURIComponent((paymentRequestId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12241,7 +12241,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsGetPaymentRequests.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12290,8 +12290,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
                 throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsPay.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}/pay`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"paymentRequestId"}}`, encodeURIComponent(string(paymentRequestId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"paymentRequestId"}}`, encodeURIComponent((paymentRequestId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12348,8 +12348,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
                 throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"paymentRequestId"}}`, encodeURIComponent(string(paymentRequestId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"paymentRequestId"}}`, encodeURIComponent((paymentRequestId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12808,7 +12808,7 @@ export const PointOfSaleApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetPointOfSaleApp.');
             }
             const localVarPath = `/api/v1/apps/pos/{appId}`
-                .replace(`{${"appId"}}`, encodeURIComponent(string(appId)));
+                .replace(`{${"appId"}}`, encodeURIComponent((appId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12932,8 +12932,8 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
                 throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsArchivePullPayment.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/pull-payments/{pullPaymentId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -12977,7 +12977,7 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsCreatePullPayment.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/pull-payments`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13025,7 +13025,7 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsGetPullPayments.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/pull-payments`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13244,8 +13244,8 @@ export const PullPaymentsPayoutPublicApiFetchParamCreator = function (configurat
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsGetPayout.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts/{payoutId}`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13358,7 +13358,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsCreatePayout.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13396,8 +13396,8 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsGetPayout.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts/{payoutId}`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13427,7 +13427,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayouts.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13460,7 +13460,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPullPayment.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13489,7 +13489,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPullPaymentLNURL.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/lnurl`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -13519,7 +13519,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsLinkBoltcard.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/boltcards`
-                .replace(`{${"pullPaymentId"}}`, encodeURIComponent(string(pullPaymentId)));
+                .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14232,8 +14232,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsDeleteStorePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14282,8 +14282,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsGetStorePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14332,7 +14332,7 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsGetStorePaymentMethods.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14389,8 +14389,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsUpdateStorePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14667,8 +14667,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/generate`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14722,8 +14722,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/preview`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14786,8 +14786,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/preview`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14862,10 +14862,10 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}/links`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"objectId"}}`, encodeURIComponent(string(objectId)))
-                .replace(`{${"objectType"}}`, encodeURIComponent(string(objectType)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"objectId"}}`, encodeURIComponent((objectId)))
+                .replace(`{${"objectType"}}`, encodeURIComponent((objectType)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14922,8 +14922,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -14980,8 +14980,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15034,8 +15034,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainFeeRate.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/feerate`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15098,10 +15098,10 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"objectId"}}`, encodeURIComponent(string(objectId)))
-                .replace(`{${"objectType"}}`, encodeURIComponent(string(objectType)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"objectId"}}`, encodeURIComponent((objectId)))
+                .replace(`{${"objectType"}}`, encodeURIComponent((objectType)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15156,8 +15156,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObjects.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15218,8 +15218,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletReceiveAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/address`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15276,9 +15276,9 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('transactionId','Required parameter transactionId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions/{transactionId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"transactionId"}}`, encodeURIComponent(string(transactionId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"transactionId"}}`, encodeURIComponent((transactionId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15326,8 +15326,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletUTXOs.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/utxos`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15386,9 +15386,9 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('transactionId','Required parameter transactionId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions/{transactionId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"transactionId"}}`, encodeURIComponent(string(transactionId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"transactionId"}}`, encodeURIComponent((transactionId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PATCH' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15464,12 +15464,12 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}/links/{linkType}/{linkId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"linkId"}}`, encodeURIComponent(string(linkId)))
-                .replace(`{${"objectId"}}`, encodeURIComponent(string(objectId)))
-                .replace(`{${"linkType"}}`, encodeURIComponent(string(linkType)))
-                .replace(`{${"objectType"}}`, encodeURIComponent(string(objectType)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"linkId"}}`, encodeURIComponent((linkId)))
+                .replace(`{${"objectId"}}`, encodeURIComponent((objectId)))
+                .replace(`{${"linkType"}}`, encodeURIComponent((linkType)))
+                .replace(`{${"objectType"}}`, encodeURIComponent((objectType)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15527,10 +15527,10 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"objectId"}}`, encodeURIComponent(string(objectId)))
-                .replace(`{${"objectType"}}`, encodeURIComponent(string(objectType)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"objectId"}}`, encodeURIComponent((objectId)))
+                .replace(`{${"objectType"}}`, encodeURIComponent((objectType)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15578,8 +15578,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletHistogram.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/histogram`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15627,8 +15627,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletOverview.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15680,8 +15680,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletTransactions.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -15745,8 +15745,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsUnReserveOnChainWalletReceiveAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/address`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -16805,7 +16805,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesDeleteStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -16848,7 +16848,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesDeleteStoreLogo.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/logo`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -16891,7 +16891,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -16934,7 +16934,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreRoles.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/roles`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17019,7 +17019,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17067,7 +17067,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUploadStoreLogo.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/logo`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17098,7 +17098,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            localVarRequestOptions.body = localVarFormParams.tostring();
+            localVarRequestOptions.body = localVarFormParams.toString();
 
             return {
                 url: url.format(localVarUrlObj),
@@ -17484,7 +17484,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreEmailSettings.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/email`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17532,7 +17532,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesSendStoreEmail.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/email/send`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17584,7 +17584,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStoreEmailSettings.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/email`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17800,8 +17800,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutProcessorsForPaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/LightningAutomatedPayoutSenderFactory/{payoutMethodId}`
-                .replace(`{${"payoutMethodId"}}`, encodeURIComponent(string(payoutMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"payoutMethodId"}}`, encodeURIComponent((payoutMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17844,7 +17844,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutSenderFactory.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/LightningAutomatedPayoutSenderFactory`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17897,8 +17897,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/LightningAutomatedPayoutSenderFactory/{payoutMethodId}`
-                .replace(`{${"payoutMethodId"}}`, encodeURIComponent(string(payoutMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"payoutMethodId"}}`, encodeURIComponent((payoutMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17950,8 +17950,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedPayoutProcessorsForPaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedPayoutSenderFactory/{paymentMethodId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -17994,7 +17994,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedTransferSenderFactory.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedTransferSenderFactory`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18047,8 +18047,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedPayoutSenderFactory/{paymentMethodId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18100,7 +18100,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedTransferSenderFactory.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedTransferSenderFactory`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18147,7 +18147,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePayoutProcessorsGetStorePayoutProcessors.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18200,9 +18200,9 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
                 throw new RequiredError('processor','Required parameter processor was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/{processor}/{paymentMethodId}`
-                .replace(`{${"paymentMethodId"}}`, encodeURIComponent(string(paymentMethodId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"processor"}}`, encodeURIComponent(string(processor)));
+                .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"processor"}}`, encodeURIComponent((processor)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18681,8 +18681,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling getStorePayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18730,7 +18730,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling payoutsCreatePayoutThroughStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18783,8 +18783,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsApprovePayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18836,8 +18836,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsCancelPayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18881,7 +18881,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsGetStorePayouts.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18920,8 +18920,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsMarkPayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}/mark`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -18973,8 +18973,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
                 throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsMarkPayoutPaid.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}/mark-paid`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"payoutId"}}`, encodeURIComponent(string(payoutId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"payoutId"}}`, encodeURIComponent((payoutId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19367,7 +19367,7 @@ export const StoresRatesApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreRates.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19493,7 +19493,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreRateConfiguration.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates/configuration`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19542,7 +19542,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesPreviewStoreRateConfiguration.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates/configuration/preview`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19598,7 +19598,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStoreRateConfiguration.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates/configuration`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19817,7 +19817,7 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesAddStoreUser.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19864,7 +19864,7 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreUsers.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19912,8 +19912,8 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling storesRemoveStoreUser.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users/{idOrEmail}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -19966,8 +19966,8 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling storesUpdateStoreUser.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users/{idOrEmail}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;
@@ -20345,7 +20345,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersDeleteUser.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}`
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -20425,7 +20425,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersGetUser.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}`
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -20506,7 +20506,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersToggleUserApproval.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/approve`
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -20554,7 +20554,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
                 throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersToggleUserLock.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/lock`
-                .replace(`{${"idOrEmail"}}`, encodeURIComponent(string(idOrEmail)));
+                .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -20673,7 +20673,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            localVarRequestOptions.body = localVarFormParams.tostring();
+            localVarRequestOptions.body = localVarFormParams.toString();
 
             return {
                 url: url.format(localVarUrlObj),
@@ -21178,7 +21178,7 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksCreateWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21230,8 +21230,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksDeleteWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'DELETE' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21279,8 +21279,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21329,8 +21329,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhookDeliveries.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21387,9 +21387,9 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhookDelivery.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}`
-                .replace(`{${"deliveryId"}}`, encodeURIComponent(string(deliveryId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"deliveryId"}}`, encodeURIComponent((deliveryId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21442,9 +21442,9 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}/request`
-                .replace(`{${"deliveryId"}}`, encodeURIComponent(string(deliveryId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"deliveryId"}}`, encodeURIComponent((deliveryId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21487,7 +21487,7 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksGetWebhooks.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21540,9 +21540,9 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}/redeliver`
-                .replace(`{${"deliveryId"}}`, encodeURIComponent(string(deliveryId)))
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"deliveryId"}}`, encodeURIComponent((deliveryId)))
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
@@ -21595,8 +21595,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
                 throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksUpdateWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}`
-                .replace(`{${"storeId"}}`, encodeURIComponent(string(storeId)))
-                .replace(`{${"webhookId"}}`, encodeURIComponent(string(webhookId)));
+                .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
+                .replace(`{${"webhookId"}}`, encodeURIComponent((webhookId)));
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
             const localVarHeaderParameter = {} as any;

@@ -1,9 +1,18 @@
 import React from "react"
-import { CreditCard } from "@medusajs/icons"
+import { CreditCard, CurrencyDollarSolid } from "@medusajs/icons"
 
 import Ideal from "@modules/common/icons/ideal"
 import Bancontact from "@modules/common/icons/bancontact"
 import PayPal from "@modules/common/icons/paypal"
+
+export const isRazorpay = (providerId?: string) => {
+  return providerId?.startsWith("pp_razorpay")
+}
+
+export const isBtcpay = (providerId?: string) => {
+  return providerId?.startsWith("pp_btcpay")
+}
+
 
 /* Map of payment provider_id to their title and icon. Add in any payment providers you want to use. */
 export const paymentInfoMap: Record<
@@ -26,10 +35,19 @@ export const paymentInfoMap: Record<
     title: "PayPal",
     icon: <PayPal />,
   },
+  pp_razorpay_razorpay: {
+    title: "Razorpay",
+    icon: <CreditCard />,
+  },
+  pp_btcpay_btcpay: {
+    title: "BtcPay",
+    icon: <CurrencyDollarSolid />,
+  },
   pp_system_default: {
     title: "Manual Payment",
     icon: <CreditCard />,
   },
+
   // Add more payment providers here
 }
 

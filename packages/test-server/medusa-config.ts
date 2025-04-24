@@ -1,4 +1,9 @@
-import { loadEnv, defineConfig } from "@medusajs/framework/utils";
+import {
+    loadEnv,
+    defineConfig,
+    Modules,
+    ContainerRegistrationKeys
+} from "@medusajs/framework/utils";
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
@@ -14,13 +19,83 @@ module.exports = defineConfig({
         }
     },
     modules: [
+        // {
+        //     resolve: "@rokmohar/medusa-plugin-meilisearch",
+        //     options: {
+        //         config: {
+        //             host: process.env.MEILISEARCH_HOST,
+        //             apiKey: process.env.MEILISEARCH_API_KEY
+        //         },
+        //         settings: {
+        //             "products": {
+        //                 indexSettings: {
+        //                     searchableAttributes: [
+        //                         "title",
+        //                         "description",
+        //                         "variant_sku"
+        //                     ],
+        //                     displayedAttributes: [
+        //                         "title",
+        //                         "description",
+        //                         "variant_sku",
+        //                         "thumbnail",
+        //                         "handle"
+        //                     ]
+        //                 },
+        //                 primaryKey: "id"
+        //             },
+        //             "product-categories": {
+        //                 indexSettings: {
+        //                     searchableAttributes: [
+        //                         "name",
+        //                         "description",
+        //                         "handle"
+        //                     ],
+        //                     displayedAttributes: [
+        //                         "name",
+        //                         "description",
+        //                         "handle"
+        //                     ]
+        //                 },
+        //                 primaryKey: "id"
+        //             }
+        //         }
+        //     }
+        // },
+        {
+            resolve: "@medusajs/medusa/event-bus-redis",
+            options: {
+                redisUrl: process.env.REDIS_URL
+            }
+        },
+
+        {
+            resolve: "@medusajs/medusa/cache-redis",
+            options: {
+                ttl: 30,
+                redisUrl: process.env.REDIS_URL
+            }
+        },
+        {
+            resolve: "@medusajs/medusa/workflow-engine-redis",
+            options: {
+                redis: {
+                    url: process.env.REDIS_URL
+                }
+            }
+        },
         {
             resolve: "@medusajs/medusa/payment",
+            dependencies: [
+                Modules.CUSTOMER,
+                Modules.ORDER,
+                ContainerRegistrationKeys.LOGGER
+            ],
             options: {
                 providers: [
                     {
                         resolve:
-                            "@sgftech/medusa-plugin-razorpay-v2/providers/payment-razorpay",
+                            "medusa-plugin-razorpay-v2/providers/payment-razorpay/src",
                         id: "razorpay",
                         options: {
                             key_id:
@@ -38,6 +113,26 @@ module.exports = defineConfig({
                             webhook_secret:
                                 process?.env?.RAZORPAY_TEST_WEBHOOK_SECRET ??
                                 process?.env?.RAZORPAY_WEBHOOK_SECRET
+                        }
+                    },
+                    {
+                        resolve:
+                            "medusa-plugin-btcpay/providers/payment-btcpay/src",
+                        id: "btcpay",
+                        options: {
+                            default_store_id:
+                                process?.env?.BTCPAY_TEST_STORE_ID,
+                            apiKey: `token ${process?.env?.BTCPAY_TEST_API_KEY}`,
+                            basePath: process?.env?.BTCPAY_TEST_URL,
+                            webhook_secret:
+                                process?.env?.BTCPAY_TEST_WEBHOOK_SECRET,
+                            refund_charges_percentage: "2.0",
+                            currency:
+                                process?.env?.BTCPAY_TEST_CURRENCY ?? "usd",
+                            autoCapture:
+                                process?.env?.BTCPAY_TEST_AUTO_CAPTURE ?? false,
+                            autoRefund:
+                                process?.env?.BTCPAY_TEST_AUTO_REFUND ?? false
                         }
                     }
                 ]

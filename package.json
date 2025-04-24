@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "packages/**",
-    "!packages/storefront"
+    "!packages/storefront",
+    "!**./medusa/**"
   ],
   "scripts": {
     "build": "turbo run build",
@@ -23,9 +24,9 @@
     "@mikro-orm/knex": "6.4.3",
     "@mikro-orm/migrations": "6.4.3",
     "@mikro-orm/postgresql": "6.4.3",
+    "@types/node": "latest",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
-    "@types/node":"latest", 
     "awilix": "^8.0.1",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
