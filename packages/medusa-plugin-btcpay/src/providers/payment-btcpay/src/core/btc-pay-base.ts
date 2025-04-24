@@ -47,6 +47,7 @@ import {
     InvoiceIdRefundBody,
     StoresApi,
     StoreId,
+    StoresRatesApi,
     CreateInvoiceRequest
 } from "./api";
 /**
@@ -55,13 +56,14 @@ import {
  */
 
 class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
-    static identifier = "btcpay";
+    static identifier = "btcpay"; 
 
     protected readonly options_: BtcOptions;
     protected btcpay_: Btcpay;
     protected logger: Logger;
     customerService: ICustomerModuleService;
     btcadmin_: StoresApi;
+    btcRatesApi_:StoresRatesApi;
 
     protected constructor(container: MedusaContainer, options: BtcOptions) {
         super(container, options);
@@ -72,6 +74,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         this.options_ = options;
         this.btcpay_ = new Btcpay(options, options.basePath, fetch);
         this.btcadmin_ = new StoresApi(options, options.basePath, fetch);
+        this.btcRatesApi_ = new StoresRatesApi(options, options.basePath, fetch);
     }
 
     async initiatePayment(
@@ -205,8 +208,23 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         );
         /** sometimes this even fires before the order is updated in the remote system */
         let outstanding = 0;
+
+        const store = await this.btcadmin_.storesGetStore(
+            paymentEvent.storeId!
+        ) as StoreId;
+
+        const rates = await this.btcRatesApi_.storesGetStoreRates(
+            paymentEvent.storeId!
+        ) 
+
+        const CURRENCY_RATE = rates.find(rate=>
+            rate.currencyPair === (this.options_.currency_pair ?? "USD_BTC")
+        )?.rate
+
+        const CURRENCY_RATE_NUMBER = parseFloat(CURRENCY_RATE ?? "0")
+
         outstanding =
-            parseFloat(btcpayInvoice.amount ?? "0") -
+            parseFloat(btcpayInvoice.amount ?? "0") * CURRENCY_RATE_NUMBER -
             parseFloat(
                 (paymentEvent as WebhookInvoiceReceivedPaymentEvent).payment
                     ?.value ?? "0"
