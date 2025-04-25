@@ -639,6 +639,13 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         let { btc_invoice, paymentSession } =
             await this.getPaymentSessionAndInvoiceFromInput(input);
 
+        if (btc_invoice.status != InvoiceStatus.Settled) {
+            throw new MedusaError(
+                MedusaError.Types.NOT_ALLOWED,
+                `Invoice with ID ${btc_invoice.id} is not settled`
+            );
+        }
+
         paymentSession = await this.paymentService.updatePaymentSession({
             id: paymentSession.id,
             data: { btc_invoice },

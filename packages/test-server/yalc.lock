@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "medusa-plugin-btcpay": {
-      "signature": "7ea12473d7dc19773bbf0d3e1426c04e",
+      "signature": "1596cc7d866c085b033661d2f5b091b0",
       "file": true,
       "replaced": "workspace:*"
     },
