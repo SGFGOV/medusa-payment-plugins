@@ -24,7 +24,7 @@
   "include": [
     "**/*",
     ".medusa/types/*"
-, "src/api/middlewares.ts", "../test-server/medusa-config.ts"  ],
+, "src/api/middlewares.ts"  ],
   "exclude": [
     "node_modules",
     ".medusa/server",

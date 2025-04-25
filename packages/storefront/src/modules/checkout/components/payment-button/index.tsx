@@ -51,7 +51,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     case isBtcpay(paymentSession?.provider_id):
         return (  
           <Button disabled={btcClicked} onClick={() => {setBtcClicked(true);
-            window.open(`${paymentSession?.data.checkoutLink}?redirect=${process.env.NEXT_PUBLIC_BASE_URL}/processing?cart=${cart.id}` as string, "_blank")}}>
+            window.open(`${(paymentSession?.data as any).btc_invoice.checkoutLink}`, "_blank")}}>
             Pay with BtcPay
           </Button>
         )

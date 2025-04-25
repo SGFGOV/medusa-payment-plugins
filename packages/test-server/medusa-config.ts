@@ -91,7 +91,13 @@ module.exports = defineConfig({
                 Modules.CUSTOMER,
                 Modules.ORDER,
                 Modules.PAYMENT,
-                ContainerRegistrationKeys.LOGGER
+                Modules.CART,
+                ContainerRegistrationKeys.MANAGER,
+                ContainerRegistrationKeys.LOGGER,
+                Modules.LINK,
+                ContainerRegistrationKeys.LINK,
+                ContainerRegistrationKeys.QUERY,
+                ContainerRegistrationKeys.PG_CONNECTION
             ],
             options: {
                 providers: [
@@ -122,6 +128,7 @@ module.exports = defineConfig({
                             "medusa-plugin-btcpay/providers/payment-btcpay/src",
                         id: "btcpay",
                         options: {
+                            storefront_url: process.env?.STOREFRONT_URL,
                             default_store_id:
                                 process?.env?.BTCPAY_TEST_STORE_ID,
                             apiKey: `token ${process?.env?.BTCPAY_TEST_API_KEY}`,

@@ -25,3 +25,6 @@ build
 
 .medusa
 docker-volumes/
+
+medusa-config.js
+medusa-config.js.map

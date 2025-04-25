@@ -4,7 +4,8 @@ import crypto from "node:crypto";
 import _ from "lodash";
 import {
     ICustomerModuleService,
-    MedusaContainer
+    MedusaContainer,
+    RemoteQueryFunction
 } from "@medusajs/framework/types";
 import {
     InitiatePaymentInput,
@@ -28,7 +29,8 @@ import {
     RetrievePaymentOutput,
     UpdatePaymentInput,
     UpdatePaymentOutput,
-    IPaymentModuleService
+    IPaymentModuleService,
+    PaymentSessionDTO
 } from "@medusajs/types/dist/payment";
 import {
     AbstractPaymentProvider,
@@ -52,6 +54,8 @@ import {
     CreateInvoiceRequest
 } from "./api";
 import { isContext } from "node:vm";
+import { Query } from "@medusajs/framework";
+import { Connection, EntityManager } from "@mikro-orm/knex";
 /**
  * The paymentIntent object corresponds to a btcpay order.
  *
@@ -67,12 +71,26 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     btcadmin_: StoresApi;
     btcRatesApi_: StoresRatesApi;
     paymentService: IPaymentModuleService;
+    query: Query;
+    manager: EntityManager;
 
     protected constructor(container: MedusaContainer, options: BtcOptions) {
         super(container, options);
 
         this.options_ = options;
         this.logger = container[ContainerRegistrationKeys.LOGGER] as Logger;
+        this.manager = container[
+            ContainerRegistrationKeys.MANAGER
+        ] as EntityManager;
+        // try {
+        //     this.query = container[ContainerRegistrationKeys.QUERY] as Query;
+        // } catch (error) {
+        //     this.logger.error("Query is not present in the container");
+        //     throw new MedusaError(
+        //         MedusaError.Types.INVALID_DATA,
+        //         "Query is not present in the container"
+        //     );
+        // }
         this.paymentService = container[
             Modules.PAYMENT
         ] as IPaymentModuleService;
@@ -89,18 +107,72 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         );
     }
 
+    async getEntityFromTable<T>(
+        table_name: string,
+        id: string[],
+        field = "id"
+    ): Promise<T[]> {
+        const connection = this.container[
+            ContainerRegistrationKeys.PG_CONNECTION
+        ] as any;
+        const manager = this.container[
+            ContainerRegistrationKeys.MANAGER
+        ] as EntityManager;
+        const items = await connection
+            .table(table_name)
+            .select("*")
+            .where(field, "in", id);
+        return items as T[];
+    }
+    async getAllEntityFromTable<T>(table_name: string): Promise<T[]> {
+        const connection = this.container[
+            ContainerRegistrationKeys.PG_CONNECTION
+        ] as any;
+        const manager = this.container[
+            ContainerRegistrationKeys.MANAGER
+        ] as EntityManager;
+        const items = await connection.table(table_name).select("*");
+
+        return items as T[];
+    }
+    private async getCartId(idempotency_key: string): Promise<string> {
+        const ps = await this.paymentService.retrievePaymentSession(
+            idempotency_key!
+        );
+
+        const cart_payment_collections = await this.getEntityFromTable<{
+            cart_id: string;
+            payment_collection_id: string;
+            id: string;
+        }>(
+            "cart_payment_collection",
+            [ps.payment_collection_id],
+            "payment_collection_id"
+        );
+        const cartId = cart_payment_collections[0]?.cart_id as string;
+        return cartId;
+    }
     async initiatePayment(
         input: InitiatePaymentInput
     ): Promise<InitiatePaymentOutput> {
-        const { amount, currency_code, context: customerDetails } = input;
+        const { amount, currency_code, context: context } = input;
+        if (!context?.idempotency_key) {
+            throw new MedusaError(
+                MedusaError.Types.INVALID_DATA,
+                "Idempotency key is required to initiate payment"
+            );
+        }
+        const cartId = await this.getCartId(context?.idempotency_key as string);
+        // paymentCollections[0].cart
+
         let btStore;
         // assuming you have a client that initializes the payment
-        if (!customerDetails?.customer?.id) {
+        if (!context?.customer?.id) {
             this.logger.warn("Customer ID is required to initiate payment");
         } else {
             const detailedCustomer =
                 await this.customerService.retrieveCustomer(
-                    customerDetails?.customer?.id as string
+                    context?.customer?.id as string
                 );
 
             if (!detailedCustomer) {
@@ -120,13 +192,19 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             throw new Error("Store not found");
         }
         const storeId = btStore.id! as string;
+        const redirectUrl = `${this.options_.storefront_url}/processing?cart=${cartId}`;
+        // const urlEncodedRedirect = encodeURIComponent(redirection)
+
         const body: CreateInvoiceRequest = {
             amount: amount.toString(),
             currency: currency_code,
+            checkout: {
+                redirectURL: redirectUrl
+            },
             additionalSearchTerms: [
-                `session_id:${customerDetails?.idempotency_key},
-                customer_id:${customerDetails?.customer?.id}`,
-                `email:${customerDetails?.customer?.email ?? ""}`
+                `session_id:${context?.idempotency_key},
+                customer_id:${context?.customer?.id}`,
+                `email:${context?.customer?.email ?? ""}`
             ]
         };
         const response = await this.btcpay_.invoicesCreateInvoice(
@@ -134,17 +212,130 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             storeId
         );
         const id = input.context?.idempotency_key as string;
-
-        await this.paymentService.updatePaymentSession({
+        const invoiceData = await this.updateBtcInvoiceMetadata(
+            response.id!,
+            storeId,
+            {
+                medusa_payment_session_id: id
+            }
+        );
+        const paymentSessionUpdateRequest = {
             id: id,
-            data: { ...response },
+            data: { btc_invoice: invoiceData },
             currency_code,
             amount
+        };
+        const updatedSession = await this.paymentService.updatePaymentSession(
+            paymentSessionUpdateRequest
+        );
+
+        if (!updatedSession) {
+            throw new MedusaError(
+                MedusaError.Types.INVALID_DATA,
+                "Failed to update payment session"
+            );
+        }
+
+        return paymentSessionUpdateRequest;
+    }
+
+    async getPaymentSessionAndInvoiceFromInput(
+        input:
+            | AuthorizePaymentInput
+            | CapturePaymentInput
+            | CancelPaymentInput
+            | DeletePaymentInput
+            | RefundPaymentInput
+            | RetrievePaymentInput
+            | UpdatePaymentInput
+    ): Promise<{
+        paymentSession: PaymentSessionDTO;
+        btc_invoice: InvoiceData;
+    }> {
+        let { data, context } = input;
+        if (!data?.btc_invoice) {
+            if (data && data?.storeId && data?.id) {
+                data = {
+                    ...data,
+                    btc_invoice: await this.btcpay_.invoicesGetInvoice(
+                        data.id as string,
+                        data.storeId as string
+                    )
+                };
+            }
+        }
+        let { btc_invoice } = data as { btc_invoice: InvoiceData };
+
+        const paymentSessionId =
+            (btc_invoice?.metadata as Record<string, string>)
+                ?.medusa_payment_session_id ?? context?.idempotency_key;
+
+        const paymentSession = await this.paymentService.retrievePaymentSession(
+            paymentSessionId
+        );
+        if (!btc_invoice) {
+            btc_invoice = paymentSession?.data?.btc_invoice as InvoiceData;
+        }
+
+        if (!paymentSession) {
+            throw new MedusaError(
+                MedusaError.Types.NOT_FOUND,
+                `Payment session with ID ${paymentSessionId} not found`
+            );
+        }
+        if (!btc_invoice) {
+            throw new MedusaError(
+                MedusaError.Types.NOT_FOUND,
+                "Btc invoice with ID is not found"
+            );
+        }
+        return {
+            paymentSession,
+            btc_invoice
+        };
+    }
+
+    async authorizePayment(
+        input: AuthorizePaymentInput
+    ): Promise<AuthorizePaymentOutput> {
+        let { paymentSession, btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
+
+        let invoiceData = await this.btcpay_.invoicesGetInvoice(
+            btc_invoice.id as string,
+            btc_invoice.storeId as string
+        );
+        if (!invoiceData) {
+            throw new MedusaError(
+                MedusaError.Types.NOT_FOUND,
+                `Invoice with ID ${btc_invoice.id} not found`
+            );
+        }
+
+        paymentSession = await this.paymentService.updatePaymentSession({
+            id: paymentSession.id,
+            data: { btc_invoice: invoiceData },
+            currency_code: paymentSession.currency_code,
+            amount: paymentSession.amount
         });
 
+        invoiceData = await this.updateBtcInvoiceMetadata(
+            btc_invoice.id as string,
+            btc_invoice.storeId as string,
+            {
+                medusa_payment_session_id: paymentSession.id
+            }
+        );
         return {
-            id: response.id!,
-            data: { ...response, initial_data: input }
+            status:
+                invoiceData.status == InvoiceStatus.Processing
+                    ? "authorized"
+                    : invoiceData.status == InvoiceStatus.Settled
+                    ? "captured"
+                    : "pending",
+            data: {
+                btc_invoice: invoiceData
+            }
         };
     }
     async getPaymentStatus(
@@ -175,9 +366,59 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         }
     }
 
-    async getWebhookActionAndData(
+    async getOutstandingAmount(
+        sessionId: string,
+        btcStoreId: string,
+        btcInvoiceId: string,
+        receivedValue: number
+    ): Promise<number | undefined> {
+        const btcpayInvoice = await this.btcpay_.invoicesGetInvoice(
+            btcInvoiceId,
+            btcStoreId
+        );
+        if (!sessionId) {
+            this.logger.error(
+                "Session ID is not present in the invoice metadata"
+            );
+            return;
+        }
+        const rates = await this.btcRatesApi_.storesGetStoreRates(btcStoreId);
+        if (!rates) {
+            this.logger.error(
+                "Rates are not present in the store, please configure rates in your store"
+            );
+            return;
+        }
+
+        if (sessionId && rates) {
+            const ps = await this.paymentService.retrievePaymentSession(
+                sessionId
+            );
+            const storeCurrency =
+                ps.currency_code?.toUpperCase() ??
+                btcpayInvoice.currency?.toUpperCase() ??
+                "USD";
+            const targetCurrency = (
+                this.options_.crypto_currency ?? "BTC"
+            ).toUpperCase();
+            const targetCurrencyPair = `${storeCurrency}_${targetCurrency}`;
+
+            const CURRENCY_RATE = rates.find(
+                (rate) => rate.currencyPair === targetCurrencyPair
+            )?.rate;
+
+            const CURRENCY_RATE_NUMBER = parseFloat(CURRENCY_RATE ?? "0");
+
+            const outstanding =
+                parseFloat(btcpayInvoice.amount ?? "0") * CURRENCY_RATE_NUMBER -
+                receivedValue;
+            return outstanding;
+        }
+    }
+
+    async validateSignature(
         webhookData: ProviderWebhookPayload["payload"]
-    ): Promise<WebhookActionResult> {
+    ): Promise<WebhookActionResult | undefined> {
         const sigHeaderName = "BTCPAY-SIG".toLowerCase();
         const webhookSignature = webhookData.headers[sigHeaderName] as string;
         const sigHashAlg = "sha256";
@@ -208,11 +449,95 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 `Request body digest (${digest}) did not match ${sigHeaderName} (${checksum})`
             );
             return { action: PaymentActions.FAILED };
-        } else {
-            // Your own processing code goes here. E.g. update your internal order id depending on the invoice payment status.
+        }
+    }
+
+    private async handleWebhookEvents_({
+        event,
+        session_id,
+        amountCollected,
+        btc_invoice
+    }: {
+        event: string;
+        session_id: string;
+        amountCollected: number;
+        btc_invoice: InvoiceData;
+    }): Promise<WebhookActionResult> {
+        switch (event) {
+            // payment authorization is handled in checkout flow. webhook not
+
+            case "InvoiceCreated": {
+                return {
+                    action: PaymentActions.NOT_SUPPORTED,
+                    data: {
+                        session_id: session_id,
+                        amount: amountCollected
+                    }
+                };
+            }
+
+            case "InvoicePaymentSettled":
+            case "InvoiceSettled":
+                await this.paymentService.updatePaymentSession({
+                    id: session_id,
+                    data: { btc_invoice },
+                    currency_code: btc_invoice.currency as string,
+                    amount: amountCollected
+                });
+                return {
+                    action: PaymentActions.SUCCESSFUL,
+                    data: {
+                        session_id,
+
+                        amount: amountCollected
+                    }
+                };
+            case "InvoiceReceivedPayment":
+            case "InvoiceProcessing":
+                await this.paymentService.updatePaymentSession({
+                    id: session_id,
+                    data: { btc_invoice },
+                    currency_code: btc_invoice.currency as string,
+                    amount: amountCollected
+                });
+                return {
+                    action: PaymentActions.AUTHORIZED,
+                    data: {
+                        session_id,
+
+                        amount: amountCollected
+                    }
+                };
+            case "InvoiceInvalid":
+            case "InvoiceExpired":
+                // TODO: notify customer of failed payment
+                await this.paymentService.updatePaymentSession({
+                    id: session_id,
+                    data: { btc_invoice },
+                    currency_code: btc_invoice.currency as string,
+                    amount: amountCollected
+                });
+                return {
+                    action: PaymentActions.FAILED,
+                    data: {
+                        session_id,
+                        amount: amountCollected
+                    }
+                };
+
+            default:
+                return { action: PaymentActions.NOT_SUPPORTED };
+        }
+    }
+
+    async getWebhookActionAndData(
+        webhookData: ProviderWebhookPayload["payload"]
+    ): Promise<WebhookActionResult> {
+        const signautreValidation = await this.validateSignature(webhookData);
+        if (signautreValidation?.action == PaymentActions.FAILED) {
+            return signautreValidation;
         }
         const logger = this.logger;
-        const data = webhookData.data;
 
         logger.info(
             `Received Btcpay webhook body as object : ${JSON.stringify(
@@ -221,93 +546,62 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         );
         const paymentEvent = webhookData.data as WebhookInvoiceEvent;
         const event = paymentEvent.type;
+        if (!event) {
+            logger.error("Event type is not present in the webhook data");
+            return { action: PaymentActions.FAILED };
+        }
 
         const btcpayInvoice = await this.btcpay_.invoicesGetInvoice(
             paymentEvent.invoiceId!,
             paymentEvent.storeId!
         );
+
+        const receivedValue = parseFloat(
+            (paymentEvent as WebhookInvoiceReceivedPaymentEvent).payment
+                ?.value ?? "0"
+        );
+        const session_id = (btcpayInvoice.metadata as any)
+            .medusa_payment_session_id as string;
+
+        if (!session_id && event != "InvoiceCreated") {
+            logger.error("Session ID is not present in the invoice metadata");
+            return { action: PaymentActions.FAILED };
+        }
+
         /** sometimes this even fires before the order is updated in the remote system */
         let outstanding = 0;
-
-        const store = (await this.btcadmin_.storesGetStore(
-            paymentEvent.storeId!
-        )) as StoreId;
-
-        const rates = await this.btcRatesApi_.storesGetStoreRates(
-            paymentEvent.storeId!
-        );
-
-        const CURRENCY_RATE = rates.find(
-            (rate) =>
-                rate.currencyPair === (this.options_.currency_pair ?? "USD_BTC")
-        )?.rate;
-
-        const CURRENCY_RATE_NUMBER = parseFloat(CURRENCY_RATE ?? "0");
-
-        outstanding =
-            parseFloat(btcpayInvoice.amount ?? "0") * CURRENCY_RATE_NUMBER -
-            parseFloat(
-                (paymentEvent as WebhookInvoiceReceivedPaymentEvent).payment
-                    ?.value ?? "0"
+        if (paymentEvent.type != "InvoiceCreated") {
+            const outstandingData = await this.getOutstandingAmount(
+                session_id,
+                paymentEvent.storeId!,
+                paymentEvent.invoiceId!,
+                receivedValue
             );
-
-        switch (event) {
-            // payment authorization is handled in checkout flow. webhook not
-
-            case "InvoiceCreated": {
-                const paymentEvent = data as WebhookInvoiceEvent;
-                return {
-                    action: PaymentActions.NOT_SUPPORTED,
-                    data: {
-                        session_id: (paymentEvent.metadata as any)
-                            .session_id as string,
-                        amount: getAmountFromSmallestUnit(
-                            btcpayInvoice.amount!.toString(),
-                            btcpayInvoice.currency!
-                        )
-                    }
-                };
+            if (outstandingData != undefined) {
+                outstanding = outstandingData;
             }
-
-            case "InvoicePaymentSettled":
-            case "InvoiceSettled":
-                return {
-                    action: PaymentActions.SUCCESSFUL,
-                    data: {
-                        session_id: paymentEvent.invoiceId as string,
-
-                        amount: outstanding
-                    }
-                };
-            case "InvoiceReceivedPayment":
-            case "InvoiceProcessing":
-                return {
-                    action: PaymentActions.AUTHORIZED,
-                    data: {
-                        session_id: paymentEvent.invoiceId as string,
-
-                        amount: outstanding
-                    }
-                };
-            case "InvoiceInvalid":
-            case "InvoiceExpired":
-                // TODO: notify customer of failed payment
-
-                return {
-                    action: PaymentActions.FAILED,
-                    data: {
-                        session_id: paymentEvent.invoiceId as string,
-
-                        amount: outstanding
-                    }
-                };
-                break;
-
-            default:
-                return { action: PaymentActions.NOT_SUPPORTED };
         }
+
+        const amountCollected = getAmountFromSmallestUnit(
+            btcpayInvoice.amount!.toString(),
+            btcpayInvoice.currency!
+        );
+        const result = await this.handleWebhookEvents_({
+            event,
+            session_id,
+            amountCollected,
+            btc_invoice: btcpayInvoice
+        });
+        return result;
     }
     static validateOptions(options: BtcOptions): void {
+        if (!options.storefront_url) {
+            throw new MedusaError(
+                MedusaError.Types.INVALID_DATA,
+                "Storefront URL is required in the provider's options."
+            );
+        }
+
         if (!options.apiKey) {
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
@@ -342,105 +636,108 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async capturePayment(
         input: CapturePaymentInput
     ): Promise<CapturePaymentOutput> {
-        const { data, context } = input;
-        if (!data || !data.id || !data.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to capture payment"
-            );
-        }
-        const invoiceData = await this.btcpay_.invoicesGetInvoice(
-            data.id as string,
-            data.storeId as string
-        );
-        const result = await this.btcpay_.invoicesMarkInvoiceStatus(
-            {
-                status: InvoiceStatusMark.Settled
-            },
-            data.id as string,
-            data.storeId as string
-        );
-        return {
-            data: { ...result }
-        };
-    }
-    async authorizePayment(
-        input: AuthorizePaymentInput
-    ): Promise<AuthorizePaymentOutput> {
-        const { data, context } = input;
+        let { btc_invoice, paymentSession } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
 
-        const paymentSessionId = context?.idempotency_key as string;
-        const paymentSession = await this.paymentService.retrievePaymentSession(
-            paymentSessionId
-        );
-        const providerData = data ?? paymentSession.data;
-
-        if (!providerData || !providerData.id || !providerData.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to authorize payment"
-            );
-        }
-        const invoiceData = await this.btcpay_.invoicesUpdateInvoice(
-            {
-                metadata: input
-            },
-            providerData.id as string,
-            providerData.storeId as string
-        );
+        paymentSession = await this.paymentService.updatePaymentSession({
+            id: paymentSession.id,
+            data: { btc_invoice },
+            currency_code: paymentSession.currency_code,
+            amount: paymentSession.amount
+        });
 
         return {
-            status: "pending",
-            data: { ...invoiceData }
+            data: { btc_invoice }
         };
     }
+
+    async updateBtcInvoiceMetadata(
+        invoiceId: string,
+        storeId: string,
+        metadata: Record<string, unknown>
+    ): Promise<InvoiceData> {
+        let invoiceData = await this.btcpay_.invoicesGetInvoice(
+            invoiceId,
+            storeId
+        );
+        if (!invoiceData) {
+            throw new MedusaError(
+                MedusaError.Types.NOT_FOUND,
+                `Invoice with ID ${invoiceId} not found`
+            );
+        }
+        invoiceData = await this.btcpay_.invoicesUpdateInvoice(
+            {
+                metadata: {
+                    ...invoiceData.metadata,
+                    ...metadata
+                }
+            },
+            invoiceId,
+            storeId
+        );
+        return invoiceData;
+    }
+
     async cancelPayment(
         input: CancelPaymentInput
     ): Promise<CancelPaymentOutput> {
         const { data, context } = input;
-        if (!data || !data.id || !data.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to cancel payment"
-            );
+        let { btc_invoice, paymentSession } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
+        if (!btc_invoice?.id) {
+            return input;
         }
-
-        let invoiceData = await this.btcpay_.invoicesMarkInvoiceStatus(
+        let invoice = await this.btcpay_.invoicesMarkInvoiceStatus(
             {
                 status: InvoiceStatusMark.Invalid
             },
-            data.id as string,
-            data.storeId as string
+            btc_invoice.id as string,
+            btc_invoice.storeId as string
         );
-        invoiceData = (
+        invoice = (
             await this.btcpay_.invoicesArchiveInvoice(
-                data.id as string,
-                data.storeId as string
+                btc_invoice.id as string,
+                btc_invoice.storeId as string
             )
         ).json() as InvoiceData;
+        paymentSession = await this.paymentService.updatePaymentSession({
+            id: paymentSession.id,
+            data: { btc_invoice: invoice },
+            currency_code: paymentSession.currency_code,
+            amount: paymentSession.amount
+        });
+
         return {
-            data: { ...invoiceData }
+            data: { btc_invoice: invoice }
         };
     }
     async deletePayment(
         input: DeletePaymentInput
     ): Promise<DeletePaymentOutput> {
-        const { data, context } = input;
-        if (!data?.id) {
+        if (!input?.data?.btc_invoice) {
             return input;
         }
-        if (!data || !data.id || !data.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to delete payment"
-            );
+        let { btc_invoice, paymentSession } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
+        if (!btc_invoice?.id) {
+            return input;
         }
+
         const invoice = await this.btcpay_.invoicesArchiveInvoice(
-            data.id as string,
-            data.storeId as string
+            btc_invoice.id as string,
+            btc_invoice.storeId as string
         );
+
+        paymentSession = await this.paymentService.updatePaymentSession({
+            id: paymentSession.id,
+            data: { btc_invoice: invoice },
+            currency_code: paymentSession.currency_code,
+            amount: paymentSession.amount
+        });
+
         return {
-            data: { ...((await invoice.json()) as InvoiceData) }
+            data: { btc_invoice: invoice }
         };
     }
     async refundPayment(
@@ -448,23 +745,19 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     ): Promise<RefundPaymentOutput> {
         const { data, context, amount: refundAmount } = input;
 
-        if (!data || !data.id || !data.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to refund payment"
-            );
-        }
+        const { btc_invoice, paymentSession } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
 
         const invoiceData = await this.btcpay_.invoicesRefund(
             {
-                payoutMethodId: "BTC-LN",
+                payoutMethodId: "BTC-CHAIN",
                 refundVariant: InvoiceIdRefundBody.RefundVariantEnum.RateThen,
                 subtractPercentage: this.options_.refund_charges_percentage,
                 customAmount: refundAmount.toString(),
-                customCurrency: data.currency as string
+                customCurrency: btc_invoice.currency as string
             },
-            data.id as string,
-            data.storeId as string
+            btc_invoice.id as string,
+            btc_invoice.storeId as string
         );
         return {
             data: { ...invoiceData }
@@ -474,39 +767,31 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         input: RetrievePaymentInput
     ): Promise<RetrievePaymentOutput> {
         const { data, context } = input;
-        if (!data || !data.id || !data.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to retrieve payment"
-            );
-        }
-        const invoiceData = await this.btcpay_.invoicesGetInvoice(
-            data.id as string,
-            data.storeId as string
-        );
+        const { btc_invoice, paymentSession } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
+
         return {
-            data: { ...invoiceData }
+            data: { btc_invoice }
         };
     }
     async updatePayment(
         input: UpdatePaymentInput
     ): Promise<UpdatePaymentOutput> {
-        const { data, context } = input;
-        if (!data || !data.id || !data.storeId) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Invoice ID and Store ID are required to update payment"
-            );
-        }
-        const invoiceData = await this.btcpay_.invoicesUpdateInvoice(
+        const { btc_invoice, paymentSession } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const invoiceData = await this.updateBtcInvoiceMetadata(
+            btc_invoice.id as string,
+            btc_invoice.storeId as string,
             {
-                metadata: input
-            },
-            data.id as string,
-            data.storeId as string
+                ...btc_invoice.metadata,
+                medusa_payment_session_id:
+                    (btc_invoice.metadata as Record<string, unknown>)
+                        ?.medusa_payment_session_id ??
+                    input?.context?.idempotency_key
+            }
         );
         return {
-            data: { ...invoiceData }
+            data: { btc_invoice: invoiceData }
         };
     }
 }

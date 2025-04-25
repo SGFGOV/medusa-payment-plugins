@@ -17,7 +17,12 @@ export default defineMiddlewares({
                     next: MedusaNextFunction
                 ) => {
                     const logger = req.scope.resolve("logger");
+                    res.header(
+                        "Access-Control-Allow-Origin",
+                        process.env.STOREFRONT_URL ?? "http://localhost:8000"
+                    );
                     logger.info("Received a request!");
+                    next();
                 }
             ]
         },
@@ -33,7 +38,7 @@ export default defineMiddlewares({
                     console.log("Received a request!");
                     res.header(
                         "Access-Control-Allow-Origin",
-                        "http://localhost:8000"
+                        process.env.STOREFRONT_URL ?? "http://localhost:8000"
                     );
                     res.header(
                         "Access-Control-Allow-Methods",

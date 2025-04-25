@@ -1,8 +1,17 @@
 import { Configuration } from "../core";
 
 export interface BtcOptions extends Configuration {
+    storefront_url: string;
     default_store_id: string;
-    currency_pair: "USD_BTC"|"EUR_BTC"|"AUD_BTC"|"CAD_BTC"|"CHF_BTC"|"GBP_BTC"|"JPY_BTC";
+    crypto_currency:
+        | "BTC"
+        | "LTC"
+        | "ETH"
+        | "DOGE"
+        | "DASH"
+        | "ZEC"
+        | "XMR"
+        | "XRP";
     automatic_expiry_period: number;
     manual_expiry_period: number;
     refund_charges_percentage: string;

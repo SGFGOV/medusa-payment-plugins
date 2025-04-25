@@ -3,6 +3,7 @@ import {
     ICartModuleService,
     IOrderModuleService,
     IPaymentModuleService,
+    PaymentCollectionDTO,
     RemoteQueryFunction,
     StoreCart
 } from "@medusajs/framework/types";
@@ -12,31 +13,6 @@ import {
     PaymentCollectionStatus
 } from "@medusajs/framework/utils";
 import _ from "lodash";
-
-async function fetchOrderId(cartId: string, query: RemoteQueryFunction) {
-    const order = await query.graph({
-        entity: "order",
-        fields: ["id", "metadata"],
-        filters: {
-            cart_id: {
-                eq: cartId
-            }
-        }
-    });
-    const { data: carts } = await query.graph({
-        entity: "cart",
-        fields: ["id", "metadata", "order"]
-    });
-    const cart = carts.find((cart) => cart.id === cartId);
-    if (!cart) {
-        throw new Error("Cart not found");
-    }
-    const orderId = order.data[0].id ?? cart.order?.order_id;
-    if (!orderId) {
-        throw new Error("Order ID not found in cart metadata");
-    }
-    return orderId;
-}
 
 async function fetchPaymentStatus(cartId: string, query: RemoteQueryFunction) {
     const { data: carts } = (await query.graph({
@@ -52,62 +28,30 @@ async function fetchPaymentStatus(cartId: string, query: RemoteQueryFunction) {
 }
 
 export const GET = async (req: MedusaRequest, response: MedusaResponse) => {
-    const cartService = req.scope.resolve(Modules.CART) as ICartModuleService;
-    const queryService = req.scope.resolve(
-        ContainerRegistrationKeys.REMOTE_QUERY
-    );
-    const orderService = req.scope.resolve(
-        Modules.ORDER
-    ) as IOrderModuleService;
-    const paymentService = req.scope.resolve(
-        Modules.PAYMENT
-    ) as IPaymentModuleService;
-    const { cart } = req.query;
-
-    if (!cart || !_.isString(cart)) {
-        return response.status(400).json({ error: "Cart ID is required" });
-    }
-
-    const cartId = Array.isArray(cart) ? cart[0] : cart;
-
+    const logger = req.scope.resolve("logger");
     try {
-        const cartData = await cartService.retrieveCart(cartId as string);
+        const query = req.scope.resolve(
+            ContainerRegistrationKeys.QUERY
+        ) as RemoteQueryFunction;
+        const { cart } = req.query;
 
-        if (!cartData) {
-            return response.status(404).json({ error: "Cart not found" });
-        }
+        const paymentStatus = await fetchPaymentStatus(cart as string, query);
 
-        const paymentStatus = await fetchPaymentStatus(
-            cartId as string,
-            queryService
-        );
-        if (!paymentStatus) {
+        const isOk =
+            paymentStatus === PaymentCollectionStatus.AUTHORIZED ||
+            paymentStatus === PaymentCollectionStatus.COMPLETED;
+
+        if (!isOk) {
             return response
                 .status(400)
-                .json({ error: "Payment status not found in cart" });
-        }
-        if (paymentStatus !== PaymentCollectionStatus.AUTHORIZED) {
+                .json({ error: "Payment collection not complete yet" });
+        } else {
             return response
-                .status(400)
-                .json({ error: "Payment status is not authorized" });
-        }
-
-        if (
-            paymentStatus == PaymentCollectionStatus.AUTHORIZED ||
-            paymentStatus == PaymentCollectionStatus.COMPLETED
-        ) {
-            const orderId = await fetchOrderId(cartId as string, queryService);
-            if (!orderId) {
-                return response
-                    .status(400)
-                    .json({ error: "Order ID not found in cart metadata" });
-            }
-            const redirectUrl = `/orders/completed/${orderId}`;
-
-            return response.status(200).json({ redirectUrl });
+                .status(200)
+                .json({ message: "Payment collection complete" });
         }
     } catch (error) {
-        console.error("Error retrieving cart:", error);
+        logger.error("Error retrieving cart:", error);
         return response.status(500).json({ error: "Internal server error" });
     }
 };

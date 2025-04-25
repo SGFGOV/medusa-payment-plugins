@@ -28,12 +28,17 @@ const ProcessingPage = () => {
                     }
                 }) as any;
                     
-                    
+                const result = await sdk.store.cart.complete(cart!) as  {
+                    order: {
+                        id: string;
+                    };
+                }
+                const redirectUrl = `/order/${result.order.id}/confirmed`
                 
                 //const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/checkout/is-paid?cart=${cart}`);
-                const data = response.data;
-                if (!isCancelled && data.redirectUrl) {
-                    router.push(data.redirectUrl);
+               /// const data = response.data;
+                if (!isCancelled && redirectUrl) {
+                    router.push(redirectUrl);
                 }
             } catch (error) {
                 if (!isCancelled) {
