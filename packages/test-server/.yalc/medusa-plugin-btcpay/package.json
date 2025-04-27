@@ -1,12 +1,16 @@
 {
   "name": "medusa-plugin-btcpay",
   "version": "0.0.1",
-  "description": "A starter for Medusa plugins.",
+  "description": "A plugin to  receive for bitcoin payments in medusajss .",
   "author": "Medusa (https://medusajs.com)",
   "license": "MIT",
   "files": [
     ".medusa/server"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SGFGOV/medusa-payment-plugins"
+  },
   "exports": {
     "./package.json": "./package.json",
     "./workflows": "./.medusa/server/src/workflows/index.js",
@@ -20,7 +24,11 @@
     "plugin",
     "medusa-plugin-other",
     "medusa-plugin",
-    "medusa-v2"
+    "medusa-v2",
+    "medusa-plugin-btcpay",
+    "bitcoig",
+    "medusa-payment",
+    "medusa-plugin-payment"
   ],
   "scripts": {
     "build": "medusa plugin:build",
@@ -51,5 +59,5 @@
     "isomorphic-fetch": "^3.0.0",
     "ws": "^8.18.1"
   },
-  "yalcSig": "1596cc7d866c085b033661d2f5b091b0"
+  "yalcSig": "195002495c6fa99cc12303f32c1a4c7d"
 }

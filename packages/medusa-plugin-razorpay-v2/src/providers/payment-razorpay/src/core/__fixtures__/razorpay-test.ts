@@ -1,4 +1,4 @@
-import RazorpayBase from "../razorpay-base";
+import RazorpayBase from "../razorpay-base.ts.old";
 import { PaymentIntentOptions, RazorpayOptions } from "../../types";
 
 export class RazorpayTest extends RazorpayBase {

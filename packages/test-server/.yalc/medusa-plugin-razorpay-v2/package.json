@@ -1,9 +1,13 @@
 {
   "name": "medusa-plugin-razorpay-v2",
   "version": "0.0.1",
-  "description": "A starter for Medusa plugins.",
+  "description": "A plugin to receive payments in medusajs v2 using Razorpay.",
   "author": "Medusa (https://medusajs.com)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SGFGOV/medusa-payment-plugins"
+  },
   "files": [
     ".medusa/server"
   ],
@@ -21,12 +25,14 @@
     "medusa-plugin-other",
     "medusa-plugin",
     "medusa-v2",
+    "medusa-plugin-payment",
     "medusa-plugin-razorpay",
     "razorpay",
     "payment",
     "payment gateway"
   ],
   "scripts": {
+    "debug": "medusa plugin:develop",
     "build": "medusa plugin:build",
     "dev": "medusa plugin:develop",
     "prepublishOnly": "medusa plugin:build"
@@ -54,5 +60,5 @@
   "dependencies": {
     "razorpay": "^2.9.6"
   },
-  "yalcSig": "778ecc557e90f18597e418647f25452a"
+  "yalcSig": "62c313897a868c20612f5a5a1312eec1"
 }

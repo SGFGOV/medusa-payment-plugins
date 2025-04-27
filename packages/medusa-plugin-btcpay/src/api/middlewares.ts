@@ -8,7 +8,7 @@ import {
 export default defineMiddlewares({
     routes: [
         {
-            matcher: "/checkout/is-paid*",
+            matcher: "/btc-pay/is-paid*",
             methods: ["GET"],
             middlewares: [
                 async (
@@ -27,7 +27,7 @@ export default defineMiddlewares({
             ]
         },
         {
-            matcher: "/checkout/is-paid*",
+            matcher: "/btc-pay/is-paid*",
             methods: ["OPTIONS"],
             middlewares: [
                 (

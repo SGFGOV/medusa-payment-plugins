@@ -49,7 +49,6 @@ import {
     WebhookInvoiceReceivedPaymentEvent,
     InvoiceIdRefundBody,
     StoresApi,
-    StoreId,
     StoresRatesApi,
     CreateInvoiceRequest
 } from "./api";
@@ -270,11 +269,29 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             (btc_invoice?.metadata as Record<string, string>)
                 ?.medusa_payment_session_id ?? context?.idempotency_key;
 
-        const paymentSession = await this.paymentService.retrievePaymentSession(
+        let paymentSession = await this.paymentService.retrievePaymentSession(
             paymentSessionId
         );
         if (!btc_invoice) {
             btc_invoice = paymentSession?.data?.btc_invoice as InvoiceData;
+        }
+        if (btc_invoice) {
+            const btc_invoice_latest = await this.btcpay_.invoicesGetInvoice(
+                btc_invoice.id as string,
+                btc_invoice.storeId as string
+            );
+            if (btc_invoice_latest.status != btc_invoice.status) {
+                {
+                    paymentSession =
+                        await this.paymentService.updatePaymentSession({
+                            id: paymentSessionId,
+                            data: { btc_invoice: btc_invoice_latest },
+                            currency_code: paymentSession.currency_code,
+                            amount: paymentSession.amount
+                        });
+                    btc_invoice = btc_invoice_latest;
+                }
+            }
         }
 
         if (!paymentSession) {
@@ -549,6 +566,21 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         if (!event) {
             logger.error("Event type is not present in the webhook data");
             return { action: PaymentActions.FAILED };
+        }
+        const allowedEvents = [
+            "InvoiceCreated",
+            "InvoiceReceivedPayment",
+            "InvoiceSettled",
+            "InvoicePaymentSettled",
+            "InvoiceProcessing",
+            "InvoiceInvalid",
+            "InvoiceExpired"
+        ];
+        if (!allowedEvents.includes(event)) {
+            logger.error(
+                `Event type ${event} is not supported in the webhook data`
+            );
+            return { action: PaymentActions.NOT_SUPPORTED };
         }
 
         const btcpayInvoice = await this.btcpay_.invoicesGetInvoice(

@@ -1,84 +1,271 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-<h1 align="center">
-  Medusa Plugin Starter
-</h1>
 
-<h4 align="center">
-  <a href="https://docs.medusajs.com">Documentation</a> |
-  <a href="https://www.medusajs.com">Website</a>
-</h4>
+# Support the Payment-BitcoinPayServer Provider – Power the Future of Medusa Commerce!
 
-<p align="center">
-  Building blocks for digital commerce
-</p>
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-    <a href="https://www.producthunt.com/posts/medusa"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Day-%23DA552E" alt="Product Hunt"></a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
-</p>
+Dear Developers and E-commerce Pioneers,
 
-## Compatibility
+Get ready to embrace the world of decentralized finance for your online stores with MedusaJS! We are excited to introduce the **Payment-BitcoinPayServer** provider – a community-driven project that brings the powerful [Bitcoin PayServer](https://btcpayserver.org) gateway to our MedusaJS commerce stack.
 
-This starter is compatible with versions >= 2.4.0 of `@medusajs/medusa`. 
+**What's in it for You:**
 
-## Getting Started
+🛡️ Secure & Sovereign Payments: Enable direct Bitcoin Network payments without relying on third-party payment processors.
 
-Visit the [Quickstart Guide](https://docs.medusajs.com/learn/installation) to set up a server.
+🌍 Borderless Transactions: Serve a global audience with permissionless payments that know no borders.
 
-Visit the [Plugins documentation](https://docs.medusajs.com/learn/fundamentals/plugins) to learn more about plugins and how to create them.
+🚀 Empower Open Commerce: By sponsoring this provider, you contribute to the Medusa community's growth, independence, and innovation!
 
-Visit the [Docs](https://docs.medusajs.com/learn/installation#get-started) to learn more about our system requirements.
+## Installation Made Simple
 
-## What is Medusa
+Use the package manager npm to install Payment-BitcoinPayServer.
 
-Medusa is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+```bash
+yarn add medusa-plugin-btcpay
+```
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/learn/introduction/architecture) and [commerce modules](https://docs.medusajs.com/learn/fundamentals/modules/commerce-modules) in the Docs.
+## Usage
+
+Set up a [Bitcoin PayServer](https://docs.btcpayserver.org/) instance, either self-hosted or via a trusted host.
+
+In your environment file (`.env`) define:
+
+```bash
+BTCPAY_URL=https://your-btcpayserver-instance.com
+BTCPAY_API_KEY=<your api key>
+BTCPAY_STORE_ID=<your store id>
+BTCPAY_WEBHOOK_SECRET=<your webhook secret>
+```
+
+You need to add the provider into your `medusa-config.ts`:
+
+```typescript
+module.exports = defineConfig({
+  modules: [
+    ...
+    {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          ...
+          {
+            resolve: "@yourorg/payment-btcpayserver",
+            id: "btcpayserver",
+            options: {
+              url: process.env.BTCPAY_URL,
+              apiKey: process.env.BTCPAY_API_KEY,
+              storeId: process.env.BTCPAY_STORE_ID,
+              webhookSecret: process.env.BTCPAY_WEBHOOK_SECRET,
+            },
+          },
+          ...
+        ],
+      },
+    },
+    ...
+  ]
+})
+```
+
+## Client Side Configuration
+
+For your Medusa Next.js storefront, follow these steps:
+
+### Step 1. Install the Bitcoin Payment Button package
+
+(optional - depends on your design)  
+```bash
+yarn add react-btcpay-button
+```
+
+### Step 2. Create the Bitcoin Payment Button Component in packages/storefront/src/modules/checkout/components/payment-button/index.tsx
+
+#### Step 2.1 introduce a state variable to track clicks. 
+```
+  const PaymentButton: React.FC<PaymentButtonProps> = ({
+  cart,
+  "data-testid": dataTestId,
+}) => {
+  const [btcClicked, setBtcClicked] = useState(false)
+  ....
+}
+```
+
+#### Step 2.2 Then in the case 
+
+```tsx
+  case isBtcpay(paymentSession?.provider_id):
+        return (  
+          <Button disabled={btcClicked} onClick={() => {setBtcClicked(true);
+            window.open(`${(paymentSession?.data as any).btc_invoice.checkoutLink}`)}}>
+            Pay with BtcPay
+          </Button>
+        )
+```
+
+### Step 3. Extend Payment Constants
+
+In `src/lib/constants.tsx`:
+
+```tsx
+export const isBtcpay = (providerId?: string) => {
+  return providerId?.startsWith("pp_btcpay")
+}
+
+export const paymentInfoMap: Record<
+  string,
+  { title: string; icon: React.JSX.Element }
+> = {
+  ...
+  pp_btcpay_btcpay: {
+    title: "BtcPay",
+    icon: <CurrencyDollarSolid />,
+  },
+  ...
+}
+```
+
+### Step 4. Hook Up the Payment Button
+
+In `payment-button/index.tsx`:
+
+```tsx
+import { BtcpayserverPaymentButton } from "./btcpayserver-payment-button"
+
+...
+
+case "btcpayserver":
+  return <BtcpayserverPaymentButton session={paymentSession} notReady={notReady} cart={cart} />
+```
 
 
-## BTC Payflow
+### step 5 . Create a confirmation page to poll the server -- 
+You can use any mechanism, but i'chosen long polling, coz its just simple. 
+You could use websockets or any other call back mechanism. 
 
-User will get redirected to BTCPay Server authorization page
-User logs in with their BTCPay Server account (if not already)
-User selects the desired store (if they have multiple stores)
-User can enter a label to identify the API key in their BTCPay Server account (optional)
-Required permissions (see above screenshot) are already pre-filled for the user
-When the user clicks "Authorize app" BTCPay will generate an API key with the permissions and bound to a single store and send it back to your eCommerce system
-There you can process the returned payload which contains the API key and the store id
-Using that API key you can register a webhook endpoint (of your eCommerce system) on the users store
-That endpoint will return a webhook "secret" that you need later to store and use to validate incoming webhook events on invoice status changes
-You store all those information in your eCommerce system and the setup is done
+processing/page.tsx
 
-## Community & Contributions
+```tsx
+  "use client";
 
-The community and core team are available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can ask for support, discuss roadmap, and share ideas.
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-Join our [Discord server](https://discord.com/invite/medusajs) to meet other community members.
+import { useSearchParams } from "next/navigation";
+import { sdk } from "@lib/config";
+import axios from "axios";
 
-curl -s \
-      -H "Content-Type: application/json" \
-      -X GET \
-      "https://mainnet.demo.btcpayserver.org/api-keys/authorize?permissions=btcpay.store.canviewinvoices&permissions=btcpay.store.cancreateinvoice&permissions=btcpay.store.canmodifyinvoices&permissions=btcpay.store.webhooks.canmodifywebhooks&permissions=btcpay.store.canviewstoresettings&permissions=btcpay.store.cancreatenonapprovedpullpayments&strict=true&selectiveStores=true&applicationName=YourAppName&redirect=https://example.com/your-callback-url"
+const ProcessingPage = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    
+    const cart= searchParams.get("cart");
+    
 
+    useEffect(() => {
+        let isCancelled = false;
 
-## Other channels
+        const fetchData = async () => {
+            try {
+                const url = `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/checkout/is-paid?cart=${cart}`
+                console.log("Fetching data from URL:", url);
+                let response = await axios.get(url,{
+                    headers: {
+                        'content-type': 'application/json',
+                        'x-publishable-api-key': process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY,
+                    }
+                }) as any;
+                    
+                const result = await sdk.store.cart.complete(cart!) as  {
+                    order: {
+                        id: string;
+                    };
+                }
+                const redirectUrl = `/order/${result.order.id}/confirmed`
+                
+                //const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/checkout/is-paid?cart=${cart}`);
+               /// const data = response.data;
+                if (!isCancelled && redirectUrl) {
+                    router.push(redirectUrl);
+                }
+            } catch (error) {
+                if (!isCancelled) {
+                    console.log("Error fetching data:", JSON.stringify(error));
+                }
+            } finally {
+                if (!isCancelled) {
+                    setTimeout(fetchData, 5000); // Poll every 5 seconds
+                }
+            }
+        };
 
-- [GitHub Issues](https://github.com/medusajs/medusa/issues)
-- [Twitter](https://twitter.com/medusajs)
-- [LinkedIn](https://www.linkedin.com/company/medusajs)
-- [Medusa Blog](https://medusajs.com/blog/)
+        fetchData();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, []);
+
+    return (
+        <div>
+            <h1>Processing...</h1>
+            <p>Please wait while we process your request.</p>
+        </div>
+    );
+};
+
+export default ProcessingPage;
+```
+
+### Step 6. Configure Environment Variables in Frontend
+
+Set the following environment variables for your storefront:
+
+```bash
+NEXT_PUBLIC_SHOP_NAME=<your shop name>
+NEXT_PUBLIC_MEDUSA_BACKEND_URL=<your medusa store>
+```
+
+## Setting Up BTCPay Server Webhook
+
+In BTCPayServer, add a webhook with this URL:
+
+```text
+<your-host-url>/hooks/payment/btcpay_btcpay
+```
+
+Make sure you set the webhook secret to match your `.env` `BTCPAY_WEBHOOK_SECRET` value.
+
+## Contributing
+
+Pull requests are welcome! For significant changes, please open an issue first to discuss improvements or new features.
+
+Please ensure tests and documentation are updated appropriately.
+
+## License
+
+[MIT License](https://choosealicense.com/licenses/mit/)
+
+## Untested Features
+
+Some features exist but haven't been fully tested in client integration:
+
+- Refund support
+- Lightning Network (LNURL and other advanced flows)
+
+## Disclaimer
+
+This project is community-driven and tested in limited scenarios. Bugs may occur; please raise issues or submit pull requests if you encounter any.
+
+## Support the Payment-BitcoinPayServer Provider – Fuel Open Commerce!
+
+Dear Medusa Enthusiasts,
+
+Thank you for your passion and energy for open e-commerce!  
+The Payment-BitcoinPayServer provider is an open-source project crafted to connect MedusaJS with the powerful Bitcoin payment ecosystem.
+
+If you find this project useful, consider sponsoring it [on GitHub](https://github.com/sponsors/yourgithubusername) to help maintain and expand it.  
+Your support makes a world of difference in creating decentralized, open, and innovative commerce for all.
+
+Let's keep building the future together!
+
+With gratitude,  
+**[YourName]**  
+Lead Developer, Payment-BitcoinPayServer Provider

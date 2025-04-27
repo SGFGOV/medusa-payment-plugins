@@ -9,11 +9,13 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "debug": "turbo run debug",
     "dev": "turbo run dev",
     "clean": "turbo run clean",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "prepare": "turbo run prepare"
+    "prepare": "turbo run prepare",
+    "publish": "turbo run publish"
   },
   "devDependencies": {
     "@medusajs/admin-sdk": "2.7.0",

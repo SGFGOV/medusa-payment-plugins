@@ -19,7 +19,7 @@ const ProcessingPage = () => {
 
         const fetchData = async () => {
             try {
-                const url = `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/checkout/is-paid?cart=${cart}`
+                const url = `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/btc-pay/is-paid?cart=${cart}`
                 console.log("Fetching data from URL:", url);
                 let response = await axios.get(url,{
                     headers: {
