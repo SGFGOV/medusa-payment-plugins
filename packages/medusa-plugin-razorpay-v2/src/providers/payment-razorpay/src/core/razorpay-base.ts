@@ -45,7 +45,7 @@ import {
     RazorpayOptions,
     RazorpayProviderConfig,
     WebhookEventData
-} from "@types";
+} from "../types";
 import Razorpay from "razorpay";
 import { getAmountFromSmallestUnit } from "../utils/get-smallest-unit";
 import { Orders } from "razorpay/dist/types/orders";
