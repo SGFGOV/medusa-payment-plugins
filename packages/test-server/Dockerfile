@@ -54,10 +54,10 @@ RUN corepack enable
 
 RUN rm -f .npmrc
 
-
+RUN yarn cache clean
 RUN yarn && yarn run build
 
-RUN yarn cache clean
+
 
 # RUN cd ./medusa-payment-plugins/packages/test-server
 
