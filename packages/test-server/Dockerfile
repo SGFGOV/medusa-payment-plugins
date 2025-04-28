@@ -11,6 +11,10 @@ RUN apt-get update &&  \
 #RUN npm config set python python3.11
 ARG NPM_TOKEN  
 
+RUN npm i -g yarn@4.6.0
+
+RUN corepack enable
+
 #ENV NPM_TOKEN=${NPM_TOKEN}
 
 #COPY .npmrc  .npmrc
