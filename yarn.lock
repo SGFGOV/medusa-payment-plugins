@@ -16948,31 +16948,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"medusa-plugin-btcpay@file:.yalc/medusa-plugin-btcpay::locator=test-server%40workspace%3Apackages%2Ftest-server":
-  version: 0.0.1
-  resolution: "medusa-plugin-btcpay@file:.yalc/medusa-plugin-btcpay#.yalc/medusa-plugin-btcpay::hash=919700&locator=test-server%40workspace%3Apackages%2Ftest-server"
-  dependencies:
-    isomorphic-fetch: "npm:^3.0.0"
-  peerDependencies:
-    "@medusajs/admin-sdk": 2.7.1
-    "@medusajs/cli": 2.7.1
-    "@medusajs/framework": 2.7.1
-    "@medusajs/icons": 2.7.1
-    "@medusajs/medusa": 2.7.1
-    "@medusajs/test-utils": 2.7.1
-    "@medusajs/ui": 4.0.3
-    "@mikro-orm/cli": 6.4.3
-    "@mikro-orm/core": 6.4.3
-    "@mikro-orm/knex": 6.4.3
-    "@mikro-orm/migrations": 6.4.3
-    "@mikro-orm/postgresql": 6.4.3
-    awilix: ^8.0.1
-    pg: ^8.13.0
-  checksum: 10c0/b97ec537b3bed17ec541c5c1621368596cbe1457abc39b1bbf1082af3a2a9c3bb6c772b26ef35139d61029495ff33039d3a3aba576453689e57f02e610cca059
-  languageName: node
-  linkType: hard
-
-"medusa-plugin-btcpay@workspace:packages/medusa-plugin-btcpay":
+"medusa-plugin-btcpay@workspace:^, medusa-plugin-btcpay@workspace:packages/medusa-plugin-btcpay":
   version: 0.0.0-use.local
   resolution: "medusa-plugin-btcpay@workspace:packages/medusa-plugin-btcpay"
   dependencies:
@@ -17018,31 +16994,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"medusa-plugin-razorpay-v2@file:.yalc/medusa-plugin-razorpay-v2::locator=test-server%40workspace%3Apackages%2Ftest-server":
-  version: 0.0.1
-  resolution: "medusa-plugin-razorpay-v2@file:.yalc/medusa-plugin-razorpay-v2#.yalc/medusa-plugin-razorpay-v2::hash=91dbef&locator=test-server%40workspace%3Apackages%2Ftest-server"
-  dependencies:
-    razorpay: "npm:^2.9.6"
-  peerDependencies:
-    "@medusajs/admin-sdk": 2.7.1
-    "@medusajs/cli": 2.7.1
-    "@medusajs/framework": 2.7.1
-    "@medusajs/icons": 2.7.1
-    "@medusajs/medusa": 2.7.1
-    "@medusajs/test-utils": 2.7.1
-    "@medusajs/ui": 4.0.3
-    "@mikro-orm/cli": 6.4.3
-    "@mikro-orm/core": 6.4.3
-    "@mikro-orm/knex": 6.4.3
-    "@mikro-orm/migrations": 6.4.3
-    "@mikro-orm/postgresql": 6.4.3
-    awilix: ^8.0.1
-    pg: ^8.13.0
-  checksum: 10c0/485fe2385e26f0bf93f36c5f2b0c60f16f9817ca9b47c883b7d95c1737b4afec5ea1738e7897c77ffdfc9bbda1eb35d94ee5b2cfa776616c6a609b4fecdc8922
-  languageName: node
-  linkType: hard
-
-"medusa-plugin-razorpay-v2@workspace:packages/medusa-plugin-razorpay-v2":
+"medusa-plugin-razorpay-v2@workspace:^, medusa-plugin-razorpay-v2@workspace:packages/medusa-plugin-razorpay-v2":
   version: 0.0.0-use.local
   resolution: "medusa-plugin-razorpay-v2@workspace:packages/medusa-plugin-razorpay-v2"
   dependencies:
@@ -21244,8 +21196,8 @@ __metadata:
     "@types/react-dom": "npm:^18.2.25"
     awilix: "npm:^8.0.1"
     jest: "npm:^29.7.0"
-    medusa-plugin-btcpay: "file:.yalc/medusa-plugin-btcpay"
-    medusa-plugin-razorpay-v2: "file:.yalc/medusa-plugin-razorpay-v2"
+    medusa-plugin-btcpay: "workspace:^"
+    medusa-plugin-razorpay-v2: "workspace:^"
     pg: "npm:^8.13.0"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.2.0"
