@@ -64,4 +64,5 @@ RUN yarn cache clean
 
 # WORKDIR /medusa/medusa-payment-plugins/packages/test-server
 
-ENTRYPOINT ["./medusa-payment-plugins/packages/test-server/start-dev.sh", "develop"]
+WORKDIR /medusa/medusa-payment-plugins
+ENTRYPOINT ["./packages/test-server/start-dev.sh", "develop"]
