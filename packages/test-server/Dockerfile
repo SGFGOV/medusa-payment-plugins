@@ -17,6 +17,8 @@ ARG GIT_TOKEN
 
 RUN git clone https://${GIT_TOKEN}@github.com/SGFGOV/medusa-payment-plugins.git
 
+WORKDIR /medusa/medusa-payment-plugins/packages/test-server
+
 RUN corepack enable
 
 
@@ -45,7 +47,7 @@ RUN corepack enable
 #RUN ls
 
 
-RUN npm install -g @medusajs/medusa-cli@latest 
+#RUN npm install -g @medusajs/medusa-cli@latest 
 
 #RUN yarn global add node-gyp
 #RUN --mount=type=secret,id=npmrc,target=/root/.npmrc yarn
@@ -53,7 +55,7 @@ RUN npm install -g @medusajs/medusa-cli@latest
 RUN rm -f .npmrc
 
 
-RUN cd medusa-payment-plugins/packages/test-server && yarn && yarn run build
+RUN yarn && yarn run build
 
 RUN yarn cache clean
 
@@ -64,5 +66,5 @@ RUN yarn cache clean
 #WORKDIR /medusa/medusa-payment-plugins/packages/test-server
 #RUN yarn add medusa-plugin-razorpay-v2
 #RUN yarn add medusa-plugin-btcpay
-CMD ["bash", ".medusa-payment-plugins/packages/test-server/start-dev.sh"]
+CMD ["bash", "start-dev.sh"]
 #ENTRYPOINT ["./packages/test-server/start-dev.sh", "develop"]
