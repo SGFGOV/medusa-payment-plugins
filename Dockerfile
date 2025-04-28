@@ -60,8 +60,8 @@ RUN cd ./medusa-payment-plugins/packages/test-server && yarn && yarn run build
 
 RUN yarn cache clean
 
-RUN cd ./medusa-payment-plugins/packages/test-server
+# RUN cd ./medusa-payment-plugins/packages/test-server
 
-WORKDIR /medusa/medusa-payment-plugins/packages/test-server
+# WORKDIR /medusa/medusa-payment-plugins/packages/test-server
 
-ENTRYPOINT ["./start-dev.sh", "develop"]
+ENTRYPOINT ["./medusa-payment-plugins/packages/test-server/start-dev.sh", "develop"]
