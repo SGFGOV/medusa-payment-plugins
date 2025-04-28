@@ -68,4 +68,5 @@ RUN yarn cache clean
 #RUN yarn add medusa-plugin-razorpay-v2
 #RUN yarn add medusa-plugin-btcpay
 WORKDIR /medusa/medusa-payment-plugins
-ENTRYPOINT ["./packages/test-server/start-dev.sh", "develop"]
+CMD ["bash", "./packages/test-server/start-dev.sh"]
+#ENTRYPOINT ["./packages/test-server/start-dev.sh", "develop"]
