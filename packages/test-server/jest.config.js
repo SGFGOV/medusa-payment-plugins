@@ -1,4 +1,4 @@
-const { loadEnv } = require("@medusajs/utils");
+Dockerfileconst { loadEnv } = require("@medusajs/utils");
 loadEnv("test", process.cwd());
 
 module.exports = {
