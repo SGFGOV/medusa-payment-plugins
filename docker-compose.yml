@@ -13,7 +13,7 @@ services:
       - ./packages/test-server/.env
     environment:
   
-      # DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-docker
+      # DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-docker 
       # REDIS_URL: redis://redis
       # NODE_ENV: development
       # JWT_SECRET: something
