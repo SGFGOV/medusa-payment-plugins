@@ -32,7 +32,7 @@ module.exports = defineConfig({
     plugins: ["medusa-plugin-razorpay-v2", "medusa-plugin-btcpay"],
     modules: [
         // {
-        //     resolve: "@rokmohar/medusa-plugin-meilisearch",
+        //     resolve: "@rokmohar/medusa-plugin-meilisearch", 
         //     options: {
         //         config: {
         //             host: process.env.MEILISEARCH_HOST,
