@@ -61,7 +61,7 @@ const ProcessingPage = () => {
     return (
         <div>
             <h1>Processing...</h1>
-            <p>Please wait while we process your request.</p>
+            <p>Please wait while we process your request.. It may take a while for the bitcoins to synchronise.</p>
         </div>
     );
 };
