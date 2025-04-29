@@ -1,6 +1,7 @@
-import { Configuration } from "../core";
+import { Configuration, InvoiceIdRefundBody } from "../core";
 
 export interface BtcOptions extends Configuration {
+    refundVariant: InvoiceIdRefundBody.RefundVariantEnum;
     storefront_url: string;
     default_store_id: string;
     crypto_currency:

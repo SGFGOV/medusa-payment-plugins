@@ -5,6 +5,8 @@ import {
     ContainerRegistrationKeys
 } from "@medusajs/framework/utils";
 
+
+
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 const allowedHosts = process.env.ALLOWED_HOSTS?.split(",")??["localhost"]
@@ -139,6 +141,7 @@ module.exports = defineConfig({
                             "medusa-plugin-btcpay/providers/payment-btcpay/src",
                         id: "btcpay",
                         options: {
+                            refundRate:process.env.refundPolicy??'Custom',//InvoiceIdRefundBody.RefundVariantEnum,
                             storefront_url: process.env?.STOREFRONT_URL,
                             default_store_id:
                                 process?.env?.BTCPAY_TEST_STORE_ID,
@@ -146,7 +149,7 @@ module.exports = defineConfig({
                             basePath: process?.env?.BTCPAY_TEST_URL,
                             webhook_secret:
                                 process?.env?.BTCPAY_TEST_WEBHOOK_SECRET,
-                            refund_charges_percentage: "2.0",
+                            refund_charges_percentage: process.env.BTC_TEST_CHARGE??"2.0",
                             currency:
                                 process?.env?.BTCPAY_TEST_CURRENCY ?? "usd",
                             autoCapture:
