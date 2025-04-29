@@ -8,6 +8,19 @@ import {
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
+    admin: {
+        vite: () => {
+          return {
+            optimizeDeps: {
+              include: ["qs"],
+            },
+            server: {
+                allowedHosts: [process.env.HOSTNAME??"localhost"],
+              }
+          }
+        },
+      },
+    
     projectConfig: {
         databaseUrl: process.env.DATABASE_URL,
         http: {
