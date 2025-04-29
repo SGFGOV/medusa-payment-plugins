@@ -3129,7 +3129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@medusajs/icons@npm:2.7.1":
+"@medusajs/icons@npm:2.7.1, @medusajs/icons@npm:^2.7.1":
   version: 2.7.1
   resolution: "@medusajs/icons@npm:2.7.1"
   peerDependencies:
@@ -21180,6 +21180,7 @@ __metadata:
     "@medusajs/admin-sdk": "npm:2.7.1"
     "@medusajs/cli": "npm:2.7.1"
     "@medusajs/framework": "npm:2.7.1"
+    "@medusajs/icons": "npm:^2.7.1"
     "@medusajs/medusa": "npm:2.7.1"
     "@medusajs/test-utils": "npm:2.7.1"
     "@mikro-orm/cli": "npm:6.4.3"

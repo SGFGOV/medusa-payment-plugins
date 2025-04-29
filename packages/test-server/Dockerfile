@@ -17,7 +17,7 @@ ARG GIT_TOKEN
 
 RUN git clone https://${GIT_TOKEN}@github.com/SGFGOV/medusa-payment-plugins.git
 
-WORKDIR /medusa/medusa-payment-plugins/packages/test-server
+WORKDIR /medusa/medusa-payment-plugins
 
 RUN corepack enable
 
@@ -67,5 +67,5 @@ RUN yarn && yarn run build
 #RUN yarn add medusa-plugin-razorpay-v2
 #RUN yarn add medusa-plugin-btcpay
 RUN echo "loading completed.."
-CMD ["bash", "start-dev.sh"]
+CMD ["bash", "./packages/test-server/start-dev.sh"]
 #ENTRYPOINT ["./packages/test-server/start-dev.sh", "develop"]
