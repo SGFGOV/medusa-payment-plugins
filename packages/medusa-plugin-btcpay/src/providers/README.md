@@ -62,15 +62,22 @@ module.exports = defineConfig({
             resolve:"medusa-plugin-btcpay/providers/payment-btcpay/src",
             id: "btcpay",
             options: {
-              basePath: process.env.BTCPAY_URL,
-              apiKey: `token ${process?.env?.BTCPAY_API_KEY}`,
-              default_store_id: process.env.BTCPAY_STORE_ID,
-              webhook_secret: process.env.BTCPAY_WEBHOOK_SECRET,
-              storefront_url: process.env?.STOREFRONT_URL,
-              refund_charges_percentage: "2.0", // <Any Flat payment charge e>,
-              currency:process?.env?.BTCPAY_TEST_CURRENCY ?? "USD",
-             crypto_currency:"BTC" //currently we support only this
-            },
+                            refundVariant:process.env.REFUND_POLICY??'Custom',//InvoiceIdRefundBody.RefundVariantEnum,
+                            storefront_url: process.env?.STOREFRONT_URL,
+                            default_store_id:
+                                process?.env?.BTCPAY_STORE_ID,
+                            apiKey: `token ${process?.env?.BTCPAY_API_KEY}`,
+                            basePath: process?.env?.BTCPAY_URL,
+                            webhook_secret:
+                                process?.env?.BTCPAY_WEBHOOK_SECRET,
+                            refund_charges_percentage: process.env.BTC_TEST_CHARGE??"2.0",
+                            currency:
+                                process?.env?.BTCPAY_CURRENCY ?? "usd",
+                            autoCapture:
+                                process?.env?.BTCPAY_AUTO_CAPTURE ?? false,
+                            autoRefund:
+                                process?.env?.BTCPAY_AUTO_REFUND ?? false
+                        }
           },
           ...
         ],

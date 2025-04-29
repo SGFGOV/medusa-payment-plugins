@@ -141,7 +141,7 @@ module.exports = defineConfig({
                             "medusa-plugin-btcpay/providers/payment-btcpay/src",
                         id: "btcpay",
                         options: {
-                            refundRate:process.env.refundPolicy??'Custom',//InvoiceIdRefundBody.RefundVariantEnum,
+                            refundVariant:process.env.REFUND_POLICY??'Custom',//InvoiceIdRefundBody.RefundVariantEnum,
                             storefront_url: process.env?.STOREFRONT_URL,
                             default_store_id:
                                 process?.env?.BTCPAY_TEST_STORE_ID,

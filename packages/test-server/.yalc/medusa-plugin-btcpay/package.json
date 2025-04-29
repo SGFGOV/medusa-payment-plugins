@@ -1,0 +1,64 @@
+{
+  "name": "medusa-plugin-btcpay",
+  "version": "0.0.3",
+  "description": "A plugin to  receive for bitcoin payments in medusajss .",
+  "author": "Medusa (https://medusajs.com)",
+  "license": "MIT",
+  "files": [
+    ".medusa/server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SGFGOV/medusa-payment-plugins"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./workflows": "./.medusa/server/src/workflows/index.js",
+    "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
+    "./modules/*": "./.medusa/server/src/modules/*/index.js",
+    "./providers/*": "./.medusa/server/src/providers/*/index.js",
+    "./*": "./.medusa/server/src/*.js"
+  },
+  "keywords": [
+    "medusa",
+    "plugin",
+    "medusa-plugin-other",
+    "medusa-plugin",
+    "medusa-v2",
+    "medusa-plugin-btcpay",
+    "bitcoig",
+    "medusa-payment",
+    "medusa-plugin-payment"
+  ],
+  "scripts": {
+    "debug": "medusa plugin:develop",
+    "build": "medusa plugin:build",
+    "dev": "medusa plugin:develop",
+    "prepublishOnly": "medusa plugin:build"
+  },
+  "peerDependencies": {
+    "@medusajs/admin-sdk": "2.7.1",
+    "@medusajs/cli": "2.7.1",
+    "@medusajs/framework": "2.7.1",
+    "@medusajs/icons": "2.7.1",
+    "@medusajs/medusa": "2.7.1",
+    "@medusajs/test-utils": "2.7.1",
+    "@medusajs/ui": "4.0.3",
+    "@mikro-orm/cli": "6.4.3",
+    "@mikro-orm/core": "6.4.3",
+    "@mikro-orm/knex": "6.4.3",
+    "@mikro-orm/migrations": "6.4.3",
+    "@mikro-orm/postgresql": "6.4.3",
+    "awilix": "^8.0.1",
+    "pg": "^8.13.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "yarn@4.6.0",
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
+    "ws": "^8.18.1"
+  },
+  "yalcSig": "1212e20f3971c47106b2ae7860e090b3"
+}

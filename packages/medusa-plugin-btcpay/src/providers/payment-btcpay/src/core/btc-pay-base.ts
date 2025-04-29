@@ -787,12 +787,13 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         input: RefundPaymentInput
     ): Promise<RefundPaymentOutput> {
         const { data, context, amount: refundAmount } = input;
-
         const { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        await this.getPaymentSessionAndInvoiceFromInput(input);
 
+        try {
+        
         const customInfo  = this.options_.refundVariant == InvoiceIdRefundBody.RefundVariantEnum.Custom?
-        {customAmount:         refundAmount.toString(),
+        {customAmount:         (refundAmount as any).value.toString(),
         customCurrency: btc_invoice.currency}:{
 
         }
@@ -813,6 +814,13 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         return {
             data: { btc_invoice:invoiceData }
         };
+    }
+    catch(e)
+    {
+        return {
+            data: { btc_invoice }
+        };
+    }
     }
     async retrievePayment(
         input: RetrievePaymentInput

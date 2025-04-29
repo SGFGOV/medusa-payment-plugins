@@ -2,9 +2,9 @@
   "version": "v1",
   "packages": {
     "medusa-plugin-btcpay": {
-      "signature": "195002495c6fa99cc12303f32c1a4c7d",
+      "signature": "1212e20f3971c47106b2ae7860e090b3",
       "file": true,
-      "replaced": "workspace:*"
+      "replaced": "workspace:^"
     },
     "medusa-plugin-razorpay-v2": {
       "signature": "f7b9db89098f5b0102d7be454d70315f",
