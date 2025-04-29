@@ -74,6 +74,6 @@ export function getAmountFromSmallestUnit(
     currency: string
 ): number {
     const multiplier = getCurrencyMultiplier(currency);
-    const standardAmount = new BigNumber(MathBN.mult(amount, multiplier));
+    const standardAmount = new BigNumber(MathBN.div(amount, multiplier));
     return standardAmount.numeric;
 }
