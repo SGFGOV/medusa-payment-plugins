@@ -7,7 +7,7 @@ import {
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
-const allowedHosts = process.env.ALLOWED_HOSTS?.split(",")??"localhost"
+const allowedHosts = process.env.ALLOWED_HOSTS?.split(",")??["localhost"]
 module.exports = defineConfig({
     admin: {
         vite: (config) => {
