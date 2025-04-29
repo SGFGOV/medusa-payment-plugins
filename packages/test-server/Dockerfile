@@ -67,5 +67,6 @@ RUN yarn && yarn run build
 #RUN yarn add medusa-plugin-razorpay-v2
 #RUN yarn add medusa-plugin-btcpay
 RUN echo "loading completed.."
-CMD ["./packages/test-server/start-dev.sh"]
+WORKDIR /medusa/medusa-payment-plugins/packages/test-server
+CMD ["start-dev.sh"]
 #ENTRYPOINT ["./packages/test-server/start-dev.sh", "develop"]
