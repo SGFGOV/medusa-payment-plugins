@@ -1,4 +1,3 @@
-#!/bin/bash
 
 		#Run migrations to ensure the database is updated
 		#cd packages/test-server
