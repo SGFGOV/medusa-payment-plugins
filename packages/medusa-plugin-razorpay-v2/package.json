@@ -25,6 +25,7 @@
     "medusa-plugin-other",
     "medusa-plugin",
     "medusa-v2",
+    "medusa-plugin-integration",
     "medusa-plugin-payment",
     "medusa-plugin-razorpay",
     "razorpay",

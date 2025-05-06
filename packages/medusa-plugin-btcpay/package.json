@@ -22,11 +22,11 @@
   "keywords": [
     "medusa",
     "plugin",
-    "medusa-plugin-other",
-    "medusa-plugin",
+    "medusa-plugin-integration",
     "medusa-v2",
+    "medusa-plugin-other",
     "medusa-plugin-btcpay",
-    "bitcoig",
+    "bitcoin",
     "medusa-payment",
     "medusa-plugin-payment"
   ],
