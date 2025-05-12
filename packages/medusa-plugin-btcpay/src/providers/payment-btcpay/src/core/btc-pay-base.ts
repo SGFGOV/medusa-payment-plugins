@@ -614,10 +614,11 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             }
         }
 
-        const amountCollected = getAmountFromSmallestUnit(
-            btcpayInvoice.amount!.toString(),
-            btcpayInvoice.currency!
-        );
+        const amountCollected = parseFloat(btcpayInvoice.amount ?? "0");
+        // getAmountFromSmallestUnit(
+        //     btcpayInvoice.amount!.toString(),
+        //     btcpayInvoice.currency!
+        // ) * 100;
         const result = await this.handleWebhookEvents_({
             event,
             session_id,
@@ -633,10 +634,11 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 "Storefront URL is required in the provider's options."
             );
         }
-        if(!options.refundVariant){
+        if (!options.refundVariant) {
             throw new MedusaError(
-        MedusaError.Types.INVALID_DATA,
-        "Refund rate isn't set")
+                MedusaError.Types.INVALID_DATA,
+                "Refund rate isn't set"
+            );
         }
         if (!options.apiKey) {
             throw new MedusaError(
@@ -788,39 +790,40 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     ): Promise<RefundPaymentOutput> {
         const { data, context, amount: refundAmount } = input;
         const { btc_invoice, paymentSession } =
-        await this.getPaymentSessionAndInvoiceFromInput(input);
+            await this.getPaymentSessionAndInvoiceFromInput(input);
 
         try {
-        
-        const customInfo  = this.options_.refundVariant == InvoiceIdRefundBody.RefundVariantEnum.Custom?
-        {customAmount:         (refundAmount as any).value.toString(),
-        customCurrency: btc_invoice.currency}:{
+            const customInfo =
+                this.options_.refundVariant ==
+                InvoiceIdRefundBody.RefundVariantEnum.Custom
+                    ? {
+                          customAmount: (refundAmount as any).value.toString(),
+                          customCurrency: btc_invoice.currency
+                      }
+                    : {};
 
+            const btcRefundStrategy: InvoiceIdRefundBody = {
+                payoutMethodId: "BTC-CHAIN",
+                refundVariant:
+                    this.options_.refundVariant ??
+                    InvoiceIdRefundBody.RefundVariantEnum.OverpaidAmount,
+                subtractPercentage: this.options_.refund_charges_percentage,
+                ...customInfo
+            };
+
+            const invoiceData = await this.btcpay_.invoicesRefund(
+                btcRefundStrategy,
+                btc_invoice.id as string,
+                btc_invoice.storeId as string
+            );
+            return {
+                data: { btc_invoice: invoiceData }
+            };
+        } catch (e) {
+            return {
+                data: { btc_invoice }
+            };
         }
-
-        const btcRefundStrategy:InvoiceIdRefundBody = {
-            payoutMethodId: "BTC-CHAIN",
-            refundVariant: this.options_.refundVariant ??
-              InvoiceIdRefundBody.RefundVariantEnum.OverpaidAmount,
-            subtractPercentage: this.options_.refund_charges_percentage,
-            ...customInfo,
-        }
-
-        const invoiceData = await this.btcpay_.invoicesRefund(
-            btcRefundStrategy,
-            btc_invoice.id as string,
-            btc_invoice.storeId as string
-        );
-        return {
-            data: { btc_invoice:invoiceData }
-        };
-    }
-    catch(e)
-    {
-        return {
-            data: { btc_invoice }
-        };
-    }
     }
     async retrievePayment(
         input: RetrievePaymentInput
