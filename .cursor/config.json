@@ -1,0 +1,6 @@
+{
+    "projectName": "payment-services",
+    "rulesDir": "cursor-rules",
+    "description": "Cursor project configuration for payment-services monorepo."
+    
+}
