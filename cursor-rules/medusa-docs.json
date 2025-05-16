@@ -1,0 +1,8 @@
+{
+    "name": "Medusa Documentation",
+    "description": "Documentation for Medusa e-commerce platform",
+    "content": "# Introduction Medusa is a digital commerce platform with a built-in Framework for customization. Medusa ships with three main tools: 1. A suite of Commerce Modules with core commerce functionalities, such as tracking inventory, calculating cart totals, accepting payments, managing orders, and much more. 2. A Framework for building custom functionalities specific to your business, product, or industry. This includes tools for introducing custom API endpoints, business logic, and data models; building workflows and automations; and integrating with third-party services. 3. A customizable admin dashboard for merchants to configure and operate their store. When you install Medusa, you get a fully fledged commerce platform with all the features you need to get off the ground. However, unlike other platforms, Medusa is built with customization in mind. You don't need to build hacky workarounds that are difficult to maintain and scale. Your efforts go into building features that brings your business's vision to life.",
+    "source": "https://docs.medusajs.com/llms-full.txt",
+    "version": "1.0.0",
+    "lastUpdated": "2024-03-19"
+} 

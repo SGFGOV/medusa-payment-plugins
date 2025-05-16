@@ -2,4 +2,3 @@ node_modules/
 .turbo
 docker-volumes/
 .env
-cursor-rules/
