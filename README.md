@@ -94,7 +94,10 @@ This repository uses:
 
 ## 🆘 Support
 
-If you need help with any of the payment plugins or have questions about contributing, please open an issue in the repository.
+If you need help with any of the payment plugins or have questions about contributing, please contact us:
+
+- Email: [sgf@sourcegoodfood.com](mailto:sgf@sourcegoodfood.com)
+- Discord: [govdiw006](https://discord.com/users/govdiw006)
 
 ## 💖 Sponsorship
 

@@ -1,4 +1,3 @@
-
 # Support the Payment-BitcoinPayServer Provider – Power the Future of Medusa Commerce!
 
 Dear Developers and E-commerce Pioneers,
@@ -261,11 +260,11 @@ Dear Medusa Enthusiasts,
 Thank you for your passion and energy for open e-commerce!  
 The Payment-BitcoinPayServer provider is an open-source project crafted to connect MedusaJS with the powerful Bitcoin payment ecosystem.
 
-If you find this project useful, consider sponsoring it [on GitHub](https://github.com/sponsors/yourgithubusername) to help maintain and expand it.  
+If you find this project useful, consider sponsoring it [on GitHub](https://github.com/sponsors/SGFGOV) to help maintain and expand it.  
 Your support makes a world of difference in creating decentralized, open, and innovative commerce for all.
 
 Let's keep building the future together!
 
 With gratitude,  
-**[YourName]**  
+**SGFGOV**  
 Lead Developer, Payment-BitcoinPayServer Provider
