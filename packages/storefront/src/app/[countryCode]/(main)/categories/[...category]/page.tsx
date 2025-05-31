@@ -25,7 +25,7 @@ export async function generateStaticParams() {
   const countryCodes = await listRegions().then((regions: StoreRegion[]) =>
     regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
   )
-
+  
   const categoryHandles = product_categories.map(
     (category: any) => category.handle
   )
