@@ -83,13 +83,13 @@ export default async function seedDemoData({ container }: ExecArgs) {
           name: "United States",
           currency_code: "usd",
           countries: ["us"],
-          payment_providers: ["pp_btcpay_btcpay"],
+          payment_providers: ["pp_btcpay_btcpay", "pp_system_default"],
         },
         {
           name: "India",
           currency_code: "inr",
           countries: ["in"],
-          payment_providers: ["pp_razorpay_razorpay"],
+          payment_providers: ["pp_razorpay_razorpay", "pp_system_default"],
         }
       ],
     },
@@ -277,10 +277,11 @@ export default async function seedDemoData({ container }: ExecArgs) {
             amount: 10,
           },
           
-          {
+          ...regionResult.map((region) => ({
+          
             region_id: region.id,
             amount: 10,
-          },
+          })),
         ],
         rules: [
           {

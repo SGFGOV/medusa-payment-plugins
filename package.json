@@ -5,7 +5,7 @@
   "workspaces": [
     "packages/**",
     "!packages/storefront",
-    "!**./medusa/**"
+    "!**/.medusa/**"
   ],
   "scripts": {
     "build": "turbo run build",
@@ -15,7 +15,8 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "prepare": "turbo run prepare",
-    "publish": "turbo run publish"
+    "publish": "turbo run publish",
+    "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
     "@medusajs/admin-sdk": "2.7.0",
