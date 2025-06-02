@@ -130,7 +130,15 @@
             "name": "Debug Storefront",
             "command": "yarn run dev",
             "cwd": "${workspaceFolder}/packages/storefront",
-          }
+          },
       
+
+          {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Debug Storefront - cypress",
+            "command": "yarn run cypress:run",
+            "cwd": "${workspaceFolder}/packages/storefront",
+          }
     ]
 }
