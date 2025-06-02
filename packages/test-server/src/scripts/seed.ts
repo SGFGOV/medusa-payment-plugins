@@ -79,6 +79,18 @@ export default async function seedDemoData({ container }: ExecArgs) {
           countries,
           payment_providers: ["pp_system_default"],
         },
+        {
+          name: "United States",
+          currency_code: "usd",
+          countries: ["us"],
+          payment_providers: ["pp_btcpay_btcpay"],
+        },
+        {
+          name: "India",
+          currency_code: "inr",
+          countries: ["in"],
+          payment_providers: ["pp_razorpay_razorpay"],
+        }
       ],
     },
   });
@@ -87,7 +99,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   logger.info("Seeding tax regions...");
   await createTaxRegionsWorkflow(container).run({
-    input: countries.map((country_code) => ({
+    input: [...countries, "us", "in"].map((country_code) => ({
       country_code,
     })),
   });
@@ -177,6 +189,14 @@ export default async function seedDemoData({ container }: ExecArgs) {
             country_code: "it",
             type: "country",
           },
+          {
+            country_code: "us",
+            type: "country",
+          },
+          {
+            country_code: "in",
+            type: "country",
+          },
         ],
       },
     ],
@@ -214,9 +234,14 @@ export default async function seedDemoData({ container }: ExecArgs) {
             amount: 10,
           },
           {
-            region_id: region.id,
+            currency_code: "inr",
             amount: 10,
           },
+          ...regionResult.map((region) => ({
+          
+            region_id: region.id,
+            amount: 10,
+          })),
         ],
         rules: [
           {
@@ -251,6 +276,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
             currency_code: "eur",
             amount: 10,
           },
+          
           {
             region_id: region.id,
             amount: 10,
@@ -332,10 +358,29 @@ export default async function seedDemoData({ container }: ExecArgs) {
     },
   });
 
+  const variantPrices = (amount: number) => [
+    {
+      amount: Math.round(amount * (1+Math.random())),
+      currency_code: "eur",
+    },
+    {
+      amount: Math.round(amount * (1+Math.random())),
+      currency_code: "usd",
+    },
+    ...regionResult.map((region) => ({
+      amount: Math.round(amount * (1+Math.random())),
+      currency_code: region.currency_code,
+    })),
+    {
+      amount: Math.round(amount * (1+Math.random())*10),
+      currency_code: "inr",
+    },
+  ]
+
   await createProductsWorkflow(container).run({
     input: {
       products: [
-        {
+      {
           title: "Medusa T-Shirt",
           category_ids: [
             categoryResult.find((cat) => cat.name === "Shirts")!.id,
@@ -378,16 +423,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "S",
                 Color: "Black",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              
             },
             {
               title: "S / White",
@@ -396,16 +432,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "S",
                 Color: "White",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10),
             },
             {
               title: "M / Black",
@@ -414,16 +441,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "M",
                 Color: "Black",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10),
             },
             {
               title: "M / White",
@@ -432,16 +450,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "M",
                 Color: "White",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "L / Black",
@@ -450,16 +459,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "L",
                 Color: "Black",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "L / White",
@@ -468,16 +468,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "L",
                 Color: "White",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "XL / Black",
@@ -486,16 +477,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "XL",
                 Color: "Black",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "XL / White",
@@ -504,16 +486,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
                 Size: "XL",
                 Color: "White",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
           ],
           sales_channels: [
@@ -554,16 +527,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "S",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "M",
@@ -571,16 +535,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "M",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "L",
@@ -588,16 +543,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "L",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "XL",
@@ -605,16 +551,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "XL",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
           ],
           sales_channels: [
@@ -655,16 +592,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "S",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "M",
@@ -672,16 +600,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "M",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "L",
@@ -689,16 +608,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "L",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "XL",
@@ -706,16 +616,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "XL",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
           ],
           sales_channels: [
@@ -756,16 +657,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "S",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "M",
@@ -773,16 +665,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "M",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "L",
@@ -790,16 +673,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "L",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
             {
               title: "XL",
@@ -807,16 +681,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
               options: {
                 Size: "XL",
               },
-              prices: [
-                {
-                  amount: 10,
-                  currency_code: "eur",
-                },
-                {
-                  amount: 15,
-                  currency_code: "usd",
-                },
-              ],
+              prices: variantPrices(10)
             },
           ],
           sales_channels: [

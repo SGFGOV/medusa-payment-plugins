@@ -123,6 +123,14 @@
             "console": "integratedTerminal",
             "trace": true
           },
+
+          {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Debug Storefront",
+            "command": "yarn run dev",
+            "cwd": "${workspaceFolder}/packages/storefront",
+          }
       
     ]
 }
