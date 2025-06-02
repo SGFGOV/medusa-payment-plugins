@@ -2,3 +2,5 @@ node_modules/
 .turbo
 docker-volumes/
 .env
+awesome-cursorrules
+screenshots/

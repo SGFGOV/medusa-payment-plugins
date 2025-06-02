@@ -5,22 +5,20 @@ import {
     ContainerRegistrationKeys
 } from "@medusajs/framework/utils";
 
-
-
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
-const allowedHosts = process.env.ALLOWED_HOSTS?.split(",")??["localhost"]
+const allowedHosts = process.env.ALLOWED_HOSTS?.split(",") ?? ["localhost"];
 module.exports = defineConfig({
     admin: {
-        vite: (config) => {
-          return {
-            server: {
-                allowedHosts: allowedHosts
-              }
-          }
-        },
-      },
-    
+        vite: () => {
+            return {
+                server: {
+                    allowedHosts: allowedHosts
+                }
+            };
+        }
+    },
+
     projectConfig: {
         databaseUrl: process.env.DATABASE_URL,
         http: {
@@ -34,7 +32,7 @@ module.exports = defineConfig({
     plugins: ["medusa-plugin-razorpay-v2", "medusa-plugin-btcpay"],
     modules: [
         // {
-        //     resolve: "@rokmohar/medusa-plugin-meilisearch", 
+        //     resolve: "@rokmohar/medusa-plugin-meilisearch",
         //     options: {
         //         config: {
         //             host: process.env.MEILISEARCH_HOST,
@@ -141,7 +139,8 @@ module.exports = defineConfig({
                             "medusa-plugin-btcpay/providers/payment-btcpay/src",
                         id: "btcpay",
                         options: {
-                            refundVariant:process.env.REFUND_POLICY??'Custom',//InvoiceIdRefundBody.RefundVariantEnum,
+                            refundVariant:
+                                process.env.REFUND_POLICY ?? "Custom", // InvoiceIdRefundBody.RefundVariantEnum,
                             storefront_url: process.env?.STOREFRONT_URL,
                             default_store_id:
                                 process?.env?.BTCPAY_TEST_STORE_ID,
@@ -149,7 +148,8 @@ module.exports = defineConfig({
                             basePath: process?.env?.BTCPAY_TEST_URL,
                             webhook_secret:
                                 process?.env?.BTCPAY_TEST_WEBHOOK_SECRET,
-                            refund_charges_percentage: process.env.BTC_TEST_CHARGE??"2.0",
+                            refund_charges_percentage:
+                                process.env.BTC_TEST_CHARGE ?? "2.0",
                             currency:
                                 process?.env?.BTCPAY_TEST_CURRENCY ?? "usd",
                             autoCapture:
