@@ -678,7 +678,19 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async deletePayment(
         input: DeletePaymentInput
     ): Promise<DeletePaymentOutput> {
-        return await this.cancelPayment(input);
+        try {
+            return await this.cancelPayment(input);
+        } catch (e) {
+            this.logger.error(
+                `Error deleting Razorpay payment: ${e.message}`,
+                e
+            );
+            return {
+                data: {
+                    razorpayOrder: input.data?.razorpayOrder
+                }
+            }
+        }
     }
     async getPaymentStatus(
         input: GetPaymentStatusInput
