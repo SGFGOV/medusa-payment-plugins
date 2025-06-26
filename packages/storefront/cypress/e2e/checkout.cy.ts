@@ -140,14 +140,12 @@ describe('E-commerce Checkout Flow', () => {
     // Switch to the Razorpay iframe
     console.log('💳 Processing Razorpay payment')
     cy.frameLoaded('.razorpay-checkout-frame')
-    console.log('🔍 Verifying Razorpay iframe - 1')
-    cy.enter(".razorpay-checkout-frame")
       .then($iframe => {
         console.log('🔍 Verifying Razorpay iframe - 2')
-        cy.wrap($iframe).iframe().within(() => {
+        cy.wrap($iframe)
           // Click on UPI tab
           console.log('💳 Selecting UPI payment method')
-          cy.get('[data-value="upi"]').click()
+          cy.get('button[data-testid="UPI - Google Pay"]').click()
 
           // Wait for the UPI input field to be visible
           console.log('⏳ Waiting for UPI input field')
@@ -160,7 +158,7 @@ describe('E-commerce Checkout Flow', () => {
           // Click the submit button
           console.log('✅ Submitting UPI payment')
           cy.get('button[data-testid="vpa-submit"]').click()
-        })
+        
       })
 
     // Wait for 60 seconds for payment processing
