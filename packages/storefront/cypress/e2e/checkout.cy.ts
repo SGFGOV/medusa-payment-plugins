@@ -153,13 +153,30 @@ describe('E-commerce Checkout Flow', () => {
           console.log('💳 Selecting UPI payment method')
           cy.get('div[class="bg-surface-25 px-2 py-2 transition-all duration-300 ease-in-out empty:hidden focus-visible:border-solid focus-visible:border-opacity-100 peer-checked:bg-surface extra-light-theme:bg-surface-600/10 !bg-surface "]').click()
 
-          // Wait for the UPI input field to be visible
+          // Wait for the UPI input field to be visible with multiple selector options
           console.log('⏳ Waiting for UPI input field')
-          cy.get('input[name="vpa"]').should('be.visible')
+          
+          // Try multiple selectors with increased timeout
+          cy.get('body').then($body => {
+            // Debug: Log what's actually in the iframe
+            console.log('🔍 Iframe body content:', $body.html())
+          })
+          
+          // Wait longer and try multiple selectors
+          cy.wait(5000) // Wait for UPI tab content to load
+          
+          // Try the name attribute first (most reliable)
+          cy.get('input[name="vpa"]', { timeout: 15000 })
+            .should('be.visible')
+            .then($input => {
+              console.log('✅ Found UPI input with name="vpa"')
+            })
 
           // Enter UPI ID
           console.log('💳 Entering UPI ID')
-          cy.get('input[name="vpa"]').type('gov@okaxis')
+          cy.get('input[name="vpa"]')
+            .clear()
+            .type('gov@okaxis', { force: true })
 
           // Click the submit button
           console.log('✅ Submitting UPI payment')
