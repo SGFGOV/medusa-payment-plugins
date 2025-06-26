@@ -108,6 +108,7 @@ export const RazorpayPaymentButton = ({
   return (
     <>
       <Button
+        data-testid="complete-checkout-button"
         disabled={submitting || notReady || !orderData?.razorpayOrder?.id||orderData?.razorpayOrder?.id == ''}
         onClick={()=>{
           console.log(`processing order id: ${orderData.razorpayOrder.id}`)

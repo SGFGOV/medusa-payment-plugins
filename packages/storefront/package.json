@@ -14,7 +14,7 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --headless"
+    "cypress:run": "ELECTRON_ENABLE_LOGGING=1 cypress run --headless"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",

@@ -32,6 +32,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
     <RadioGroupOption
       key={paymentProviderId}
       value={paymentProviderId}
+      data-testid={`payment-option-${paymentProviderId}`}
       disabled={disabled}
       className={clx(
         "flex flex-col gap-y-2 text-small-regular cursor-pointer py-4 border rounded-rounded px-8 mb-2 hover:shadow-borders-interactive-with-active",
