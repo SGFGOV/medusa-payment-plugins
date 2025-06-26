@@ -52,6 +52,7 @@ You need to add the provider into your medusa-config.ts as shown below
 
 ```
 module.exports = defineConfig({
+plugins:[...,"medusa-plugin-razorpay-v2",...],
 modules: [
   ...
     {      resolve: "@medusajs/medusa/payment",
