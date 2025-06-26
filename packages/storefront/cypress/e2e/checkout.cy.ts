@@ -151,7 +151,7 @@ describe('E-commerce Checkout Flow', () => {
           
           // Click on UPI tab
           console.log('💳 Selecting UPI payment method')
-          cy.get('div[class="bg-surface-25 px-2 py-2 transition-all duration-300 ease-in-out empty:hidden focus-visible:border-solid focus-visible:border-opacity-100 peer-checked:bg-surface extra-light-theme:bg-surface-600/10 !bg-surface "]').click()
+          cy.contains('UPI').first().click()
 
           cy.wait(5000)
           // Wait for the UPI input field to be visible
