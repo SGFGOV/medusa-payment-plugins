@@ -1,6 +1,6 @@
 {
   "name": "medusa-plugin-razorpay-v2",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A plugin to receive payments in medusajs v2 using Razorpay.",
   "author": "Medusa (https://medusajs.com)",
   "license": "MIT",
