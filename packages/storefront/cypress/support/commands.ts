@@ -23,7 +23,20 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
+
+// Custom iframe command
+Cypress.Commands.add('iframe', (iframeSelector: string) => {
+  return cy
+    .get(iframeSelector)
+    .its('0.contentDocument')
+    .should('exist')
+    .its('body')
+    .should('not.be.undefined')
+    .then(($body) => {
+      return cy.wrap($body)
+    })
+})
+
 // declare global {
 //   namespace Cypress {
 //     interface Chainable {
@@ -31,6 +44,7 @@
 //       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
 //       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
 //       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+//       iframe(iframeSelector: string): Chainable<Element>
 //     }
 //   }
 // }
