@@ -204,18 +204,24 @@ The tests use the following test data:
    - Check that the Medusa backend is running on port 9000
    - Verify that test data is properly seeded
 
-2. **Razorpay iframe issues:**
+2. **No products appear in the store:**
+   - Make sure you've run the database seeding script: `npx medusa exec ./src/scripts/seed.ts`
+   - Check that the database migrations have been applied: `npx medusa db:migrate`
+   - Verify the Medusa backend is running and connected to the database
+
+3. **Razorpay iframe issues:**
    - The tests include specific handling for Razorpay iframes
    - Chrome Web Security is disabled to allow iframe interactions
    - Tests include appropriate wait times for iframe loading
 
-3. **Payment processing timeouts:**
+4. **Payment processing timeouts:**
    - The tests include extended wait times for payment processing
    - If tests consistently timeout, consider increasing wait times in the test file
 
-4. **Database connection issues:**
+5. **Database connection issues:**
    - Ensure Docker containers are running: `docker-compose ps`
    - Restart services if needed: `yarn dev`
+   - Check database logs: `docker-compose logs postgres`
 
 #### Debug Mode:
 
