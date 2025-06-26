@@ -92,6 +92,143 @@ This repository uses:
 - TypeScript for type safety
 - ESLint and Prettier for code formatting
 
+## 🧪 Testing
+
+This repository includes comprehensive end-to-end (e2e) tests using Cypress to ensure the payment integration flows work correctly.
+
+### Prerequisites
+
+Before running the e2e tests, make sure you have:
+
+1. **Docker and Docker Compose** installed and running
+2. **Node.js** (version 18 or higher)
+3. **Yarn** package manager
+
+### Setting Up the Test Environment
+
+1. **Start the development environment:**
+   ```bash
+   # Install dependencies
+   yarn install
+   
+   # Start all services (Medusa backend, database, Redis, etc.)
+   yarn dev
+   ```
+
+2. **Seed the database with test data:**
+   ```bash
+   # Navigate to the test-server package
+   cd packages/test-server
+   
+   # Run database migrations and seed with test data
+   npx medusa db:migrate
+   npx medusa exec ./src/scripts/seed.ts
+   ```
+   
+   This will create:
+   - Sample products (T-Shirt, Sweatshirt, Sweatpants, Shorts)
+   - Product categories and variants
+   - Shipping options and regions
+   - Payment providers configuration
+   - Inventory levels
+   - API keys and sales channels
+
+3. **Verify services are running:**
+   - Medusa backend should be running on `http://localhost:9000`
+   - Storefront should be running on `http://localhost:8000`
+   - Database and Redis should be running via Docker
+
+### Running E2E Tests
+
+The e2e tests are located in `packages/storefront/cypress/e2e/` and test the complete checkout flow including payment processing.
+
+#### Option 1: Run Tests in Headless Mode (CI/CD)
+```bash
+# Navigate to the storefront package
+cd packages/storefront
+
+# Run tests in headless mode
+yarn cypress:run
+```
+
+#### Option 2: Open Cypress Test Runner (Interactive)
+```bash
+# Navigate to the storefront package
+cd packages/storefront
+
+# Open Cypress test runner
+yarn cypress:open
+```
+
+This will open the Cypress Test Runner where you can:
+- See all available test files
+- Run tests individually or all at once
+- Watch tests execute in real-time
+- Debug and interact with the application during test execution
+
+### Test Configuration
+
+The Cypress configuration is located at `packages/storefront/cypress.config.ts` with the following settings:
+
+- **Base URL**: `http://localhost:8000` (storefront)
+- **Viewport**: 1280x720
+- **Video Recording**: Disabled
+- **Screenshots**: Enabled on failure
+- **Default Timeout**: 10 seconds
+- **Chrome Web Security**: Disabled (for iframe testing)
+
+### Available Test Files
+
+- `checkout.cy.ts` - Tests the complete checkout flow with Razorpay payment integration
+  - Product selection and cart management
+  - Address and shipping information
+  - Payment method selection
+  - Razorpay payment processing
+  - Order confirmation
+
+### Test Data and Environment
+
+The tests use the following test data:
+- **Product**: Sweatpants (first product in the store)
+- **Size**: L
+- **Shipping Address**: Mumbai, Maharashtra, India
+- **Payment Method**: Razorpay UPI
+- **Test UPI ID**: `gov@okaxis`
+
+### Troubleshooting
+
+#### Common Issues:
+
+1. **Tests fail with "element not found" errors:**
+   - Ensure the storefront is running on port 8000
+   - Check that the Medusa backend is running on port 9000
+   - Verify that test data is properly seeded
+
+2. **Razorpay iframe issues:**
+   - The tests include specific handling for Razorpay iframes
+   - Chrome Web Security is disabled to allow iframe interactions
+   - Tests include appropriate wait times for iframe loading
+
+3. **Payment processing timeouts:**
+   - The tests include extended wait times for payment processing
+   - If tests consistently timeout, consider increasing wait times in the test file
+
+4. **Database connection issues:**
+   - Ensure Docker containers are running: `docker-compose ps`
+   - Restart services if needed: `yarn dev`
+
+#### Debug Mode:
+
+To run tests with additional logging:
+```bash
+cd packages/storefront
+ELECTRON_ENABLE_LOGGING=1 yarn cypress:run
+```
+
+### Continuous Integration
+
+The e2e tests are designed to run in CI/CD environments. The headless mode (`cypress:run`) is optimized for automated testing pipelines.
+
 ## 🆘 Support
 
 If you need help with any of the payment plugins or have questions about contributing, please contact us:
