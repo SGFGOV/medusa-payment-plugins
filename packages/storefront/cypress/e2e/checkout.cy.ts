@@ -151,15 +151,15 @@ describe('E-commerce Checkout Flow', () => {
           
           // Click on UPI tab
           console.log('💳 Selecting UPI payment method')
-          cy.get('button[data-testid="UPI - Google Pay"]').click()
+          cy.get('div[class="bg-surface-25 px-2 py-2 transition-all duration-300 ease-in-out empty:hidden focus-visible:border-solid focus-visible:border-opacity-100 peer-checked:bg-surface extra-light-theme:bg-surface-600/10 !bg-surface "]').click()
 
           // Wait for the UPI input field to be visible
           console.log('⏳ Waiting for UPI input field')
-          cy.get('input[placeholder="example@okhdfcbank"]').should('be.visible')
+          cy.get('input[name="vpa"]').should('be.visible')
 
           // Enter UPI ID
           console.log('💳 Entering UPI ID')
-          cy.get('input[placeholder="example@okhdfcbank"]').type('gov@okaxis')
+          cy.get('input[name="vpa"]').type('gov@okaxis')
 
           // Click the submit button
           console.log('✅ Submitting UPI payment')
