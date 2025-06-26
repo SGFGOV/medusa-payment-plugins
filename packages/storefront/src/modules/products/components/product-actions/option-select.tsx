@@ -42,7 +42,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
                 }
               )}
               disabled={disabled}
-              data-testid="option-button"
+              data-testid={`option-button-${v}`}
             >
               {v}
             </button>

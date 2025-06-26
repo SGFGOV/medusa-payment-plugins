@@ -98,18 +98,7 @@ module.exports = defineConfig({
         },
         {
             resolve: "@medusajs/medusa/payment",
-            dependencies: [
-                Modules.CUSTOMER,
-                Modules.ORDER,
-                Modules.PAYMENT,
-                Modules.CART,
-                ContainerRegistrationKeys.MANAGER,
-                ContainerRegistrationKeys.LOGGER,
-                Modules.LINK,
-                ContainerRegistrationKeys.LINK,
-                ContainerRegistrationKeys.QUERY,
-                ContainerRegistrationKeys.PG_CONNECTION
-            ],
+            dependencies: [Modules.PAYMENT, ContainerRegistrationKeys.LOGGER],
             options: {
                 providers: [
                     {

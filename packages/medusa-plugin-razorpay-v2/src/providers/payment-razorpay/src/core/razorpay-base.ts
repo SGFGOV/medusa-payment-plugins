@@ -30,22 +30,16 @@ import {
     UpdatePaymentOutput,
     ProviderWebhookPayload,
     WebhookActionResult,
-    ICartModuleService,
-    ICustomerModuleService,
     IPaymentModuleService,
     Logger,
     MedusaContainer,
-    CartDTO,
     PaymentSessionDTO,
     CustomerDTO,
-    CartAddressDTO,
     CreateAccountHolderOutput,
     CreateAccountHolderInput,
     UpdateAccountHolderInput,
     DeleteAccountHolderOutput,
     DeleteAccountHolderInput,
-    SavePaymentMethodOutput,
-    SavePaymentMethodInput,
     UpdateAccountHolderOutput,
     PaymentCustomerDTO,
     PaymentAccountHolderDTO
@@ -59,7 +53,6 @@ import {
 import Razorpay from "razorpay";
 import { getAmountFromSmallestUnit } from "../utils/get-smallest-unit";
 import { Orders } from "razorpay/dist/types/orders";
-import { Customers } from "razorpay/dist/types/customers";
 import { updateRazorpayCustomerMetadataWorkflow } from "../workflows/update-razorpay-customer-metadata";
 import { IMap } from "razorpay/dist/types/api";
 import { Payments } from "razorpay/dist/types/payments";
@@ -69,14 +62,13 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     protected razorpay_: Razorpay;
     logger: Logger;
     container_: MedusaContainer;
-    customerService: ICustomerModuleService;
+
     paymentService: IPaymentModuleService;
     protected constructor(container: MedusaContainer, options) {
         super(container, options);
 
         this.options_ = options;
         this.logger = container[ContainerRegistrationKeys.LOGGER];
-        this.customerService = container[Modules.CUSTOMER];
         this.paymentService = container[Modules.PAYMENT];
 
         this.container_ = container;
@@ -146,46 +138,6 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         }
     }
 
-    // async getEntityFromTable<T>(
-    //     table_name: string,
-    //     id: string[],
-    //     field = "id"
-    // ): Promise<T[]> {
-    //     const connection = this.container[
-    //         ContainerRegistrationKeys.PG_CONNECTION
-    //     ] as any;
-    //     const items = await connection
-    //         .table(table_name)
-    //         .select("*")
-    //         .where(field, "in", id);
-    //     return items as T[];
-    // }
-    // async getAllEntityFromTable<T>(table_name: string): Promise<T[]> {
-    //     const connection = this.container[
-    //         ContainerRegistrationKeys.PG_CONNECTION
-    //     ] as any;
-    //     const items = await connection.table(table_name).select("*");
-
-    //     return items as T[];
-    // }
-    // private async getCartId(idempotency_key: string): Promise<string> {
-    //     const ps = await this.paymentService.retrievePaymentSession(
-    //         idempotency_key!
-    //     );
-
-    //     const cart_payment_collections = await this.getEntityFromTable<{
-    //         cart_id: string;
-    //         payment_collection_id: string;
-    //         id: string;
-    //     }>(
-    //         "cart_payment_collection",
-    //         [ps.payment_collection_id],
-    //         "payment_collection_id"
-    //     );
-    //     const cartId = cart_payment_collections[0]?.cart_id as string;
-    //     return cartId;
-    // }
-
     async capturePayment(
         input: CapturePaymentInput
     ): Promise<CapturePaymentOutput> {
@@ -253,7 +205,10 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             razorpayOrder.id as string
         );
 
-        if (status.status == PaymentSessionStatus.AUTHORIZED && this.options_.auto_capture) {
+        if (
+            status.status == PaymentSessionStatus.AUTHORIZED &&
+            this.options_.auto_capture
+        ) {
             status.status = PaymentSessionStatus.CAPTURED;
         }
 
@@ -267,7 +222,6 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async cancelPayment(
         input: CancelPaymentInput
     ): Promise<CancelPaymentOutput> {
-        
         const { razorpayOrder, paymentSession } =
             await this.getPaymentSessionAndOrderFromInput(input);
 
@@ -278,7 +232,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             (item) => item.status == "captured"
         );
 
-        if(capturedPayments.length != 0) {
+        if (capturedPayments.length != 0) {
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
                 "Cannot cancel a payment that has been captured"
@@ -289,21 +243,23 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             (item) => item.status == "authorized"
         );
 
-        const result = await Promise.all(possibleRefunds?.map(async (payment) => {
-            const { id, amount, currency } = payment;
-            const toPay =
-                getAmountFromSmallestUnit(
-                    Math.round(parseInt(amount.toString())),
-                    currency.toUpperCase()
-                ) * 100;
-            const refund = await this.razorpay_.payments.refund(id, {
-                amount: toPay,
-                notes: {
-                    medusa_payment_session_id: paymentSession.id
-                }
-            });
-            return refund;
-        }));
+        const result = await Promise.all(
+            possibleRefunds?.map(async (payment) => {
+                const { id, amount, currency } = payment;
+                const toPay =
+                    getAmountFromSmallestUnit(
+                        Math.round(parseInt(amount.toString())),
+                        currency.toUpperCase()
+                    ) * 100;
+                const refund = await this.razorpay_.payments.refund(id, {
+                    amount: toPay,
+                    notes: {
+                        medusa_payment_session_id: paymentSession.id
+                    }
+                });
+                return refund;
+            })
+        );
         const syncResult = await this.syncPaymentSession(
             paymentSession.id,
             razorpayOrder.id as string
@@ -347,7 +303,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             (razorpayOrder?.notes as Record<string, string>)
                 ?.medusa_payment_session_id ?? context?.idempotency_key;
 
-        let paymentSession = await this.paymentService.retrievePaymentSession(
+        const paymentSession = await this.paymentService.retrievePaymentSession(
             paymentSessionId
         );
         if (!razorpayOrder) {
@@ -359,25 +315,11 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 razorpayOrder.id as string
             );
 
-        if (razorpayOrder_latest.status != razorpayOrder.status) {
-            razorpayOrder = razorpayOrder_latest;
+            if (razorpayOrder_latest.status != razorpayOrder.status) {
+                razorpayOrder = razorpayOrder_latest;
+            }
         }
-                    }
 
-        // this error checking isn't necessary as the payment session and razorpay order are created in the initiatePayment method
-
-        // if (!paymentSession) {
-        //     throw new MedusaError(
-        //         MedusaError.Types.NOT_FOUND,
-        //         `Payment session with ID ${paymentSessionId} not found`
-        //     );
-        // }
-        // if (!razorpayOrder) {
-        //     throw new MedusaError(
-        //         MedusaError.Types.NOT_FOUND,
-        //         "Razorpay order with ID is not found"
-        //     );
-        // }
         return {
             paymentSession,
             razorpayOrder: razorpayOrder
@@ -385,19 +327,12 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     }
 
     private getRazorpayOrderCreateRequestBody(
-       // cart: Partial<CartDTO>,
         amount: number,
-        currency_code: string,
-        razorpayCustomer?: PaymentAccountHolderDTO
-      //  customer: Customers.RazorpayCustomer
+        currency_code: string
     ): Orders.RazorpayOrderCreateRequestBody {
-
-        
-           
         const intentRequest: Orders.RazorpayOrderCreateRequestBody = {
             amount: amount,
             currency: currency_code.toUpperCase(),
-            
 
             payment: {
                 capture:
@@ -443,10 +378,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         input: InitiatePaymentInput
     ): Promise<InitiatePaymentOutput> {
         const paymentSessionId = input.context?.idempotency_key;
-        const razorpayCustomer = input.context?.account_holder
+
         const { amount, currency_code } = input;
 
-        
         let toPay = getAmountFromSmallestUnit(
             Math.round(parseInt(amount.toString())),
             currency_code.toUpperCase()
@@ -455,14 +389,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         toPay =
             currency_code.toUpperCase() == "INR" ? toPay * 100 * 100 : toPay;
 
-        
         try {
             const razorpayOrderCreateRequest =
-                this.getRazorpayOrderCreateRequestBody(
-                    toPay,
-                    currency_code,
-                    razorpayCustomer
-                );
+                this.getRazorpayOrderCreateRequestBody(toPay, currency_code);
 
             const razorpayOrder = await this.razorpay_.orders.create(
                 razorpayOrderCreateRequest
@@ -539,142 +468,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
         return result;
     }
-    async findOrCreateRarorpayCustomer(
-        cart: Partial<CartDTO>,
-        paymentSession: PaymentSessionDTO,
-        customer_id?: string
-    ): Promise<Customers.RazorpayCustomer> {
-        let rp_customer_id: string;
-        if (customer_id) {
-            try {
-                const customer = await this.customerService.retrieveCustomer(
-                    customer_id
-                );
-                rp_customer_id = (
-                    customer.metadata?.razorpay as Record<string, string>
-                )?.rp_customer_id;
-                if (rp_customer_id) {
-                    return await this.razorpay_.customers.fetch(rp_customer_id);
-                } else {
-                    const razorpayCustomer = await this.pollAndRetrieveCustomer(
-                        customer
-                    );
-                    if (razorpayCustomer) {
-                        await this.updateRazorpayMetadataInCustomer(
-                            customer,
-                            "rp_customer_id",
-                            razorpayCustomer.id
-                        );
-                        return razorpayCustomer;
-                    } else {
-                        return await this.createRazorpayCustomer(
-                            cart,
-                            paymentSession,
-                            customer_id
-                        );
-                    }
-                }
-            } catch (e) {
-                this.logger.error(
-                    `Error retrieving customer ${customer_id}: ${e}`
-                );
-                throw new MedusaError(
-                    MedusaErrorTypes.NOT_FOUND,
-                    `Customer with id ${customer_id} not found`
-                );
-            }
-        } else {
-            const razorpayCustomer = await this.pollAndRetrieveCustomer({
-                email: cart?.email,
-                phone: cart?.billing_address?.phone
-            });
-            if (razorpayCustomer) {
-                return razorpayCustomer;
-            }
-        }
-        const rpCustomer = await this.createRazorpayCustomer(
-            cart,
-            paymentSession
-        );
-        return rpCustomer;
-    }
-    async createRazorpayCustomer(
-        cart: Partial<CartDTO>,
-        paymentSession: PaymentSessionDTO,
-        customer_id?: string
-    ): Promise<Customers.RazorpayCustomer> {
-        const rpCustomerCreateRequest =
-            this.getRazorpayCustomerCreateRequestBody(cart, customer_id);
 
-        const razorpayCustomer = await this.razorpay_.customers.create(
-            rpCustomerCreateRequest
-        );
-        if (customer_id) {
-            const customer = await this.customerService.retrieveCustomer(
-                customer_id
-            );
-            await this.updateRazorpayMetadataInCustomer(
-                customer,
-                "rp_customer_id",
-                razorpayCustomer.id
-            );
-        }
-        return razorpayCustomer;
-    }
-    private async pollAndRetrieveCustomer(
-        customer: Partial<CustomerDTO>
-    ): Promise<Customers.RazorpayCustomer> {
-        let customerList: Customers.RazorpayCustomer[] = [];
-        let razorpayCustomer: Customers.RazorpayCustomer;
-        const count = 10;
-        let skip = 0;
-        do {
-            customerList = (
-                await this.razorpay_.customers.all({
-                    count,
-                    skip
-                })
-            )?.items;
-            razorpayCustomer =
-                customerList?.find(
-                    (c) =>
-                        c.contact == customer?.phone ||
-                        c.email == customer.email
-                ) ?? customerList?.[0];
-            if (razorpayCustomer) {
-                break;
-            }
-            if (!customerList || !razorpayCustomer) {
-                throw new Error(
-                    "no customers and cant create customers in razorpay"
-                );
-            }
-            skip += count;
-        } while (customerList?.length == 0);
-
-        return razorpayCustomer;
-    }
-    getRazorpayCustomerCreateRequestBody(
-        cart: Partial<CartDTO>,
-        customer_id?: string
-    ): Customers.RazorpayCustomerCreateRequestBody {
-        const rpCustomerCreateRequest: Customers.RazorpayCustomerCreateRequestBody =
-            {
-                name: `${cart?.billing_address?.first_name} ${cart?.billing_address?.last_name}`,
-                email: cart?.email,
-                fail_existing: 0,
-                gstin:
-                    (cart.billing_address?.metadata?.gstin as string) ?? null,
-                contact:
-                    cart?.billing_address?.phone ??
-                    cart?.shipping_address?.phone,
-                notes: {
-                    cart_id: cart?.id as string,
-                    customer_id: customer_id ?? "NA"
-                }
-            };
-        return rpCustomerCreateRequest;
-    }
     async deletePayment(
         input: DeletePaymentInput
     ): Promise<DeletePaymentOutput> {
@@ -689,7 +483,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 data: {
                     razorpayOrder: input.data?.razorpayOrder
                 }
-            }
+            };
         }
     }
     async getPaymentStatus(
@@ -795,14 +589,14 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                     razorpayPayment.order_id
                 );
 
-                const result = await this.syncPaymentSession(
+                await this.syncPaymentSession(
                     paymentSession.id,
                     order.id as string
                 );
 
                 const refundResult: RefundPaymentOutput = {
                     data: {
-                        razorpayOrder: result.razorpayOrder,
+                        razorpayOrder: order,
                         razorpayRefundSession
                     }
                 };
@@ -943,51 +737,62 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         }
     }
 
-   async createAccountHolder(input: CreateAccountHolderInput): Promise<CreateAccountHolderOutput> {
-        const { first_name, last_name, email, phone, billing_address } = input.context.customer as PaymentCustomerDTO
-         const accountHolder = await this.razorpay_.customers.create({
+    async createAccountHolder(
+        input: CreateAccountHolderInput
+    ): Promise<CreateAccountHolderOutput> {
+        const { first_name, last_name, email, phone, billing_address } = input
+            .context.customer as PaymentCustomerDTO;
+        const accountHolder = await this.razorpay_.customers.create({
             name: `${first_name} ${last_name}`,
             email: email,
-            contact: phone??undefined,
+            contact: phone ?? undefined,
             gstin: billing_address?.metadata?.gstin as string,
             notes: {
                 medusa_account_holder_id: "NA"
             }
-            
         });
-        
 
         return {
             data: accountHolder as unknown as Record<string, unknown>,
-            id:  accountHolder.id
-            
-        }
+            id: accountHolder.id
+        };
     }
-    async updateAccountHolder(input: UpdateAccountHolderInput): Promise<UpdateAccountHolderOutput> {
-        const { id, name, email, phone:contact } = input.data as { id: string, name: string, email: string, phone: string, notes: Record<string, unknown> };
+    async updateAccountHolder(
+        input: UpdateAccountHolderInput
+    ): Promise<UpdateAccountHolderOutput> {
+        const {
+            id,
+            name,
+            email,
+            phone: contact
+        } = input.data as {
+            id: string;
+            name: string;
+            email: string;
+            phone: string;
+            notes: Record<string, unknown>;
+        };
         const accountHolder = await this.razorpay_.customers.edit(id, {
             name: name,
             email: email,
-            contact: contact,
+            contact: contact
         });
         return {
             data: accountHolder as unknown as Record<string, unknown>
-        }
+        };
     }
-    async deleteAccountHolder(input: DeleteAccountHolderInput): Promise<DeleteAccountHolderOutput> {
+    async deleteAccountHolder(
+        input: DeleteAccountHolderInput
+    ): Promise<DeleteAccountHolderOutput> {
         const { id } = input.data as { id: string };
         const accountHolder = await this.razorpay_.customers.fetch(id);
-        await this.razorpay_.customers.edit(id,{
-            name:"DELETED"
-        })
+        await this.razorpay_.customers.edit(id, {
+            name: "DELETED"
+        });
         return {
             data: accountHolder as unknown as Record<string, unknown>
-        }
+        };
     }
-
-       
-
-        
 }
 
 export default RazorpayBase;

@@ -1,7 +1,6 @@
-describe('E-commerce Checkout Flow', () => {
-  it('should complete the checkout process with Razorpay payment', () => {
-    // Clear all cookies before starting the test
-    console.log('🧹 Clearing all cookies before test')
+
+const basicTest = async (cy:any)=>{
+  console.log('🧹 Clearing all cookies before test')
     cy.clearAllCookies()
     
     // Visit the store page
@@ -110,128 +109,28 @@ describe('E-commerce Checkout Flow', () => {
     cy.contains('button', 'Checkout').click()
     
     // Handle Razorpay popup
-    cy.window().then((win) => {
+    cy.window().then(() => {
       // Wait for Razorpay iframe to load
       console.log('⏳ Waiting for Razorpay iframe')
       cy.wait(20000)
-
-      // Wait for the Razorpay iframe to be created and visible
     })
+      // Wait for the Razorpay iframe to be created and visible
+    
+}
+
+
+describe('E-commerce Checkout Flow', () => {
+  it('should complete the checkout process with Razorpay payment', async () => {
+    // Clear all cookies before starting the test
+    await basicTest(cy)
   })
 
-  it('should complete the checkout process with Razorpay payment (mocked)', () => {
+  it('should complete the checkout process with Razorpay payment (mocked)', async () => {
     // Clear all cookies before starting the test
-    console.log('🧹 Clearing all cookies before test')
-    cy.clearAllCookies()
-    
-    // Visit the store page
-    console.log('🏪 Visiting store page')
-    cy.visit('/in/store')
-    
-    // Click on the first product (sweatpants)
-    console.log('👕 Selecting first product')
-    cy.get('[data-testid="product-card"]').first().click()
-    
-    // Verify we're on the product page
-    console.log('🔍 Verifying product page')
-    cy.url().should('include', '/products/sweatpants')
-    
-    // Select size L
-    console.log('📏 Selecting size L')
-    cy.contains('button', 'L').click()
-    
-    // Add to cart
-    console.log('🛒 Adding product to cart')
-    cy.contains('button', 'Add to cart').click()
-    
-    // Wait for 10 seconds
-    console.log('⏳ Waiting for cart update')
-    cy.wait(10000)
-    
-    // Click on cart
-    console.log('🛒 Navigating to cart page')
-    cy.contains('Cart').click()
-    
-    // Verify we're on the cart page
-    console.log('🔍 Verifying cart page')
-    cy.url().should('include', '/cart')
-    
-    // Click go to checkout
-    console.log('➡️ Proceeding to checkout')
-    cy.contains('button', 'Go to checkout').click({ force: true })
-    
-    // Verify we're on the address step
-    console.log('🔍 Verifying address step')
-    cy.url().should('include', '/checkout?step=address')
-    
-    // Wait for the address form to be visible
-    console.log('⏳ Waiting for address form')
-    cy.get('[data-testid="shipping-first-name-input"]').should('be.visible')
-    
-    // Fill in address details
-    console.log('📝 Filling shipping address details')
-    cy.get('[data-testid="shipping-first-name-input"]').type('Govind')
-    cy.get('[data-testid="shipping-last-name-input"]').type('D')
-    cy.get('[data-testid="shipping-address-input"]').type('123 xyz.com')
-    cy.get('[data-testid="shipping-company-input"]').type('SGF')
-    cy.get('[data-testid="shipping-postal-code-input"]').type('400093')
-    cy.get('[data-testid="shipping-city-input"]').type('Mumbai')
-    cy.get('[data-testid="shipping-province-input"]').type('Maharashtra')
-    cy.get('[data-testid="shipping-country-select"]').select('India')
-    cy.get('[data-testid="shipping-email-input"]').type('sgf@sourcegoodfood.com')
-    cy.get('[data-testid="shipping-phone-input"]').type('+916364534849')
-    
-    // Click on Delivery
-    console.log('➡️ Proceeding to delivery step')
-    cy.contains('button', 'Continue to delivery').click()
-    
-    // Verify we're on the delivery step
-    console.log('🔍 Verifying delivery step')
-    cy.url().should('include', '/checkout?step=delivery')
-    
-    // Wait for 10 seconds
-    console.log('⏳ Waiting for delivery options')
-    cy.wait(10000)
-    
-    // Select Standard Shipping
-    console.log('🚚 Selecting standard shipping')
-    cy.get('[data-testid="delivery-option-radio"]').first().click()
-    
-    // Click Continue to payment
-    console.log('➡️ Proceeding to payment step')
-    cy.contains('button', 'Continue to payment').click()
-    
-    // Verify we're on the payment step
-    console.log('🔍 Verifying payment step')
-    cy.url().should('include', '/checkout?step=payment')
-    
-    // Wait for 10 seconds
-    console.log('⏳ Waiting for payment options')
-    cy.wait(20000)
-    
-    // Wait for the Razorpay payment option to be visible
-    console.log('💳 Looking for Razorpay payment option')
-    cy.contains('.text-base-regular', 'Razorpay').should('be.visible')
-    
-    // Select Razorpay
-    console.log('💳 Selecting Razorpay payment')
-    cy.contains('.text-base-regular', 'Razorpay').click()
-    
-    // Click continue to review
-    console.log('➡️ Proceeding to review step')
-    cy.contains('button', 'Continue to review').click()
-    
-    // Verify we're on the review step
-    console.log('🔍 Verifying review step')
-    cy.url().should('include', '/checkout?step=review')
-    
-    // Click checkout button
-    console.log('✅ Finalizing checkout')
-    cy.contains('button', 'Checkout').click()
-    
+    await basicTest(cy)
     // Mock Razorpay window object
-    cy.window().then((win) => {
-      win.Razorpay = function () {
+    const win = cy.window().then((win) => {
+      (win as any).Razorpay = function () {
         return {
           open: () => {},
           on: () => {}
@@ -296,115 +195,9 @@ describe('E-commerce Checkout Flow', () => {
     cy.contains('Your order was placed successfully.')
   })
 
-  it('should complete the checkout process with Razorpay payment (no mock)', () => {
+  it('should complete the checkout process with Razorpay payment (no mock)', async () => {
     // Clear all cookies before starting the test
-    console.log('🧹 Clearing all cookies before test')
-    cy.clearAllCookies()
-    
-    // Visit the store page
-    console.log('🏪 Visiting store page')
-    cy.visit('/in/store')
-    
-    // Click on the first product (sweatpants)
-    console.log('👕 Selecting first product')
-    cy.get('[data-testid="product-card"]').first().click()
-    
-    // Verify we're on the product page
-    console.log('🔍 Verifying product page')
-    cy.url().should('include', '/products/sweatpants')
-    
-    // Select size L
-    console.log('📏 Selecting size L')
-    cy.contains('button', 'L').click()
-    
-    // Add to cart
-    console.log('🛒 Adding product to cart')
-    cy.contains('button', 'Add to cart').click()
-    
-    // Wait for 10 seconds
-    console.log('⏳ Waiting for cart update')
-    cy.wait(10000)
-    
-    // Click on cart
-    console.log('🛒 Navigating to cart page')
-    cy.contains('Cart').click()
-    
-    // Verify we're on the cart page
-    console.log('🔍 Verifying cart page')
-    cy.url().should('include', '/cart')
-    
-    // Click go to checkout
-    console.log('➡️ Proceeding to checkout')
-    cy.contains('button', 'Go to checkout').click({ force: true })
-    
-    // Verify we're on the address step
-    console.log('🔍 Verifying address step')
-    cy.url().should('include', '/checkout?step=address')
-    
-    // Wait for the address form to be visible
-    console.log('⏳ Waiting for address form')
-    cy.get('[data-testid="shipping-first-name-input"]').should('be.visible')
-    
-    // Fill in address details
-    console.log('📝 Filling shipping address details')
-    cy.get('[data-testid="shipping-first-name-input"]').type('Govind')
-    cy.get('[data-testid="shipping-last-name-input"]').type('D')
-    cy.get('[data-testid="shipping-address-input"]').type('123 xyz.com')
-    cy.get('[data-testid="shipping-company-input"]').type('SGF')
-    cy.get('[data-testid="shipping-postal-code-input"]').type('400093')
-    cy.get('[data-testid="shipping-city-input"]').type('Mumbai')
-    cy.get('[data-testid="shipping-province-input"]').type('Maharashtra')
-    cy.get('[data-testid="shipping-country-select"]').select('India')
-    cy.get('[data-testid="shipping-email-input"]').type('sgf@sourcegoodfood.com')
-    cy.get('[data-testid="shipping-phone-input"]').type('+916364534849')
-    
-    // Click on Delivery
-    console.log('➡️ Proceeding to delivery step')
-    cy.contains('button', 'Continue to delivery').click()
-    
-    // Verify we're on the delivery step
-    console.log('🔍 Verifying delivery step')
-    cy.url().should('include', '/checkout?step=delivery')
-    
-    // Wait for 10 seconds
-    console.log('⏳ Waiting for delivery options')
-    cy.wait(10000)
-    
-    // Select Standard Shipping
-    console.log('🚚 Selecting standard shipping')
-    cy.get('[data-testid="delivery-option-radio"]').first().click()
-    
-    // Click Continue to payment
-    console.log('➡️ Proceeding to payment step')
-    cy.contains('button', 'Continue to payment').click()
-    
-    // Verify we're on the payment step
-    console.log('🔍 Verifying payment step')
-    cy.url().should('include', '/checkout?step=payment')
-    
-    // Wait for 10 seconds
-    console.log('⏳ Waiting for payment options')
-    cy.wait(20000)
-    
-    // Wait for the Razorpay payment option to be visible
-    console.log('💳 Looking for Razorpay payment option')
-    cy.contains('.text-base-regular', 'Razorpay').should('be.visible')
-    
-    // Select Razorpay
-    console.log('💳 Selecting Razorpay payment')
-    cy.contains('.text-base-regular', 'Razorpay').click()
-    
-    // Click continue to review
-    console.log('➡️ Proceeding to review step')
-    cy.contains('button', 'Continue to review').click()
-    
-    // Verify we're on the review step
-    console.log('🔍 Verifying review step')
-    cy.url().should('include', '/checkout?step=review')
-    
-    // Click checkout button
-    console.log('✅ Finalizing checkout')
-    cy.contains('button', 'Checkout').click()
+    await basicTest(cy)
     
     // Handle Razorpay popup
     cy.window().then((win) => {
