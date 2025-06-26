@@ -135,9 +135,10 @@ describe('E-commerce Checkout Flow', () => {
 
     // Wait for the Razorpay iframe to be created and visible
     console.log('💳 Processing Razorpay payment')
-    cy.frameLoaded('.razorpay-checkout-frame')
-    
+    //cy.frameLoaded('.razorpay-checkout-frame')
+    cy.frameLoaded('.razorpay-checkout-frame[style*="width: 100%"]')
     // Wait for the correct iframe to be loaded and target it specifically
+   // cy.iframe('.razorpay-checkout-frame[style*="width: 100%"]')
     cy.get('.razorpay-checkout-frame[style*="width: 100%"]')
       .should('be.visible')
       .then($iframe => {

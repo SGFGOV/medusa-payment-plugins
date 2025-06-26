@@ -8,6 +8,8 @@ export default defineConfig({
     video: false,
     screenshotOnRunFailure: true,
     defaultCommandTimeout: 10000,
+    chromeWebSecurity: false,
+    experimentalModifyObstructiveThirdPartyCode: true,
     setupNodeEvents(on, config) {
       on('task', {
         log(message) {
