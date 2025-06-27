@@ -34,7 +34,7 @@ This provider enables the razorpay payment interface on [medusa](https://medusaj
 Use the package manager npm to install Payment-Razorpay.
 
 ```bash
-npm install @sgftech/payment-razorpay
+yarn add medusa-plugin-razorpay-v2
 ```
 
 ## Usage
