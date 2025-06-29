@@ -52,13 +52,13 @@ You need to add the provider into your medusa-config.ts as shown below
 
 ```
 module.exports = defineConfig({
-plugins:[...,"medusa-plugin-razorpay-v2",...],
 modules: [
   ...
-    {      resolve: "@medusajs/medusa/payment",
-      options: {
-        providers: [
-          ...
+    {
+            resolve: "@medusajs/medusa/payment",
+            dependencies: [Modules.PAYMENT, ContainerRegistrationKeys.LOGGER],
+            options: {
+                providers: [
                     {
                         resolve:
                             "medusa-plugin-razorpay-v2/providers/payment-razorpay/src",
@@ -80,14 +80,12 @@ modules: [
                                 process?.env?.RAZORPAY_TEST_WEBHOOK_SECRET ??
                                 process?.env?.RAZORPAY_WEBHOOK_SECRET
                         }
-                    },
-            
-          ....
-        ],
-     } },
-  ...]
-})
-```
+                    },,
+  ...]  
+            }
+    }
+    ...]
+})```
 ## Client side configuration
 
 
