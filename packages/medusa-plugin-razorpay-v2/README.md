@@ -86,8 +86,9 @@ modules: [
     }
     ...]
 })
-## Client side configuration
 ```
+## Client side configuration
+
 
 For the NextJs start you need to  make the following changes 
 
