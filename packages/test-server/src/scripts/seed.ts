@@ -81,7 +81,10 @@ export default async function seedDemoData({
                         name: "Europe",
                         currency_code: "eur",
                         countries,
-                        payment_providers: ["pp_system_default"]
+                        payment_providers: [
+                            "pp_system_default",
+                            "pp_mollie_mollie"
+                        ]
                     },
                     {
                         name: "United States",

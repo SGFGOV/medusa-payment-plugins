@@ -125,6 +125,15 @@ module.exports = defineConfig({
                     },
                     {
                         resolve:
+                            "@sgftech/medusajs-plugin-mollie/providers/payment-mollie/src",
+                        id: "mollie",
+                        options: {
+                            id: "mollie",
+                            apiKey: process.env.MOLLIE_API_KEY
+                        }
+                    },
+                    {
+                        resolve:
                             "medusa-plugin-btcpay/providers/payment-btcpay/src",
                         id: "btcpay",
                         options: {

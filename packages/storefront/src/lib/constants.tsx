@@ -14,6 +14,10 @@ export const isBtcpay = (providerId?: string) => {
 }
 
 
+export const isMollie = (providerId?: string) => {
+  return providerId?.startsWith("pp_mollie_")
+}
+
 /* Map of payment provider_id to their title and icon. Add in any payment providers you want to use. */
 export const paymentInfoMap: Record<
   string,

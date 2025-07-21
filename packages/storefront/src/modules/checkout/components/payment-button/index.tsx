@@ -1,10 +1,10 @@
 "use client"
 
-import { isBtcpay, isManual, isRazorpay, isStripe } from "@lib/constants"
+import { isBtcpay, isManual, isMollie, isRazorpay, isStripe } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
-import {RazorpayPaymentButton} from "./razorpay-payment-button"
+import { RazorpayPaymentButton } from "./razorpay-payment-button"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
@@ -27,11 +27,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     (cart.shipping_methods?.length ?? 0) < 1
 
   const paymentSession = cart.payment_collection?.payment_sessions?.[0]
-  if(!paymentSession) {
+  if (!paymentSession) {
     return <Button disabled>Select a payment method</Button>
   }
-  console.log(`paymentSession: `+JSON.stringify(paymentSession))
-  console.log(`cart: `+JSON.stringify(cart))
+  console.log(`paymentSession: ` + JSON.stringify(paymentSession))
+  console.log(`cart: ` + JSON.stringify(cart))
   switch (true) {
     case isStripe(paymentSession?.provider_id):
       return (
@@ -41,20 +41,24 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
           data-testid={dataTestId}
         />
       )
+
     case isManual(paymentSession?.provider_id):
       return (
         <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
       )
     case isRazorpay(paymentSession?.provider_id):
-        return <RazorpayPaymentButton session={paymentSession!} notReady={notReady} cart={cart} />
-    
+      return <RazorpayPaymentButton session={paymentSession!} notReady={notReady} cart={cart} />
+    case isMollie(paymentSession?.provider_id):
+      return <MolliePaymentButton notReady={notReady} cart={cart} />
     case isBtcpay(paymentSession?.provider_id):
-        return (  
-          <Button disabled={btcClicked} onClick={() => {setBtcClicked(true);
-            window.open(`${(paymentSession?.data as any).btc_invoice.checkoutLink}`)}}>
-            Pay with BtcPay
-          </Button>
-        )
+      return (
+        <Button disabled={btcClicked} onClick={() => {
+          setBtcClicked(true);
+          window.open(`${(paymentSession?.data as any).btc_invoice.checkoutLink}`)
+        }}>
+          Pay with BtcPay
+        </Button>
+      )
 
     default:
       return <Button disabled>Select a payment method</Button>
@@ -204,6 +208,40 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         data-testid="manual-payment-error-message"
       />
     </>
+  )
+}
+
+const MolliePaymentButton = ({
+  cart,
+  notReady,
+}: {
+  cart: HttpTypes.StoreCart
+  notReady: boolean
+}) => {
+  const session = cart.payment_collection?.payment_sessions?.find(
+    (s) => s.status === "pending"
+  ) as {
+    data?: {
+      _links?: {
+        checkout: {
+          href: string
+        }
+      }
+    }
+  }
+
+  const handlePayment = () => {
+    if (!session || !session.data?._links) return
+    window.location.replace(session.data._links.checkout.href)
+  }
+
+  return (
+    <Button
+      disabled={notReady || !session || !session.data?._links}
+      onClick={handlePayment}
+    >
+      Place Order
+    </Button>
   )
 }
 
