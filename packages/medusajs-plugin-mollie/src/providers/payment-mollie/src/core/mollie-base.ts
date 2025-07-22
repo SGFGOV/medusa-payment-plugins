@@ -1,29 +1,34 @@
-import { EOL } from "os";
-
 // / Mollie SDK imports
 import MollieClientProvider, {
     type MollieClient,
-    type Payment,
     PaymentStatus
 } from "@mollie/api-client";
 
 // / Medusa imports
 import {
-    AbstractPaymentProvider,
-    BigNumber,
-    isDefined,
-    isPaymentProviderError,
-    PaymentActions,
-    PaymentSessionStatus
-} from "@medusajs/framework/utils";
+    AuthorizePaymentInput,
+    AuthorizePaymentOutput,
+    CancelPaymentInput,
+    CancelPaymentOutput,
+    CapturePaymentInput,
+    CapturePaymentOutput,
+    DeletePaymentInput,
+    DeletePaymentOutput,
+    InitiatePaymentInput,
+    InitiatePaymentOutput
+} from "@medusajs/framework/types";
 
 import type {
-    CreatePaymentProviderSession,
-    PaymentProviderError,
-    PaymentProviderSessionResponse,
-    ProviderWebhookPayload,
-    UpdatePaymentProviderSession,
-    WebhookActionResult
+    GetPaymentStatusInput,
+    GetPaymentStatusOutput,
+    RefundPaymentInput,
+    RefundPaymentOutput,
+    RetrievePaymentInput,
+    RetrievePaymentOutput,
+    UpdatePaymentInput,
+    UpdatePaymentOutput,
+    WebhookActionResult,
+    ProviderWebhookPayload
 } from "@medusajs/framework/types";
 
 // / type imports
@@ -36,6 +41,14 @@ import {
     getFormattedCurrencyCode,
     PaymentStatusMap
 } from "../utils";
+import {
+    AbstractPaymentProvider,
+    isDefined,
+    PaymentSessionStatus,
+    MedusaError,
+    PaymentActions,
+    BigNumber
+} from "@medusajs/framework/utils";
 
 class MollieBase extends AbstractPaymentProvider<MollieOptions> {
     protected container_: Record<string, unknown>;
@@ -61,8 +74,7 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
         cradle: Record<string, unknown>,
         protected readonly options: MollieOptions
     ) {
-        // @ts-ignore
-        super(...arguments);
+        super(cradle);
 
         this.container_ = cradle;
         // get the final webhook url for mollie to call on payment events
@@ -80,31 +92,32 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
         });
     }
 
-    /**
-     * @dev returns Mollie to Medusa payment status. if status does not match with the map it returns PENDING
-     */
-    protected getStatus(status: PaymentStatus) {
-        return PaymentStatusMap[status] || PaymentSessionStatus.PENDING;
+    protected getStatus(status: PaymentStatus): GetPaymentStatusOutput {
+        return {
+            status: PaymentStatusMap[status]
+        };
     }
 
     async getPaymentStatus(
-        paymentSessionData: Record<string, unknown>
-    ): Promise<PaymentSessionStatus> {
-        const id = paymentSessionData.id as string;
+        input: GetPaymentStatusInput
+    ): Promise<GetPaymentStatusOutput> {
+        const id = input.data?.id as string;
 
         const payment = await this.mollieClient.payments.get(id);
-        return this.getStatus(payment.status);
+        return {
+            status: this.getStatus(payment.status).status
+        };
     }
 
     async initiatePayment(
-        input: CreatePaymentProviderSession
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse> {
+        input: InitiatePaymentInput
+    ): Promise<InitiatePaymentOutput> {
         const {
-            session_id,
-            email: billingEmail
-            // TODO: consume this when creating payment
-            // customer
-        } = input.context;
+            idempotency_key: session_id,
+            customer,
+            account_holder
+        } = input.context ?? {};
+        const email = customer?.email ?? account_holder?.data?.email;
         const { currency_code, amount } = input;
 
         /**
@@ -113,7 +126,7 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
         const webhookUrl = this.webhookUrl;
 
         // / extra inputs set while requesting initiatePayment from the store
-        const extra = input.context.extra as PaymentContextExtra;
+        const extra = input.data?.extra as PaymentContextExtra;
 
         const description = (extra?.paymentDescription ??
             this.options?.paymentDescription) as string;
@@ -135,127 +148,130 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
                     method,
                     webhookUrl,
                     redirectUrl,
-                    billingEmail,
+                    billingEmail: email as string,
                     amount: {
                         currency: getFormattedCurrencyCode(currency_code),
                         value: getFormattedAmount(amount as number)
                     },
                     metadata: {
-                        session_id: session_id
+                        session_id: session_id as string
                     }
                 })) as unknown as Record<string, unknown>;
             return {
-                data: createPaymentResponse
+                data: createPaymentResponse,
+                id: createPaymentResponse.id as string
             };
         } catch (error) {
-            return this.buildError(
-                "An error occurred in InitiatePayment during the creation",
-                error
+            throw new MedusaError(
+                MedusaError.Types.PAYMENT_AUTHORIZATION_ERROR,
+                "An error occurred in InitiatePayment during the creation"
             );
         }
     }
 
     async authorizePayment(
-        paymentSessionData: Record<string, unknown>,
-        context: Record<string, unknown>
-    ): Promise<
-        | PaymentProviderError
-        | {
-              status: PaymentSessionStatus;
-              data: PaymentProviderSessionResponse["data"];
-          }
-    > {
-        const updatedPaymentSession = (await this.retrievePayment(
-            paymentSessionData
-        )) as unknown as Payment;
+        input: AuthorizePaymentInput
+    ): Promise<AuthorizePaymentOutput> {
+        const updatedPaymentSession = await this.retrievePayment(input);
 
         return {
-            data: updatedPaymentSession as unknown as Record<string, unknown>,
-            status: this.getStatus(updatedPaymentSession.status)
+            data: updatedPaymentSession.data as unknown as Record<
+                string,
+                unknown
+            >,
+            status: PaymentSessionStatus.AUTHORIZED
         };
     }
 
     async cancelPayment(
-        paymentSessionData: Record<string, unknown>
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse["data"]> {
+        input: CancelPaymentInput
+    ): Promise<CancelPaymentOutput> {
         try {
             // / fetch payment object from API
-            const payment = await this.retrievePayment(paymentSessionData);
+            const payment = await this.retrievePayment(input);
 
-            // / extract status
-            const status = (payment as unknown as Payment).status;
+            const status = payment.data?.status as string;
             // / for which other PaymentStatus we cannot cancel a payment?
             if (!["open", "pending", "authorized"].includes(status)) {
                 // / if payment has been canceled or paid return updated payment object
                 return payment;
             }
 
-            const id = paymentSessionData.id as string;
-            const cancelPayment = (await this.mollieClient.payments.cancel(
-                id
-            )) as unknown as PaymentProviderSessionResponse["data"];
+            const id = input.data?.id as string;
+            const cancelPayment = await this.mollieClient.payments.cancel(id);
 
-            return cancelPayment;
+            return {
+                data: cancelPayment as unknown as Record<string, unknown>
+            };
         } catch (error) {
-            return this.buildError("An error occurred in cancelPayment", error);
+            throw new MedusaError(
+                MedusaError.Types.PAYMENT_AUTHORIZATION_ERROR,
+                "An error occurred in cancelPayment"
+            );
         }
     }
     async capturePayment(
-        paymentSessionData: Record<string, unknown>
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse["data"]> {
+        input: CapturePaymentInput
+    ): Promise<CapturePaymentOutput> {
         try {
             // / do we need to refetch latest status from mollie api?
-            if (paymentSessionData.status != "authorized") {
+            if (input.data?.status != PaymentSessionStatus.AUTHORIZED) {
                 // if status is not authorized return with incoming data.
                 // what will be issues use this flow?
-                return paymentSessionData;
+                return input;
             }
 
-            const id = paymentSessionData.id as string;
+            const id = input.data?.id as string;
             const payment = await this.mollieClient.paymentCaptures.create({
                 paymentId: id
             });
 
             // / should we return payment object or capture?
-            return payment as unknown as PaymentProviderSessionResponse["data"];
+            return {
+                data: payment as unknown as Record<string, unknown>
+            };
         } catch (error) {
-            return this.buildError(
-                "An error occurred in capturePayment",
-                error
+            throw new MedusaError(
+                MedusaError.Types.PAYMENT_AUTHORIZATION_ERROR,
+                "An error occurred in capturePayment"
             );
         }
     }
     async deletePayment(
-        paymentSessionData: Record<string, unknown>
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse["data"]> {
-        return await this.cancelPayment(paymentSessionData);
+        input: DeletePaymentInput
+    ): Promise<DeletePaymentOutput> {
+        return await this.cancelPayment(input);
     }
 
     async refundPayment(
-        paymentSessionData: Record<string, unknown>,
-        refundAmount: number
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse["data"]> {
-        const id = paymentSessionData.id as string;
+        input: RefundPaymentInput
+    ): Promise<RefundPaymentOutput> {
+        const id = input.data?.id as string;
+        const { amount } = input;
         try {
-            const { currency } = paymentSessionData;
-            await this.mollieClient.paymentRefunds.create({
+            const refund = await this.mollieClient.paymentRefunds.create({
                 paymentId: id,
                 amount: {
-                    currency: currency as string,
-                    value: getFormattedAmount(refundAmount)
+                    currency: getFormattedCurrencyCode("EUR"),
+                    value: getFormattedAmount(amount as number)
                 }
             });
+            return {
+                data: refund as unknown as Record<string, unknown>
+            };
         } catch (error) {
-            return this.buildError("An error occurred in refundPayment", error);
+            throw new MedusaError(
+                MedusaError.Types.PAYMENT_AUTHORIZATION_ERROR,
+                "An error occurred in refundPayment"
+            );
         }
-        return paymentSessionData;
     }
 
     async retrievePayment(
-        paymentSessionData: Record<string, unknown>
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse["data"]> {
+        input: RetrievePaymentInput
+    ): Promise<RetrievePaymentOutput> {
         try {
-            const id = paymentSessionData.id as string;
+            const id = input.data?.id as string;
             const payment = await this.mollieClient.payments.get(id);
             payment.amount.value = getFormattedAmount(
                 Number(payment.amount.value)
@@ -264,11 +280,13 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
                 payment.amount.currency
             );
 
-            return payment as unknown as PaymentProviderSessionResponse["data"];
+            return {
+                data: payment as unknown as Record<string, unknown>
+            };
         } catch (error) {
-            return this.buildError(
-                "An error occurred in retrievePayment",
-                error
+            throw new MedusaError(
+                MedusaError.Types.PAYMENT_AUTHORIZATION_ERROR,
+                "An error occurred in retrievePayment"
             );
         }
     }
@@ -276,8 +294,8 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
     // / TODO: Implement this
     // / https://docs.mollie.com/reference/update-payment
     async updatePayment(
-        input: UpdatePaymentProviderSession
-    ): Promise<PaymentProviderError | PaymentProviderSessionResponse> {
+        input: UpdatePaymentInput
+    ): Promise<UpdatePaymentOutput> {
         const {
             // context,
             data // currency_code, amount
@@ -302,6 +320,9 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
 
         const payment = await this.mollieClient.payments.get(data.id as string);
 
+        const sessionId = (payment.metadata as Record<string, string>)
+            .session_id;
+
         switch (payment.status) {
             // / do we need `paid` case?
             // case "paid":
@@ -316,8 +337,7 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
                 return {
                     action: PaymentActions.AUTHORIZED,
                     data: {
-                        session_id: (payment.metadata as Record<string, any>)
-                            .session_id,
+                        session_id: sessionId,
                         amount: new BigNumber(payment.amount.value)
                     }
                 };
@@ -326,8 +346,7 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
                 return {
                     action: PaymentActions.FAILED,
                     data: {
-                        session_id: (payment.metadata as Record<string, any>)
-                            .session_id,
+                        session_id: sessionId,
                         amount: new BigNumber(payment.amount.value)
                     }
                 };
@@ -335,29 +354,13 @@ class MollieBase extends AbstractPaymentProvider<MollieOptions> {
                 return {
                     action: PaymentActions.FAILED,
                     data: {
-                        session_id: (payment.metadata as Record<string, any>)
-                            .session_id,
+                        session_id: sessionId,
                         amount: new BigNumber(payment.amount.value)
                     }
                 };
             default:
                 return { action: PaymentActions.NOT_SUPPORTED };
         }
-    }
-    protected buildError(
-        message: string,
-        error: PaymentProviderError | Error
-    ): PaymentProviderError {
-        return {
-            error: message,
-            code: "code" in error ? error.code : "unknown",
-
-            detail: isPaymentProviderError(error)
-                ? `${error.error}${EOL}${error.detail ?? ""}`
-                : "detail" in error
-                ? error.detail
-                : error.message ?? ""
-        };
     }
 }
 
