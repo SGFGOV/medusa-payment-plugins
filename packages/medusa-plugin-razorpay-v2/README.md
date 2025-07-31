@@ -262,7 +262,7 @@ step 4.add into the payment element <next-starter>/src/modules/checkout/componen
 
 first 
 ```
-import import {RazorpayPaymentButton} from "./razorpay-payment-button"
+import {RazorpayPaymentButton} from "./razorpay-payment-button"
 ```
 then
 ```
@@ -271,12 +271,13 @@ case "razorpay":
 ```
 
 
-
 Step 4. Add environment variables in the client
+```
+  NEXT_PUBLIC_RAZORPAY_KEY:<your razorpay key> 
+  NEXT_PUBLIC_SHOP_NAME:<your razorpay shop name> 
+  NEXT_PUBLIC_SHOP_DESCRIPTION: <your razorpayshop description> 
+```
 
-  NEXT_PUBLIC_RAZORPAY_KEY:<your razorpay key>
-  NEXT_PUBLIC_SHOP_NAME:<your razorpay shop name>
-  NEXT_PUBLIC_SHOP_DESCRIPTION: <your razorpayshop description>
 #### watch out
 Step 6. Caveat 
 the default starter template has an option which says use the same shipping and billing address
