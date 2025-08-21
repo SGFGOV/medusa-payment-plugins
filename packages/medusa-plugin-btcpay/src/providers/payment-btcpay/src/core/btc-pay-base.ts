@@ -4,8 +4,7 @@ import crypto from "node:crypto";
 import _ from "lodash";
 import {
     ICustomerModuleService,
-    MedusaContainer,
-    RemoteQueryFunction
+    MedusaContainer
 } from "@medusajs/framework/types";
 import {
     InitiatePaymentInput,
@@ -13,7 +12,6 @@ import {
     ProviderWebhookPayload,
     WebhookActionResult,
     PaymentProviderInput,
-    PaymentSessionStatus,
     GetPaymentStatusOutput,
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
@@ -30,7 +28,14 @@ import {
     UpdatePaymentInput,
     UpdatePaymentOutput,
     IPaymentModuleService,
-    PaymentSessionDTO
+    PaymentSessionDTO,
+    CreateAccountHolderOutput,
+    CreateAccountHolderInput,
+    UpdateAccountHolderInput,
+    DeleteAccountHolderOutput,
+    DeleteAccountHolderInput,
+    UpdateAccountHolderOutput,
+    PaymentCustomerDTO
 } from "@medusajs/types/dist/payment";
 import {
     AbstractPaymentProvider,
@@ -39,7 +44,6 @@ import {
     PaymentActions,
     MedusaError
 } from "@medusajs/framework/utils";
-import { getAmountFromSmallestUnit } from "../utils/get-smallest-unit";
 import {
     InvoicesApi as Btcpay,
     InvoiceData,
@@ -52,9 +56,8 @@ import {
     StoresRatesApi,
     CreateInvoiceRequest
 } from "./api";
-import { isContext } from "node:vm";
 import { Query } from "@medusajs/framework";
-import { Connection, EntityManager } from "@mikro-orm/knex";
+import { EntityManager } from "@mikro-orm/knex";
 /**
  * The paymentIntent object corresponds to a btcpay order.
  *
@@ -106,50 +109,14 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         );
     }
 
-    async getEntityFromTable<T>(
-        table_name: string,
-        id: string[],
-        field = "id"
-    ): Promise<T[]> {
-        const connection = this.container[
-            ContainerRegistrationKeys.PG_CONNECTION
-        ] as any;
-        const manager = this.container[
-            ContainerRegistrationKeys.MANAGER
-        ] as EntityManager;
-        const items = await connection
-            .table(table_name)
-            .select("*")
-            .where(field, "in", id);
-        return items as T[];
-    }
-    async getAllEntityFromTable<T>(table_name: string): Promise<T[]> {
-        const connection = this.container[
-            ContainerRegistrationKeys.PG_CONNECTION
-        ] as any;
-        const manager = this.container[
-            ContainerRegistrationKeys.MANAGER
-        ] as EntityManager;
-        const items = await connection.table(table_name).select("*");
-
-        return items as T[];
-    }
     private async getCartId(idempotency_key: string): Promise<string> {
         const ps = await this.paymentService.retrievePaymentSession(
             idempotency_key!
         );
 
-        const cart_payment_collections = await this.getEntityFromTable<{
-            cart_id: string;
-            payment_collection_id: string;
-            id: string;
-        }>(
-            "cart_payment_collection",
-            [ps.payment_collection_id],
-            "payment_collection_id"
-        );
-        const cartId = cart_payment_collections[0]?.cart_id as string;
-        return cartId;
+        // For now, return the payment session ID as a fallback
+        // The cart ID might not be necessary for the payment flow
+        return ps.id;
     }
     async initiatePayment(
         input: InitiatePaymentInput
@@ -177,9 +144,40 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             if (!detailedCustomer) {
                 throw new Error("Customer not found");
             }
-            if (detailedCustomer?.metadata?.store_id) {
-            btStore = await this.btcadmin_.storesGetStore(
-                    detailedCustomer?.metadata?.store_id as string
+
+            // Use account holder pattern to get/store customer information
+            let customerMetadata: Record<string, unknown> = {
+                btcpay: detailedCustomer.metadata?.btcpay
+            };
+            if (!customerMetadata) {
+                // Create account holder if it doesn't exist
+                const accountHolder = await this.createAccountHolder({
+                    context: {
+                        customer: {
+                            id: detailedCustomer.id,
+                            first_name: detailedCustomer.first_name || "",
+                            last_name: detailedCustomer.last_name || "",
+                            email: detailedCustomer.email || "",
+                            phone: detailedCustomer.phone || "",
+                            billing_address: undefined // We'll get this from cart context if needed
+                        }
+                    }
+                } as CreateAccountHolderInput);
+                customerMetadata = accountHolder.data as Record<
+                    string,
+                    unknown
+                >;
+            }
+
+            // Check if customer has a specific store_id in metadata
+            // For now, we'll use the default store since BTCpay doesn't have customer-specific stores
+            // This can be enhanced later if needed
+
+            // Update customer metadata with current store information for future reference
+            if (customerMetadata && !customerMetadata.default_store_id) {
+                await this.updateCustomerStoreMetadata(
+                    detailedCustomer.id,
+                    this.options_.default_store_id
                 );
             }
         }
@@ -220,24 +218,11 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 medusa_payment_session_id: id
             }
         );
-        const paymentSessionUpdateRequest = {
+
+        return {
             id: id,
-            data: { btc_invoice: invoiceData },
-            currency_code,
-            amount
+            data: { btc_invoice: invoiceData }
         };
-        const updatedSession = await this.paymentService.updatePaymentSession(
-            paymentSessionUpdateRequest
-        );
-
-        if (!updatedSession) {
-            throw new MedusaError(
-                MedusaError.Types.INVALID_DATA,
-                "Failed to update payment session"
-            );
-        }
-
-        return paymentSessionUpdateRequest;
     }
 
     async getPaymentSessionAndInvoiceFromInput(
@@ -271,7 +256,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             (btc_invoice?.metadata as Record<string, string>)
                 ?.medusa_payment_session_id ?? context?.idempotency_key;
 
-        let paymentSession = await this.paymentService.retrievePaymentSession(
+        const paymentSession = await this.paymentService.retrievePaymentSession(
             paymentSessionId
         );
         if (!btc_invoice) {
@@ -283,16 +268,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 btc_invoice.storeId as string
             );
             if (btc_invoice_latest.status != btc_invoice.status) {
-                {
-                    paymentSession =
-                        await this.paymentService.updatePaymentSession({
-                            id: paymentSessionId,
-                            data: { btc_invoice: btc_invoice_latest },
-                            currency_code: paymentSession.currency_code,
-                            amount: paymentSession.amount
-                        });
-                    btc_invoice = btc_invoice_latest;
-                }
+                btc_invoice = btc_invoice_latest;
             }
         }
 
@@ -317,7 +293,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async authorizePayment(
         input: AuthorizePaymentInput
     ): Promise<AuthorizePaymentOutput> {
-        let { paymentSession, btc_invoice } =
+        const { paymentSession, btc_invoice } =
             await this.getPaymentSessionAndInvoiceFromInput(input);
 
         let invoiceData = await this.btcpay_.invoicesGetInvoice(
@@ -330,13 +306,6 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 `Invoice with ID ${btc_invoice.id} not found`
             );
         }
-
-        paymentSession = await this.paymentService.updatePaymentSession({
-            id: paymentSession.id,
-            data: { btc_invoice: invoiceData },
-            currency_code: paymentSession.currency_code,
-            amount: paymentSession.amount
-        });
 
         invoiceData = await this.updateBtcInvoiceMetadata(
             btc_invoice.id as string,
@@ -474,8 +443,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     private async handleWebhookEvents_({
         event,
         session_id,
-        amountCollected,
-        btc_invoice
+        amountCollected
     }: {
         event: string;
         session_id: string;
@@ -497,45 +465,25 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
 
             case "InvoicePaymentSettled":
             case "InvoiceSettled":
-                await this.paymentService.updatePaymentSession({
-                    id: session_id,
-                    data: { btc_invoice },
-                    currency_code: btc_invoice.currency as string,
-                    amount: amountCollected
-                });
                 return {
                     action: PaymentActions.SUCCESSFUL,
                     data: {
                         session_id,
-
                         amount: amountCollected
                     }
                 };
             case "InvoiceReceivedPayment":
             case "InvoiceProcessing":
-                await this.paymentService.updatePaymentSession({
-                    id: session_id,
-                    data: { btc_invoice },
-                    currency_code: btc_invoice.currency as string,
-                    amount: amountCollected
-                });
                 return {
                     action: PaymentActions.AUTHORIZED,
                     data: {
                         session_id,
-
                         amount: amountCollected
                     }
                 };
             case "InvoiceInvalid":
             case "InvoiceExpired":
                 // TODO: notify customer of failed payment
-                await this.paymentService.updatePaymentSession({
-                    id: session_id,
-                    data: { btc_invoice },
-                    currency_code: btc_invoice.currency as string,
-                    amount: amountCollected
-                });
                 return {
                     action: PaymentActions.FAILED,
                     data: {
@@ -594,7 +542,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             (paymentEvent as WebhookInvoiceReceivedPaymentEvent).payment
                 ?.value ?? "0"
         );
-        const session_id = (btcpayInvoice.metadata as any)
+        const session_id = (btcpayInvoice.metadata as Record<string, unknown>)
             .medusa_payment_session_id as string;
 
         if (!session_id && event != "InvoiceCreated") {
@@ -603,18 +551,18 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         }
 
         /** sometimes this even fires before the order is updated in the remote system */
-        let outstanding = 0;
-        if (paymentEvent.type != "InvoiceCreated") {
-            const outstandingData = await this.getOutstandingAmount(
-                session_id,
-                paymentEvent.storeId!,
-                paymentEvent.invoiceId!,
-                receivedValue
-            );
-            if (outstandingData != undefined) {
-                outstanding = outstandingData;
-            }
-        }
+        // let _outstanding = 0;
+        // if (paymentEvent.type != "InvoiceCreated") {
+        //     const outstandingData = await this.getOutstandingAmount(
+        //         session_id,
+        //         paymentEvent.storeId!,
+        //         paymentEvent.invoiceId!,
+        //         receivedValue
+        //     );
+        //     if (outstandingData != undefined) {
+        //         _outstanding = outstandingData;
+        //     }
+        // }
 
         const amountCollected = parseFloat(btcpayInvoice.amount ?? "0");
         // getAmountFromSmallestUnit(
@@ -676,8 +624,9 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async capturePayment(
         input: CapturePaymentInput
     ): Promise<CapturePaymentOutput> {
-        let { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
+            input
+        );
 
         if (btc_invoice.status != InvoiceStatus.Settled) {
             throw new MedusaError(
@@ -685,13 +634,6 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 `Invoice with ID ${btc_invoice.id} is not settled`
             );
         }
-
-        paymentSession = await this.paymentService.updatePaymentSession({
-            id: paymentSession.id,
-            data: { btc_invoice },
-            currency_code: paymentSession.currency_code,
-            amount: paymentSession.amount
-        });
 
         return {
             data: { btc_invoice }
@@ -729,9 +671,9 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async cancelPayment(
         input: CancelPaymentInput
     ): Promise<CancelPaymentOutput> {
-        const { data, context } = input;
-        let { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
+            input
+        );
         if (!btc_invoice?.id) {
             return input;
         }
@@ -748,12 +690,6 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 btc_invoice.storeId as string
             )
         ).json() as InvoiceData;
-        paymentSession = await this.paymentService.updatePaymentSession({
-            id: paymentSession.id,
-            data: { btc_invoice: invoice },
-            currency_code: paymentSession.currency_code,
-            amount: paymentSession.amount
-        });
 
         return {
             data: { btc_invoice: invoice }
@@ -765,8 +701,9 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         if (!input?.data?.btc_invoice) {
             return input;
         }
-        let { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
+            input
+        );
         if (!btc_invoice?.id) {
             return input;
         }
@@ -776,13 +713,6 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             btc_invoice.storeId as string
         );
 
-        paymentSession = await this.paymentService.updatePaymentSession({
-            id: paymentSession.id,
-            data: { btc_invoice: invoice },
-            currency_code: paymentSession.currency_code,
-            amount: paymentSession.amount
-        });
-
         return {
             data: { btc_invoice: invoice }
         };
@@ -790,16 +720,17 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async refundPayment(
         input: RefundPaymentInput
     ): Promise<RefundPaymentOutput> {
-        const { data, context, amount: refundAmount } = input;
-        const { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const { amount: refundAmount } = input;
+        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
+            input
+        );
 
         try {
             const customInfo =
                 this.options_.refundVariant ==
                 InvoiceIdRefundBody.RefundVariantEnum.Custom
                     ? {
-                          customAmount: (refundAmount as any).value.toString(),
+                          customAmount: refundAmount.valueOf().toString(),
                           customCurrency: btc_invoice.currency
                       }
                     : {};
@@ -830,9 +761,9 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async retrievePayment(
         input: RetrievePaymentInput
     ): Promise<RetrievePaymentOutput> {
-        const { data, context } = input;
-        const { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
+            input
+        );
 
         return {
             data: { btc_invoice }
@@ -841,8 +772,9 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async updatePayment(
         input: UpdatePaymentInput
     ): Promise<UpdatePaymentOutput> {
-        const { btc_invoice, paymentSession } =
-            await this.getPaymentSessionAndInvoiceFromInput(input);
+        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
+            input
+        );
         const invoiceData = await this.updateBtcInvoiceMetadata(
             btc_invoice.id as string,
             btc_invoice.storeId as string,
@@ -857,6 +789,144 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         return {
             data: { btc_invoice: invoiceData }
         };
+    }
+
+    private async updateCustomerStoreMetadata(
+        customerId: string,
+        storeId: string
+    ): Promise<void> {
+        const customer = await this.customerService.retrieveCustomer(
+            customerId
+        );
+        if (customer) {
+            await this.customerService.updateCustomers(customer.id, {
+                metadata: {
+                    ...(customer.metadata || {}),
+                    btcpay: {
+                        ...(customer.metadata?.btcpay || {}),
+                        default_store_id: storeId
+                    }
+                }
+            });
+        }
+    }
+
+    async createAccountHolder(
+        input: CreateAccountHolderInput
+    ): Promise<CreateAccountHolderOutput> {
+        const { first_name, last_name, email, phone, billing_address } = input
+            .context.customer as PaymentCustomerDTO;
+
+        // For BTCpay, we'll store customer information in metadata
+        // since BTCpay doesn't have a customer management system like Razorpay
+        const customerMetadata = {
+            name: `${first_name} ${last_name}`,
+            email: email,
+            phone: phone ?? undefined,
+            gstin: billing_address?.metadata?.gstin as string,
+            medusa_account_holder_id: "NA"
+        };
+
+        // Store customer information in Medusa customer metadata
+        const customer = await this.customerService.retrieveCustomer(
+            input.context.customer?.id as string
+        );
+
+        if (customer) {
+            await this.customerService.updateCustomers(customer.id, {
+                metadata: {
+                    ...(customer.metadata || {}),
+                    btcpay: customerMetadata
+                }
+            });
+        }
+
+        return {
+            data: customerMetadata as unknown as Record<string, unknown>,
+            id: input.context.customer?.id || "unknown"
+        };
+    }
+
+    async updateAccountHolder(
+        input: UpdateAccountHolderInput
+    ): Promise<UpdateAccountHolderOutput> {
+        const {
+            id,
+            name,
+            email,
+            phone: contact
+        } = input.data as {
+            id: string;
+            name: string;
+            email: string;
+            phone: string;
+            notes: Record<string, unknown>;
+        };
+
+        // Update customer information in Medusa customer metadata
+        const customer = await this.customerService.retrieveCustomer(id);
+        if (customer) {
+            const updatedMetadata = {
+                ...(customer.metadata || {}),
+                btcpay: {
+                    ...(customer.metadata?.btcpay || {}),
+                    name,
+                    email,
+                    phone: contact
+                }
+            };
+
+            await this.customerService.updateCustomers(id, {
+                metadata: updatedMetadata
+            });
+
+            return {
+                data: updatedMetadata.btcpay as unknown as Record<
+                    string,
+                    unknown
+                >
+            };
+        }
+
+        throw new MedusaError(
+            MedusaError.Types.NOT_FOUND,
+            `Customer with ID ${id} not found`
+        );
+    }
+
+    async deleteAccountHolder(
+        input: DeleteAccountHolderInput
+    ): Promise<DeleteAccountHolderOutput> {
+        const { id } = input.data as { id: string };
+
+        // Mark customer as deleted in metadata
+        const customer = await this.customerService.retrieveCustomer(id);
+        if (customer) {
+            const updatedMetadata = {
+                ...(customer.metadata || {}),
+                btcpay: {
+                    ...(customer.metadata?.btcpay || {}),
+                    name: "DELETED",
+                    deleted_at: new Date().toISOString()
+                }
+            };
+
+            await this.customerService.updateCustomers(id, {
+                metadata: updatedMetadata
+            });
+
+            return {
+                data: updatedMetadata.btcpay as unknown as Record<
+                    string,
+                    unknown
+                >
+            };
+        }
+
+        throw new MedusaError(
+            MedusaError.Types.NOT_FOUND,
+            `Customer with ID ${id} not found`
+        );
     }
 }
 

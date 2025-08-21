@@ -243,9 +243,9 @@ export namespace AppItem {
      * @enum {string}
      */
     export enum PriceTypeEnum {
-        Fixed = <any> 'Fixed',
-        Minimum = <any> 'Minimum',
-        Topup = <any> 'Topup'
+        Fixed = <any>'Fixed',
+        Minimum = <any>'Minimum',
+        Topup = <any>'Topup'
     }
 }
 /**
@@ -1165,35 +1165,35 @@ export namespace GenerateOnChainWalletRequest {
      * @enum {string}
      */
     export enum WordListEnum {
-        ChineseSimplified = <any> 'ChineseSimplified',
-        ChineseTraditional = <any> 'ChineseTraditional',
-        Czech = <any> 'Czech',
-        English = <any> 'English',
-        French = <any> 'French',
-        Japanese = <any> 'Japanese',
-        PortugueseBrazil = <any> 'PortugueseBrazil',
-        Spanish = <any> 'Spanish'
+        ChineseSimplified = <any>'ChineseSimplified',
+        ChineseTraditional = <any>'ChineseTraditional',
+        Czech = <any>'Czech',
+        English = <any>'English',
+        French = <any>'French',
+        Japanese = <any>'Japanese',
+        PortugueseBrazil = <any>'PortugueseBrazil',
+        Spanish = <any>'Spanish'
     }
     /**
      * @export
      * @enum {string}
      */
     export enum WordCountEnum {
-        NUMBER_12 = <any> 12,
-        NUMBER_15 = <any> 15,
-        NUMBER_18 = <any> 18,
-        NUMBER_21 = <any> 21,
-        NUMBER_24 = <any> 24
+        NUMBER_12 = <any>12,
+        NUMBER_15 = <any>15,
+        NUMBER_18 = <any>18,
+        NUMBER_21 = <any>21,
+        NUMBER_24 = <any>24
     }
     /**
      * @export
      * @enum {string}
      */
     export enum ScriptPubKeyTypeEnum {
-        Legacy = <any> 'Legacy',
-        Segwit = <any> 'Segwit',
-        SegwitP2SH = <any> 'SegwitP2SH',
-        TaprootBIP86 = <any> 'TaprootBIP86'
+        Legacy = <any>'Legacy',
+        Segwit = <any>'Segwit',
+        SegwitP2SH = <any>'SegwitP2SH',
+        TaprootBIP86 = <any>'TaprootBIP86'
     }
 }
 /**
@@ -1219,7 +1219,7 @@ export interface GenericPaymentMethodData {
      * @type {LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map}
      * @memberof GenericPaymentMethodData
      */
-    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map<string,unknown>;
+    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map<string, unknown>;
 }
 /**
  * 
@@ -1289,9 +1289,9 @@ export namespace HistogramData {
      * @enum {string}
      */
     export enum TypeEnum {
-        Month = <any> 'Month',
-        Week = <any> 'Week',
-        Year = <any> 'Year'
+        Month = <any>'Month',
+        Week = <any>'Week',
+        Year = <any>'Year'
     }
 }
 /**
@@ -1451,12 +1451,12 @@ export interface InlineResponse2005 extends GenericPaymentMethodData {
  * @enum {string}
  */
 export enum InvoiceAdditionalStatus {
-    Invalid = <any> 'Invalid',
-    Marked = <any> 'Marked',
-    None = <any> 'None',
-    PaidLate = <any> 'PaidLate',
-    PaidOver = <any> 'PaidOver',
-    PaidPartial = <any> 'PaidPartial'
+    Invalid = <any>'Invalid',
+    Marked = <any>'Marked',
+    None = <any>'None',
+    PaidLate = <any>'PaidLate',
+    PaidOver = <any>'PaidOver',
+    PaidPartial = <any>'PaidPartial'
 }
 /**
  * 
@@ -1633,11 +1633,11 @@ export namespace InvoiceIdRefundBody {
      * @enum {string}
      */
     export enum RefundVariantEnum {
-        CurrentRate = <any> 'CurrentRate',
-        Custom = <any> 'Custom',
-        Fiat = <any> 'Fiat',
-        OverpaidAmount = <any> 'OverpaidAmount',
-        RateThen = <any> 'RateThen'
+        CurrentRate = <any>'CurrentRate',
+        Custom = <any>'Custom',
+        Fiat = <any>'Fiat',
+        OverpaidAmount = <any>'OverpaidAmount',
+        RateThen = <any>'RateThen'
     }
 }
 /**
@@ -1738,11 +1738,11 @@ export interface InvoicePaymentMethodDataModel {
  * @enum {string}
  */
 export enum InvoiceStatus {
-    Expired = <any> 'Expired',
-    Invalid = <any> 'Invalid',
-    New = <any> 'New',
-    Processing = <any> 'Processing',
-    Settled = <any> 'Settled'
+    Expired = <any>'Expired',
+    Invalid = <any>'Invalid',
+    New = <any>'New',
+    Processing = <any>'Processing',
+    Settled = <any>'Settled'
 }
 /**
  * 
@@ -1750,8 +1750,8 @@ export enum InvoiceStatus {
  * @enum {string}
  */
 export enum InvoiceStatusMark {
-    Invalid = <any> 'Invalid',
-    Settled = <any> 'Settled'
+    Invalid = <any>'Invalid',
+    Settled = <any>'Settled'
 }
 /**
  * The type of the invoice
@@ -1759,8 +1759,8 @@ export enum InvoiceStatusMark {
  * @enum {string}
  */
 export enum InvoiceType {
-    Standard = <any> 'Standard',
-    TopUp = <any> 'TopUp'
+    Standard = <any>'Standard',
+    TopUp = <any>'TopUp'
 }
 /**
  * 
@@ -1993,9 +1993,9 @@ export interface LightningInvoiceData {
  * @enum {string}
  */
 export enum LightningInvoiceStatus {
-    Expired = <any> 'Expired',
-    Paid = <any> 'Paid',
-    Unpaid = <any> 'Unpaid'
+    Expired = <any>'Expired',
+    Paid = <any>'Paid',
+    Unpaid = <any>'Unpaid'
 }
 /**
  * 
@@ -2151,10 +2151,10 @@ export interface LightningPaymentData {
  * @enum {string}
  */
 export enum LightningPaymentStatus {
-    Complete = <any> 'Complete',
-    Failed = <any> 'Failed',
-    Pending = <any> 'Pending',
-    Unknown = <any> 'Unknown'
+    Complete = <any>'Complete',
+    Failed = <any>'Failed',
+    Pending = <any>'Pending',
+    Unknown = <any>'Unknown'
 }
 /**
  * 
@@ -2206,9 +2206,9 @@ export type Mnemonic = string
  * @enum {string}
  */
 export enum NetworkFeeMode {
-    Always = <any> 'Always',
-    MultiplePaymentsOnly = <any> 'MultiplePaymentsOnly',
-    Never = <any> 'Never'
+    Always = <any>'Always',
+    MultiplePaymentsOnly = <any>'MultiplePaymentsOnly',
+    Never = <any>'Never'
 }
 /**
  * 
@@ -2970,10 +2970,10 @@ export namespace PaymentRequestData {
      * @enum {string}
      */
     export enum StatusEnum {
-        Pending = <any> 'Pending',
-        Completed = <any> 'Completed',
-        Processing = <any> 'Processing',
-        Expired = <any> 'Expired'
+        Pending = <any>'Pending',
+        Completed = <any>'Completed',
+        Processing = <any>'Processing',
+        Expired = <any>'Expired'
     }
 }
 /**
@@ -3006,9 +3006,9 @@ export interface PaymentRequestIdPayBody {
  * @enum {string}
  */
 export enum PaymentStatus {
-    Invalid = <any> 'Invalid',
-    Processing = <any> 'Processing',
-    Settled = <any> 'Settled'
+    Invalid = <any>'Invalid',
+    Processing = <any>'Processing',
+    Settled = <any>'Settled'
 }
 /**
  * 
@@ -3168,11 +3168,11 @@ export interface PayoutProcessorData {
  * @enum {string}
  */
 export enum PayoutState {
-    AwaitingApproval = <any> 'AwaitingApproval',
-    AwaitingPayment = <any> 'AwaitingPayment',
-    Cancelled = <any> 'Cancelled',
-    Completed = <any> 'Completed',
-    InProgress = <any> 'InProgress'
+    AwaitingApproval = <any>'AwaitingApproval',
+    AwaitingPayment = <any>'AwaitingPayment',
+    Cancelled = <any>'Cancelled',
+    Completed = <any>'Completed',
+    InProgress = <any>'InProgress'
 }
 /**
  * 
@@ -3371,10 +3371,10 @@ export namespace PointOfSaleBaseData {
      * @enum {string}
      */
     export enum DefaultViewEnum {
-        Static = <any> 'Static',
-        Cart = <any> 'Cart',
-        Light = <any> 'Light',
-        Print = <any> 'Print'
+        Static = <any>'Static',
+        Cart = <any>'Cart',
+        Light = <any>'Light',
+        Print = <any>'Print'
     }
 }
 /**
@@ -3492,8 +3492,8 @@ export namespace PullPaymentIdBoltcardsBody {
      * @enum {string}
      */
     export enum OnExistingEnum {
-        KeepVersion = <any> 'KeepVersion',
-        UpdateVersion = <any> 'UpdateVersion'
+        KeepVersion = <any>'KeepVersion',
+        UpdateVersion = <any>'UpdateVersion'
     }
 }
 /**
@@ -3558,10 +3558,10 @@ export interface RoleData {
  * @enum {string}
  */
 export enum SpeedPolicy {
-    HighSpeed = <any> 'HighSpeed',
-    LowMediumSpeed = <any> 'LowMediumSpeed',
-    LowSpeed = <any> 'LowSpeed',
-    MediumSpeed = <any> 'MediumSpeed'
+    HighSpeed = <any>'HighSpeed',
+    LowMediumSpeed = <any>'LowMediumSpeed',
+    LowSpeed = <any>'LowSpeed',
+    MediumSpeed = <any>'MediumSpeed'
 }
 /**
  * 
@@ -3985,21 +3985,21 @@ export type TimeSpan = number
  * @export
  * @interface TimeSpanDays
  */
-export type TimeSpanDays = TimeSpan 
+export type TimeSpanDays = TimeSpan
 
 /**
  * A span of times in minutes
  * @export
  * @interface TimeSpanMinutes
  */
-export type TimeSpanMinutes = TimeSpan 
+export type TimeSpanMinutes = TimeSpan
 
 /**
  * A span of times in seconds
  * @export
  * @interface TimeSpanSeconds
  */
-export type TimeSpanSeconds = TimeSpan 
+export type TimeSpanSeconds = TimeSpan
 
 /**
  * 
@@ -4007,8 +4007,8 @@ export type TimeSpanSeconds = TimeSpan
  * @enum {string}
  */
 export enum TransactionStatus {
-    Confirmed = <any> 'Confirmed',
-    Unconfirmed = <any> 'Unconfirmed'
+    Confirmed = <any>'Confirmed',
+    Unconfirmed = <any>'Unconfirmed'
 }
 /**
  * A unix timestamp in seconds
@@ -4140,7 +4140,7 @@ export interface UpdatePaymentMethodConfig {
      * @type {LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map | string}
      * @memberof UpdatePaymentMethodConfig
      */
-    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map<string,unknown> | string;
+    config?: LNURLPayPaymentMethodBaseData | LightningNetworkPaymentMethodBaseData | OnChainPaymentMethodBaseData | Map<string, unknown> | string;
 }
 /**
  * 
@@ -4628,8 +4628,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -4646,7 +4646,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"V1ApikeysBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -4664,7 +4664,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
         apiKeysCreateUserApiKey(idOrEmail: string, body?: IdOrEmailApikeysBody, options: any = {}): FetchArgs {
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling apiKeysCreateUserApiKey.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling apiKeysCreateUserApiKey.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/api-keys`
                 .replace(`{${"idOrEmail"}}`, encodeURIComponent(idOrEmail));
@@ -4676,8 +4676,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -4694,7 +4694,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"IdOrEmailApikeysBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -4711,7 +4711,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
         apiKeysDeleteApiKey(apikey: string, options: any = {}): FetchArgs {
             // verify required parameter 'apikey' is not null or undefined
             if (apikey === null || apikey === undefined) {
-                throw new RequiredError('apikey','Required parameter apikey was null or undefined when calling apiKeysDeleteApiKey.');
+                throw new RequiredError('apikey', 'Required parameter apikey was null or undefined when calling apiKeysDeleteApiKey.');
             }
             const localVarPath = `/api/v1/api-keys/{apikey}`
                 .replace(`{${"apikey"}}`, encodeURIComponent(apikey));
@@ -4723,8 +4723,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -4760,8 +4760,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -4786,11 +4786,11 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
         apiKeysDeleteUserApiKey(idOrEmail: string, apikey: string, options: any = {}): FetchArgs {
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling apiKeysDeleteUserApiKey.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling apiKeysDeleteUserApiKey.');
             }
             // verify required parameter 'apikey' is not null or undefined
             if (apikey === null || apikey === undefined) {
-                throw new RequiredError('apikey','Required parameter apikey was null or undefined when calling apiKeysDeleteUserApiKey.');
+                throw new RequiredError('apikey', 'Required parameter apikey was null or undefined when calling apiKeysDeleteUserApiKey.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/api-keys/{apikey}`
                 .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)))
@@ -4803,8 +4803,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -4840,8 +4840,8 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -4868,7 +4868,7 @@ export const APIKeysApiFetchParamCreator = function (configuration?: Configurati
  * APIKeysApi - functional programming interface
  * @export
  */
-export const APIKeysApiFp = function(configuration?: Configuration) {
+export const APIKeysApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Create a new API Key
@@ -5153,11 +5153,11 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appDeleteAppItemImage(appId: string, fileId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appDeleteAppItemImage.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appDeleteAppItemImage.');
             }
             // verify required parameter 'fileId' is not null or undefined
             if (fileId === null || fileId === undefined) {
-                throw new RequiredError('fileId','Required parameter fileId was null or undefined when calling appDeleteAppItemImage.');
+                throw new RequiredError('fileId', 'Required parameter fileId was null or undefined when calling appDeleteAppItemImage.');
             }
             const localVarPath = `/api/v1/apps/{appId}/image/{fileId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)))
@@ -5170,8 +5170,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5202,11 +5202,11 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsCreateCrowdfundApp(body: CrowdfundAppRequest, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling appsCreateCrowdfundApp.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling appsCreateCrowdfundApp.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsCreateCrowdfundApp.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling appsCreateCrowdfundApp.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps/crowdfund`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -5218,8 +5218,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5236,7 +5236,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CrowdfundAppRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5254,11 +5254,11 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsCreatePointOfSaleApp(body: PointOfSaleAppRequest, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling appsCreatePointOfSaleApp.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling appsCreatePointOfSaleApp.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsCreatePointOfSaleApp.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling appsCreatePointOfSaleApp.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps/pos`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -5270,8 +5270,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5288,7 +5288,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PointOfSaleAppRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5305,7 +5305,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsDeleteApp(appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsDeleteApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsDeleteApp.');
             }
             const localVarPath = `/api/v1/apps/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5317,8 +5317,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5354,8 +5354,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5385,7 +5385,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsGetAllAppsForStore(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsGetAllAppsForStore.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling appsGetAllAppsForStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -5397,8 +5397,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5428,7 +5428,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsGetApp(appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetApp.');
             }
             const localVarPath = `/api/v1/apps/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5440,8 +5440,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5472,7 +5472,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsGetAppSales(appId: string, numberOfDays?: number, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetAppSales.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetAppSales.');
             }
             const localVarPath = `/api/v1/apps/{appId}/sales`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5484,8 +5484,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5521,7 +5521,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsGetAppTopItems(appId: string, count?: number, offset?: number, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetAppTopItems.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetAppTopItems.');
             }
             const localVarPath = `/api/v1/apps/{appId}/top-items`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5533,8 +5533,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5572,7 +5572,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsGetCrowdfundApp(appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetCrowdfundApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetCrowdfundApp.');
             }
             const localVarPath = `/api/v1/apps/crowdfund/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5584,8 +5584,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5615,7 +5615,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsGetPointOfSaleApp(appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetPointOfSaleApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetPointOfSaleApp.');
             }
             const localVarPath = `/api/v1/apps/pos/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5627,8 +5627,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5659,11 +5659,11 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsPutPointOfSaleApp(body: PointOfSaleAppRequest, appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling appsPutPointOfSaleApp.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling appsPutPointOfSaleApp.');
             }
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsPutPointOfSaleApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsPutPointOfSaleApp.');
             }
             const localVarPath = `/api/v1/apps/pos/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5675,8 +5675,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5693,7 +5693,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PointOfSaleAppRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5711,7 +5711,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
         appsUploadAppItemImage(appId: string, file?: Blob, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsUploadAppItemImage.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsUploadAppItemImage.');
             }
             const localVarPath = `/api/v1/apps/{appId}/image`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -5724,8 +5724,8 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -5759,7 +5759,7 @@ export const AppsApiFetchParamCreator = function (configuration?: Configuration)
  * AppsApi - functional programming interface
  * @export
  */
-export const AppsApiFp = function(configuration?: Configuration) {
+export const AppsApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Deletes the app item image
@@ -6401,7 +6401,7 @@ export const AuthorizationApiFetchParamCreator = function (configuration?: Confi
  * AuthorizationApi - functional programming interface
  * @export
  */
-export const AuthorizationApiFp = function(configuration?: Configuration) {
+export const AuthorizationApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Redirect the browser to this endpoint to request the user to generate an api-key with specific permissions
@@ -6496,11 +6496,11 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
         appsCreateCrowdfundApp(body: CrowdfundAppRequest, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling appsCreateCrowdfundApp.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling appsCreateCrowdfundApp.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling appsCreateCrowdfundApp.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling appsCreateCrowdfundApp.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/apps/crowdfund`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -6512,8 +6512,8 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -6530,7 +6530,7 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CrowdfundAppRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -6547,7 +6547,7 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
         appsGetCrowdfundApp(appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetCrowdfundApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetCrowdfundApp.');
             }
             const localVarPath = `/api/v1/apps/crowdfund/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -6559,8 +6559,8 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -6587,7 +6587,7 @@ export const CrowdfundApiFetchParamCreator = function (configuration?: Configura
  * CrowdfundApi - functional programming interface
  * @export
  */
-export const CrowdfundApiFp = function(configuration?: Configuration) {
+export const CrowdfundApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -6710,7 +6710,7 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
         filesDeleteFile(fileId: string, options: any = {}): FetchArgs {
             // verify required parameter 'fileId' is not null or undefined
             if (fileId === null || fileId === undefined) {
-                throw new RequiredError('fileId','Required parameter fileId was null or undefined when calling filesDeleteFile.');
+                throw new RequiredError('fileId', 'Required parameter fileId was null or undefined when calling filesDeleteFile.');
             }
             const localVarPath = `/api/v1/files/{fileId}`
                 .replace(`{${"fileId"}}`, encodeURIComponent((fileId)));
@@ -6722,8 +6722,8 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -6753,7 +6753,7 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
         filesGetFile(fileId: string, options: any = {}): FetchArgs {
             // verify required parameter 'fileId' is not null or undefined
             if (fileId === null || fileId === undefined) {
-                throw new RequiredError('fileId','Required parameter fileId was null or undefined when calling filesGetFile.');
+                throw new RequiredError('fileId', 'Required parameter fileId was null or undefined when calling filesGetFile.');
             }
             const localVarPath = `/api/v1/files/{fileId}`
                 .replace(`{${"fileId"}}`, encodeURIComponent((fileId)));
@@ -6765,8 +6765,8 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -6802,8 +6802,8 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -6841,8 +6841,8 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -6876,7 +6876,7 @@ export const FilesApiFetchParamCreator = function (configuration?: Configuration
  * FilesApi - functional programming interface
  * @export
  */
-export const FilesApiFp = function(configuration?: Configuration) {
+export const FilesApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Deletes the file
@@ -7095,7 +7095,7 @@ export const HealthApiFetchParamCreator = function (configuration?: Configuratio
  * HealthApi - functional programming interface
  * @export
  */
-export const HealthApiFp = function(configuration?: Configuration) {
+export const HealthApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Check the instance health status
@@ -7173,15 +7173,15 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesActivatePaymentMethod(invoiceId: string, paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesActivatePaymentMethod.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesActivatePaymentMethod.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling invoicesActivatePaymentMethod.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling invoicesActivatePaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesActivatePaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesActivatePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods/{paymentMethodId}/activate`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7195,8 +7195,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7227,11 +7227,11 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesArchiveInvoice(invoiceId: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesArchiveInvoice.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesArchiveInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesArchiveInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesArchiveInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7244,8 +7244,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7276,11 +7276,11 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesCreateInvoice(body: CreateInvoiceRequest, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling invoicesCreateInvoice.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling invoicesCreateInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesCreateInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesCreateInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -7292,8 +7292,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7310,7 +7310,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CreateInvoiceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7328,11 +7328,11 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesGetInvoice(invoiceId: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesGetInvoice.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesGetInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesGetInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesGetInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7345,8 +7345,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7379,11 +7379,11 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesGetInvoicePaymentMethods(invoiceId: string, storeId: StoreId, includeSensitive?: boolean, onlyAccountedPayments?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesGetInvoicePaymentMethods.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesGetInvoicePaymentMethods.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesGetInvoicePaymentMethods.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesGetInvoicePaymentMethods.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/payment-methods`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7396,8 +7396,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7442,7 +7442,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesGetInvoices(storeId: StoreId, orderId?: Array<string>, textSearch?: string, status?: InvoiceStatus, endDate?: UnixTimestamp, take?: number, skip?: number, startDate?: UnixTimestamp, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesGetInvoices.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesGetInvoices.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -7454,8 +7454,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7515,15 +7515,15 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesMarkInvoiceStatus(body: MarkInvoiceStatusRequest, invoiceId: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling invoicesMarkInvoiceStatus.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling invoicesMarkInvoiceStatus.');
             }
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesMarkInvoiceStatus.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesMarkInvoiceStatus.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesMarkInvoiceStatus.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesMarkInvoiceStatus.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/status`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7536,8 +7536,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7554,7 +7554,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"MarkInvoiceStatusRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7573,15 +7573,15 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesRefund(body: InvoiceIdRefundBody, invoiceId: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling invoicesRefund.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling invoicesRefund.');
             }
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesRefund.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesRefund.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesRefund.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesRefund.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/refund`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7594,8 +7594,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7612,7 +7612,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"InvoiceIdRefundBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7630,11 +7630,11 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesUnarchiveInvoice(invoiceId: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesUnarchiveInvoice.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesUnarchiveInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesUnarchiveInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesUnarchiveInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}/unarchive`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7647,8 +7647,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7680,15 +7680,15 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
         invoicesUpdateInvoice(body: UpdateInvoiceRequest, invoiceId: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling invoicesUpdateInvoice.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling invoicesUpdateInvoice.');
             }
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoicesUpdateInvoice.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoicesUpdateInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling invoicesUpdateInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling invoicesUpdateInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/invoices/{invoiceId}`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)))
@@ -7701,8 +7701,8 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -7719,7 +7719,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateInvoiceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7733,7 +7733,7 @@ export const InvoicesApiFetchParamCreator = function (configuration?: Configurat
  * InvoicesApi - functional programming interface
  * @export
  */
-export const InvoicesApiFp = function(configuration?: Configuration) {
+export const InvoicesApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Activate an invoice payment method (if lazy payments mode is enabled)
@@ -8249,15 +8249,15 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
         storeLightningAddressesAddOrUpdateStoreLightningAddress(body: LightningAddressData, storeId: StoreId, username: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
             }
             // verify required parameter 'username' is not null or undefined
             if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
+                throw new RequiredError('username', 'Required parameter username was null or undefined when calling storeLightningAddressesAddOrUpdateStoreLightningAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses/{username}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -8270,8 +8270,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8288,7 +8288,7 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"LightningAddressData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8306,11 +8306,11 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
         storeLightningAddressesGetStoreLightningAddress(storeId: StoreId, username: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningAddressesGetStoreLightningAddress.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningAddressesGetStoreLightningAddress.');
             }
             // verify required parameter 'username' is not null or undefined
             if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling storeLightningAddressesGetStoreLightningAddress.');
+                throw new RequiredError('username', 'Required parameter username was null or undefined when calling storeLightningAddressesGetStoreLightningAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses/{username}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -8323,8 +8323,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8354,7 +8354,7 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
         storeLightningAddressesGetStoreLightningAddresses(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningAddressesGetStoreLightningAddresses.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningAddressesGetStoreLightningAddresses.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -8366,8 +8366,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8398,11 +8398,11 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
         storeLightningAddressesRemoveStoreLightningAddress(storeId: StoreId, username: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningAddressesRemoveStoreLightningAddress.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningAddressesRemoveStoreLightningAddress.');
             }
             // verify required parameter 'username' is not null or undefined
             if (username === null || username === undefined) {
-                throw new RequiredError('username','Required parameter username was null or undefined when calling storeLightningAddressesRemoveStoreLightningAddress.');
+                throw new RequiredError('username', 'Required parameter username was null or undefined when calling storeLightningAddressesRemoveStoreLightningAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning-addresses/{username}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -8415,8 +8415,8 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8443,7 +8443,7 @@ export const LightningAddressApiFetchParamCreator = function (configuration?: Co
  * LightningAddressApi - functional programming interface
  * @export
  */
-export const LightningAddressApiFp = function(configuration?: Configuration) {
+export const LightningAddressApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Add or update store configured lightning address
@@ -8658,11 +8658,11 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiConnectToNode(body: ConnectToNodeRequest, cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling internalLightningNodeApiConnectToNode.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling internalLightningNodeApiConnectToNode.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiConnectToNode.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiConnectToNode.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/connect`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8674,8 +8674,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8692,7 +8692,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"ConnectToNodeRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8710,11 +8710,11 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiCreateInvoice(body: CreateLightningInvoiceRequest, cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling internalLightningNodeApiCreateInvoice.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling internalLightningNodeApiCreateInvoice.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiCreateInvoice.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiCreateInvoice.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8726,8 +8726,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8744,7 +8744,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CreateLightningInvoiceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8761,7 +8761,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetBalance(cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetBalance.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetBalance.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/balance`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8773,8 +8773,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8804,7 +8804,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetChannels(cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetChannels.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetChannels.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/channels`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8816,8 +8816,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8847,7 +8847,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetDepositAddress(cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetDepositAddress.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetDepositAddress.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/address`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8859,8 +8859,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8890,7 +8890,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetHistogram(cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetHistogram.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetHistogram.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/histogram`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8902,8 +8902,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8933,7 +8933,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetInfo(cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInfo.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInfo.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/info`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -8945,8 +8945,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -8977,11 +8977,11 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetInvoice(cryptoCode: string, id: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInvoice.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInvoice.');
             }
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling internalLightningNodeApiGetInvoice.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling internalLightningNodeApiGetInvoice.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices/{id}`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -8994,8 +8994,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9027,7 +9027,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetInvoices(cryptoCode: string, pendingOnly?: boolean, offsetIndex?: number, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInvoices.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetInvoices.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -9039,8 +9039,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9079,11 +9079,11 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetPayment(cryptoCode: string, paymentHash: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetPayment.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetPayment.');
             }
             // verify required parameter 'paymentHash' is not null or undefined
             if (paymentHash === null || paymentHash === undefined) {
-                throw new RequiredError('paymentHash','Required parameter paymentHash was null or undefined when calling internalLightningNodeApiGetPayment.');
+                throw new RequiredError('paymentHash', 'Required parameter paymentHash was null or undefined when calling internalLightningNodeApiGetPayment.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/payments/{paymentHash}`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -9096,8 +9096,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9129,7 +9129,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiGetPayments(cryptoCode: string, includePending?: boolean, offsetIndex?: number, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetPayments.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiGetPayments.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/payments`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -9141,8 +9141,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9181,11 +9181,11 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiOpenChannel(body: OpenLightningChannelRequest, cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling internalLightningNodeApiOpenChannel.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling internalLightningNodeApiOpenChannel.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiOpenChannel.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiOpenChannel.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/channels`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -9197,8 +9197,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9215,7 +9215,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"OpenLightningChannelRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -9233,11 +9233,11 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
         internalLightningNodeApiPayInvoice(body: PayLightningInvoiceRequest, cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling internalLightningNodeApiPayInvoice.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling internalLightningNodeApiPayInvoice.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiPayInvoice.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling internalLightningNodeApiPayInvoice.');
             }
             const localVarPath = `/api/v1/server/lightning/{cryptoCode}/invoices/pay`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)));
@@ -9249,8 +9249,8 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9267,7 +9267,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PayLightningInvoiceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -9281,7 +9281,7 @@ export const LightningInternalNodeApiFetchParamCreator = function (configuration
  * LightningInternalNodeApi - functional programming interface
  * @export
  */
-export const LightningInternalNodeApiFp = function(configuration?: Configuration) {
+export const LightningInternalNodeApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Connect to another lightning node.
@@ -9884,15 +9884,15 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiConnectToNode(body: ConnectToNodeRequest, cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeLightningNodeApiConnectToNode.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeLightningNodeApiConnectToNode.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiConnectToNode.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiConnectToNode.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiConnectToNode.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiConnectToNode.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/connect`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -9905,8 +9905,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9923,7 +9923,7 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"ConnectToNodeRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -9942,15 +9942,15 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiCreateInvoice(body: CreateLightningInvoiceRequest, cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeLightningNodeApiCreateInvoice.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeLightningNodeApiCreateInvoice.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiCreateInvoice.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiCreateInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiCreateInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiCreateInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -9963,8 +9963,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -9981,7 +9981,7 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CreateLightningInvoiceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -9999,11 +9999,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetBalance(cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetBalance.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetBalance.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetBalance.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetBalance.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/balance`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10016,8 +10016,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10048,11 +10048,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetChannels(cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetChannels.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetChannels.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetChannels.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetChannels.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/channels`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10065,8 +10065,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10097,11 +10097,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetDepositAddress(storeId: StoreId, cryptoCode: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetDepositAddress.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetDepositAddress.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetDepositAddress.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetDepositAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/address`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -10114,8 +10114,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10146,11 +10146,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetHistogram(cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetHistogram.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetHistogram.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetHistogram.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetHistogram.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/histogram`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10163,8 +10163,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10195,11 +10195,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetInfo(cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetInfo.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetInfo.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInfo.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInfo.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/info`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10212,8 +10212,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10245,15 +10245,15 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetInvoice(cryptoCode: string, storeId: StoreId, id: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetInvoice.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInvoice.');
             }
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling storeLightningNodeApiGetInvoice.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling storeLightningNodeApiGetInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/{id}`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10267,8 +10267,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10301,11 +10301,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetInvoices(cryptoCode: string, storeId: StoreId, pendingOnly?: boolean, offsetIndex?: number, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetInvoices.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetInvoices.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInvoices.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetInvoices.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10318,8 +10318,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10359,15 +10359,15 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetPayment(cryptoCode: string, storeId: StoreId, paymentHash: string, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetPayment.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetPayment.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetPayment.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetPayment.');
             }
             // verify required parameter 'paymentHash' is not null or undefined
             if (paymentHash === null || paymentHash === undefined) {
-                throw new RequiredError('paymentHash','Required parameter paymentHash was null or undefined when calling storeLightningNodeApiGetPayment.');
+                throw new RequiredError('paymentHash', 'Required parameter paymentHash was null or undefined when calling storeLightningNodeApiGetPayment.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/payments/{paymentHash}`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10381,8 +10381,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10415,11 +10415,11 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiGetPayments(cryptoCode: string, storeId: StoreId, includePending?: boolean, offsetIndex?: number, options: any = {}): FetchArgs {
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetPayments.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiGetPayments.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiGetPayments.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiGetPayments.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/payments`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10432,8 +10432,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10473,15 +10473,15 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiOpenChannel(body: OpenLightningChannelRequest, cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeLightningNodeApiOpenChannel.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeLightningNodeApiOpenChannel.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiOpenChannel.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiOpenChannel.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiOpenChannel.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiOpenChannel.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/channels`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10494,8 +10494,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10512,7 +10512,7 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"OpenLightningChannelRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -10531,15 +10531,15 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
         storeLightningNodeApiPayInvoice(body: PayLightningInvoiceRequest, cryptoCode: string, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeLightningNodeApiPayInvoice.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeLightningNodeApiPayInvoice.');
             }
             // verify required parameter 'cryptoCode' is not null or undefined
             if (cryptoCode === null || cryptoCode === undefined) {
-                throw new RequiredError('cryptoCode','Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiPayInvoice.');
+                throw new RequiredError('cryptoCode', 'Required parameter cryptoCode was null or undefined when calling storeLightningNodeApiPayInvoice.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeLightningNodeApiPayInvoice.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeLightningNodeApiPayInvoice.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/lightning/{cryptoCode}/invoices/pay`
                 .replace(`{${"cryptoCode"}}`, encodeURIComponent((cryptoCode)))
@@ -10552,8 +10552,8 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -10570,7 +10570,7 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PayLightningInvoiceRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -10584,7 +10584,7 @@ export const LightningStoreApiFetchParamCreator = function (configuration?: Conf
  * LightningStoreApi - functional programming interface
  * @export
  */
-export const LightningStoreApiFp = function(configuration?: Configuration) {
+export const LightningStoreApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Connect to another lightning node.
@@ -11248,7 +11248,7 @@ export const MiscelleneousApiFetchParamCreator = function (configuration?: Confi
         invoiceCheckout(invoiceId: string, lang?: string, options: any = {}): FetchArgs {
             // verify required parameter 'invoiceId' is not null or undefined
             if (invoiceId === null || invoiceId === undefined) {
-                throw new RequiredError('invoiceId','Required parameter invoiceId was null or undefined when calling invoiceCheckout.');
+                throw new RequiredError('invoiceId', 'Required parameter invoiceId was null or undefined when calling invoiceCheckout.');
             }
             const localVarPath = `/i/{invoiceId}`
                 .replace(`{${"invoiceId"}}`, encodeURIComponent((invoiceId)));
@@ -11324,7 +11324,7 @@ export const MiscelleneousApiFetchParamCreator = function (configuration?: Confi
  * MiscelleneousApi - functional programming interface
  * @export
  */
-export const MiscelleneousApiFp = function(configuration?: Configuration) {
+export const MiscelleneousApiFp = function (configuration?: Configuration) {
     return {
         /**
          * View available rate providers that you can use in stores
@@ -11520,7 +11520,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
         notificationsDeleteNotification(id: string, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling notificationsDeleteNotification.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling notificationsDeleteNotification.');
             }
             const localVarPath = `/api/v1/users/me/notifications/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent((id)));
@@ -11532,8 +11532,8 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -11563,7 +11563,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
         notificationsGetNotification(id: string, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling notificationsGetNotification.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling notificationsGetNotification.');
             }
             const localVarPath = `/api/v1/users/me/notifications/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent((id)));
@@ -11575,8 +11575,8 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -11612,8 +11612,8 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -11653,8 +11653,8 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -11701,11 +11701,11 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
         notificationsUpdateNotification(body: UpdateNotification, id: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling notificationsUpdateNotification.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling notificationsUpdateNotification.');
             }
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling notificationsUpdateNotification.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling notificationsUpdateNotification.');
             }
             const localVarPath = `/api/v1/users/me/notifications/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent((id)));
@@ -11717,8 +11717,8 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -11735,7 +11735,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateNotification" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -11752,7 +11752,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
         notificationsUpdateNotificationSettings(body: UpdateNotificationSettingsRequest, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling notificationsUpdateNotificationSettings.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling notificationsUpdateNotificationSettings.');
             }
             const localVarPath = `/api/v1/users/me/notification-settings`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -11763,8 +11763,8 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -11781,7 +11781,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateNotificationSettingsRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -11795,7 +11795,7 @@ export const NotificationsCurrentUserApiFetchParamCreator = function (configurat
  * NotificationsCurrentUserApi - functional programming interface
  * @export
  */
-export const NotificationsCurrentUserApiFp = function(configuration?: Configuration) {
+export const NotificationsCurrentUserApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Removes the specified notification.
@@ -12089,11 +12089,11 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
         paymentRequestsArchivePaymentRequest(storeId: StoreId, paymentRequestId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsArchivePaymentRequest.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling paymentRequestsArchivePaymentRequest.');
             }
             // verify required parameter 'paymentRequestId' is not null or undefined
             if (paymentRequestId === null || paymentRequestId === undefined) {
-                throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsArchivePaymentRequest.');
+                throw new RequiredError('paymentRequestId', 'Required parameter paymentRequestId was null or undefined when calling paymentRequestsArchivePaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -12106,8 +12106,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12138,11 +12138,11 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
         paymentRequestsCreatePaymentRequest(body: PaymentRequestBaseData, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling paymentRequestsCreatePaymentRequest.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling paymentRequestsCreatePaymentRequest.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsCreatePaymentRequest.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling paymentRequestsCreatePaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -12154,8 +12154,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12172,7 +12172,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PaymentRequestBaseData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -12190,11 +12190,11 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
         paymentRequestsGetPaymentRequest(storeId: StoreId, paymentRequestId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsGetPaymentRequest.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling paymentRequestsGetPaymentRequest.');
             }
             // verify required parameter 'paymentRequestId' is not null or undefined
             if (paymentRequestId === null || paymentRequestId === undefined) {
-                throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsGetPaymentRequest.');
+                throw new RequiredError('paymentRequestId', 'Required parameter paymentRequestId was null or undefined when calling paymentRequestsGetPaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -12207,8 +12207,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12238,7 +12238,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
         paymentRequestsGetPaymentRequests(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsGetPaymentRequests.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling paymentRequestsGetPaymentRequests.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -12250,8 +12250,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12283,11 +12283,11 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
         paymentRequestsPay(storeId: StoreId, paymentRequestId: string, body?: PaymentRequestIdPayBody, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsPay.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling paymentRequestsPay.');
             }
             // verify required parameter 'paymentRequestId' is not null or undefined
             if (paymentRequestId === null || paymentRequestId === undefined) {
-                throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsPay.');
+                throw new RequiredError('paymentRequestId', 'Required parameter paymentRequestId was null or undefined when calling paymentRequestsPay.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}/pay`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -12300,8 +12300,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12318,7 +12318,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PaymentRequestIdPayBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -12337,15 +12337,15 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
         paymentRequestsUpdatePaymentRequest(body: PaymentRequestBaseData, storeId: StoreId, paymentRequestId: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
             }
             // verify required parameter 'paymentRequestId' is not null or undefined
             if (paymentRequestId === null || paymentRequestId === undefined) {
-                throw new RequiredError('paymentRequestId','Required parameter paymentRequestId was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
+                throw new RequiredError('paymentRequestId', 'Required parameter paymentRequestId was null or undefined when calling paymentRequestsUpdatePaymentRequest.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-requests/{paymentRequestId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -12358,8 +12358,8 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12376,7 +12376,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PaymentRequestBaseData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -12390,7 +12390,7 @@ export const PaymentRequestsApiFetchParamCreator = function (configuration?: Con
  * PaymentRequestsApi - functional programming interface
  * @export
  */
-export const PaymentRequestsApiFp = function(configuration?: Configuration) {
+export const PaymentRequestsApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Archives the specified payment request.
@@ -12701,8 +12701,8 @@ export const PayoutProcessorsApiFetchParamCreator = function (configuration?: Co
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12729,7 +12729,7 @@ export const PayoutProcessorsApiFetchParamCreator = function (configuration?: Co
  * PayoutProcessorsApi - functional programming interface
  * @export
  */
-export const PayoutProcessorsApiFp = function(configuration?: Configuration) {
+export const PayoutProcessorsApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Get payout processors available in this instance
@@ -12805,7 +12805,7 @@ export const PointOfSaleApiFetchParamCreator = function (configuration?: Configu
         appsGetPointOfSaleApp(appId: string, options: any = {}): FetchArgs {
             // verify required parameter 'appId' is not null or undefined
             if (appId === null || appId === undefined) {
-                throw new RequiredError('appId','Required parameter appId was null or undefined when calling appsGetPointOfSaleApp.');
+                throw new RequiredError('appId', 'Required parameter appId was null or undefined when calling appsGetPointOfSaleApp.');
             }
             const localVarPath = `/api/v1/apps/pos/{appId}`
                 .replace(`{${"appId"}}`, encodeURIComponent((appId)));
@@ -12817,8 +12817,8 @@ export const PointOfSaleApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12845,7 +12845,7 @@ export const PointOfSaleApiFetchParamCreator = function (configuration?: Configu
  * PointOfSaleApi - functional programming interface
  * @export
  */
-export const PointOfSaleApiFp = function(configuration?: Configuration) {
+export const PointOfSaleApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Returns POS app data
@@ -12925,11 +12925,11 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
         pullPaymentsArchivePullPayment(storeId: StoreId, pullPaymentId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsArchivePullPayment.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsArchivePullPayment.');
             }
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsArchivePullPayment.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsArchivePullPayment.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/pull-payments/{pullPaymentId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -12942,8 +12942,8 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -12974,7 +12974,7 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
         pullPaymentsCreatePullPayment(storeId: StoreId, body?: StoreIdPullpaymentsBody, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsCreatePullPayment.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsCreatePullPayment.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/pull-payments`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -12986,8 +12986,8 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -13004,7 +13004,7 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreIdPullpaymentsBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -13022,7 +13022,7 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
         pullPaymentsGetPullPayments(storeId: StoreId, includeArchived?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsGetPullPayments.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsGetPullPayments.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/pull-payments`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -13034,8 +13034,8 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -13066,7 +13066,7 @@ export const PullPaymentsManagementApiFetchParamCreator = function (configuratio
  * PullPaymentsManagementApi - functional programming interface
  * @export
  */
-export const PullPaymentsManagementApiFp = function(configuration?: Configuration) {
+export const PullPaymentsManagementApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Archive this pull payment (Will cancel all payouts awaiting for payment)
@@ -13237,11 +13237,11 @@ export const PullPaymentsPayoutPublicApiFetchParamCreator = function (configurat
         pullPaymentsGetPayout(pullPaymentId: string, payoutId: string, options: any = {}): FetchArgs {
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayout.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayout.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsGetPayout.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling pullPaymentsGetPayout.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts/{payoutId}`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)))
@@ -13268,7 +13268,7 @@ export const PullPaymentsPayoutPublicApiFetchParamCreator = function (configurat
  * PullPaymentsPayoutPublicApi - functional programming interface
  * @export
  */
-export const PullPaymentsPayoutPublicApiFp = function(configuration?: Configuration) {
+export const PullPaymentsPayoutPublicApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Get payout
@@ -13351,11 +13351,11 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
         pullPaymentsCreatePayout(body: CreatePayoutRequest, pullPaymentId: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling pullPaymentsCreatePayout.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling pullPaymentsCreatePayout.');
             }
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsCreatePayout.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsCreatePayout.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
@@ -13371,7 +13371,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CreatePayoutRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -13389,11 +13389,11 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
         pullPaymentsGetPayout(pullPaymentId: string, payoutId: string, options: any = {}): FetchArgs {
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayout.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayout.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsGetPayout.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling pullPaymentsGetPayout.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts/{payoutId}`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)))
@@ -13424,7 +13424,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
         pullPaymentsGetPayouts(pullPaymentId: string, includeCancelled?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayouts.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPayouts.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/payouts`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
@@ -13457,7 +13457,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
         pullPaymentsGetPullPayment(pullPaymentId: string, options: any = {}): FetchArgs {
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPullPayment.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPullPayment.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
@@ -13486,7 +13486,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
         pullPaymentsGetPullPaymentLNURL(pullPaymentId: string, options: any = {}): FetchArgs {
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPullPaymentLNURL.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsGetPullPaymentLNURL.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/lnurl`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
@@ -13516,7 +13516,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
         pullPaymentsLinkBoltcard(pullPaymentId: string, body?: PullPaymentIdBoltcardsBody, options: any = {}): FetchArgs {
             // verify required parameter 'pullPaymentId' is not null or undefined
             if (pullPaymentId === null || pullPaymentId === undefined) {
-                throw new RequiredError('pullPaymentId','Required parameter pullPaymentId was null or undefined when calling pullPaymentsLinkBoltcard.');
+                throw new RequiredError('pullPaymentId', 'Required parameter pullPaymentId was null or undefined when calling pullPaymentsLinkBoltcard.');
             }
             const localVarPath = `/api/v1/pull-payments/{pullPaymentId}/boltcards`
                 .replace(`{${"pullPaymentId"}}`, encodeURIComponent((pullPaymentId)));
@@ -13532,7 +13532,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PullPaymentIdBoltcardsBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -13546,7 +13546,7 @@ export const PullPaymentsPublicApiFetchParamCreator = function (configuration?: 
  * PullPaymentsPublicApi - functional programming interface
  * @export
  */
-export const PullPaymentsPublicApiFp = function(configuration?: Configuration) {
+export const PullPaymentsPublicApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Create a new payout
@@ -13848,8 +13848,8 @@ export const ServerEmailApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -13879,7 +13879,7 @@ export const ServerEmailApiFetchParamCreator = function (configuration?: Configu
         serverEmailUpdateSettings(body: UpdateServerEmailSettings, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling serverEmailUpdateSettings.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling serverEmailUpdateSettings.');
             }
             const localVarPath = `/api/v1/server/email`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -13890,8 +13890,8 @@ export const ServerEmailApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -13908,7 +13908,7 @@ export const ServerEmailApiFetchParamCreator = function (configuration?: Configu
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateServerEmailSettings" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -13922,7 +13922,7 @@ export const ServerEmailApiFetchParamCreator = function (configuration?: Configu
  * ServerEmailApi - functional programming interface
  * @export
  */
-export const ServerEmailApiFp = function(configuration?: Configuration) {
+export const ServerEmailApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Retrieve the email settings configured for the server. The password field will be masked if present.
@@ -14045,8 +14045,8 @@ export const ServerInfoApiFetchParamCreator = function (configuration?: Configur
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14082,8 +14082,8 @@ export const ServerInfoApiFetchParamCreator = function (configuration?: Configur
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14110,7 +14110,7 @@ export const ServerInfoApiFetchParamCreator = function (configuration?: Configur
  * ServerInfoApi - functional programming interface
  * @export
  */
-export const ServerInfoApiFp = function(configuration?: Configuration) {
+export const ServerInfoApiFp = function (configuration?: Configuration) {
     return {
         /**
          * View information about the store's roles at the server's scope
@@ -14225,11 +14225,11 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
         storePaymentMethodsDeleteStorePaymentMethod(paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storePaymentMethodsDeleteStorePaymentMethod.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storePaymentMethodsDeleteStorePaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsDeleteStorePaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storePaymentMethodsDeleteStorePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14242,8 +14242,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14275,11 +14275,11 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
         storePaymentMethodsGetStorePaymentMethod(paymentMethodId: PaymentMethodId, storeId: StoreId, includeConfig?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storePaymentMethodsGetStorePaymentMethod.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storePaymentMethodsGetStorePaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsGetStorePaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storePaymentMethodsGetStorePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14292,8 +14292,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14329,7 +14329,7 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
         storePaymentMethodsGetStorePaymentMethods(storeId: StoreId, onlyEnabled?: boolean, includeConfig?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsGetStorePaymentMethods.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storePaymentMethodsGetStorePaymentMethods.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -14341,8 +14341,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14382,11 +14382,11 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
         storePaymentMethodsUpdateStorePaymentMethod(paymentMethodId: PaymentMethodId, storeId: StoreId, body?: UpdatePaymentMethodConfig, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storePaymentMethodsUpdateStorePaymentMethod.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storePaymentMethodsUpdateStorePaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePaymentMethodsUpdateStorePaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storePaymentMethodsUpdateStorePaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14399,8 +14399,8 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14417,7 +14417,7 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdatePaymentMethodConfig" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -14431,7 +14431,7 @@ export const StorePaymentMethodsApiFetchParamCreator = function (configuration?:
  * StorePaymentMethodsApi - functional programming interface
  * @export
  */
-export const StorePaymentMethodsApiFp = function(configuration?: Configuration) {
+export const StorePaymentMethodsApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Delete information about the stores' configured payment method
@@ -14656,15 +14656,15 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainPaymentMethodsGenerateOnChainWallet(body: GenerateOnChainWalletRequest, paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsGenerateOnChainWallet.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/generate`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14677,8 +14677,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14695,7 +14695,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"GenerateOnChainWalletRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -14715,11 +14715,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview(storeId: StoreId, paymentMethodId: string, offset?: number, count?: number, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsGetOnChainPaymentMethodPreview.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/preview`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -14732,8 +14732,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14775,15 +14775,15 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview(body: WalletPreviewBody, paymentMethodId: PaymentMethodId, storeId: StoreId, offset?: number, count?: number, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainPaymentMethodsPOSTOnChainPaymentMethodPreview.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/preview`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14796,8 +14796,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14822,7 +14822,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"WalletPreviewBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -14843,23 +14843,23 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsAddOrUpdateOnChainWalletLink(body: AddOnChainWalletObjectLinkRequest, paymentMethodId: PaymentMethodId, storeId: StoreId, objectId: string, objectType: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
             }
             // verify required parameter 'objectId' is not null or undefined
             if (objectId === null || objectId === undefined) {
-                throw new RequiredError('objectId','Required parameter objectId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
+                throw new RequiredError('objectId', 'Required parameter objectId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
             }
             // verify required parameter 'objectType' is not null or undefined
             if (objectType === null || objectType === undefined) {
-                throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
+                throw new RequiredError('objectType', 'Required parameter objectType was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletLink.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}/links`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14874,8 +14874,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14892,7 +14892,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddOnChainWalletObjectLinkRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -14911,15 +14911,15 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsAddOrUpdateOnChainWalletObjects(body: OnChainWalletObjectData, paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsAddOrUpdateOnChainWalletObjects.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14932,8 +14932,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -14950,7 +14950,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"OnChainWalletObjectData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -14969,15 +14969,15 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsCreateOnChainTransaction(body: CreateOnChainTransactionRequest, paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsCreateOnChainTransaction.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -14990,8 +14990,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15008,7 +15008,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CreateOnChainTransactionRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -15027,11 +15027,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsGetOnChainFeeRate(paymentMethodId: PaymentMethodId, storeId: StoreId, blockTarget?: number, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainFeeRate.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainFeeRate.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainFeeRate.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainFeeRate.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/feerate`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15044,8 +15044,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15083,19 +15083,19 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsGetOnChainWalletObject(paymentMethodId: PaymentMethodId, storeId: StoreId, objectId: string, objectType: string, includeNeighbourData?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
             }
             // verify required parameter 'objectId' is not null or undefined
             if (objectId === null || objectId === undefined) {
-                throw new RequiredError('objectId','Required parameter objectId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
+                throw new RequiredError('objectId', 'Required parameter objectId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
             }
             // verify required parameter 'objectType' is not null or undefined
             if (objectType === null || objectType === undefined) {
-                throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
+                throw new RequiredError('objectType', 'Required parameter objectType was null or undefined when calling storeOnChainWalletsGetOnChainWalletObject.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15110,8 +15110,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15149,11 +15149,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsGetOnChainWalletObjects(paymentMethodId: PaymentMethodId, storeId: StoreId, ids?: Array<string>, type?: string, includeNeighbourData?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObjects.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObjects.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObjects.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletObjects.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15166,8 +15166,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15211,11 +15211,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsGetOnChainWalletReceiveAddress(paymentMethodId: PaymentMethodId, storeId: StoreId, forceGenerate?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletReceiveAddress.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletReceiveAddress.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletReceiveAddress.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletReceiveAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/address`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15228,8 +15228,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15265,15 +15265,15 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsGetOnChainWalletTransaction(paymentMethodId: PaymentMethodId, storeId: StoreId, transactionId: string, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
             }
             // verify required parameter 'transactionId' is not null or undefined
             if (transactionId === null || transactionId === undefined) {
-                throw new RequiredError('transactionId','Required parameter transactionId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
+                throw new RequiredError('transactionId', 'Required parameter transactionId was null or undefined when calling storeOnChainWalletsGetOnChainWalletTransaction.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions/{transactionId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15287,8 +15287,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15319,11 +15319,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsGetOnChainWalletUTXOs(paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletUTXOs.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsGetOnChainWalletUTXOs.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletUTXOs.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsGetOnChainWalletUTXOs.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/utxos`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15336,8 +15336,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15371,19 +15371,19 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsPatchOnChainWalletTransaction(body: PatchOnChainTransactionRequest, paymentMethodId: PaymentMethodId, storeId: StoreId, transactionId: string, force?: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
             }
             // verify required parameter 'transactionId' is not null or undefined
             if (transactionId === null || transactionId === undefined) {
-                throw new RequiredError('transactionId','Required parameter transactionId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
+                throw new RequiredError('transactionId', 'Required parameter transactionId was null or undefined when calling storeOnChainWalletsPatchOnChainWalletTransaction.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions/{transactionId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15397,8 +15397,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15419,7 +15419,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PatchOnChainTransactionRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -15441,27 +15441,27 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsRemoveOnChainWalletLink(paymentMethodId: PaymentMethodId, storeId: StoreId, linkId: string, objectId: string, linkType: string, objectType: string, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             // verify required parameter 'linkId' is not null or undefined
             if (linkId === null || linkId === undefined) {
-                throw new RequiredError('linkId','Required parameter linkId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
+                throw new RequiredError('linkId', 'Required parameter linkId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             // verify required parameter 'objectId' is not null or undefined
             if (objectId === null || objectId === undefined) {
-                throw new RequiredError('objectId','Required parameter objectId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
+                throw new RequiredError('objectId', 'Required parameter objectId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             // verify required parameter 'linkType' is not null or undefined
             if (linkType === null || linkType === undefined) {
-                throw new RequiredError('linkType','Required parameter linkType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
+                throw new RequiredError('linkType', 'Required parameter linkType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             // verify required parameter 'objectType' is not null or undefined
             if (objectType === null || objectType === undefined) {
-                throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
+                throw new RequiredError('objectType', 'Required parameter objectType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletLink.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}/links/{linkType}/{linkId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15478,8 +15478,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15512,19 +15512,19 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsRemoveOnChainWalletObject(paymentMethodId: PaymentMethodId, storeId: StoreId, objectId: string, objectType: string, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
             }
             // verify required parameter 'objectId' is not null or undefined
             if (objectId === null || objectId === undefined) {
-                throw new RequiredError('objectId','Required parameter objectId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
+                throw new RequiredError('objectId', 'Required parameter objectId was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
             }
             // verify required parameter 'objectType' is not null or undefined
             if (objectType === null || objectType === undefined) {
-                throw new RequiredError('objectType','Required parameter objectType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
+                throw new RequiredError('objectType', 'Required parameter objectType was null or undefined when calling storeOnChainWalletsRemoveOnChainWalletObject.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/objects/{objectType}/{objectId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15539,8 +15539,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15571,11 +15571,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsShowOnChainWalletHistogram(paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsShowOnChainWalletHistogram.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsShowOnChainWalletHistogram.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletHistogram.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletHistogram.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/histogram`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15588,8 +15588,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15620,11 +15620,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsShowOnChainWalletOverview(paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsShowOnChainWalletOverview.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsShowOnChainWalletOverview.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletOverview.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletOverview.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15637,8 +15637,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15673,11 +15673,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsShowOnChainWalletTransactions(paymentMethodId: PaymentMethodId, storeId: StoreId, labelFilter?: string, limit?: number, skip?: number, statusFilter?: Array<TransactionStatus>, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsShowOnChainWalletTransactions.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsShowOnChainWalletTransactions.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletTransactions.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsShowOnChainWalletTransactions.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/transactions`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15690,8 +15690,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15738,11 +15738,11 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
         storeOnChainWalletsUnReserveOnChainWalletReceiveAddress(paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsUnReserveOnChainWalletReceiveAddress.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storeOnChainWalletsUnReserveOnChainWalletReceiveAddress.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storeOnChainWalletsUnReserveOnChainWalletReceiveAddress.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storeOnChainWalletsUnReserveOnChainWalletReceiveAddress.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payment-methods/{paymentMethodId}/wallet/address`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -15755,8 +15755,8 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -15783,7 +15783,7 @@ export const StoreWalletOnChainApiFetchParamCreator = function (configuration?: 
  * StoreWalletOnChainApi - functional programming interface
  * @export
  */
-export const StoreWalletOnChainApiFp = function(configuration?: Configuration) {
+export const StoreWalletOnChainApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Generate a wallet and update the specified store's payment method to it
@@ -16756,7 +16756,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesCreateStore(body: StoreBaseData, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesCreateStore.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesCreateStore.');
             }
             const localVarPath = `/api/v1/stores`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -16767,8 +16767,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -16785,7 +16785,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreBaseData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -16802,7 +16802,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesDeleteStore(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesDeleteStore.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesDeleteStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -16814,8 +16814,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -16845,7 +16845,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesDeleteStoreLogo(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesDeleteStoreLogo.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesDeleteStoreLogo.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/logo`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -16857,8 +16857,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -16888,7 +16888,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesGetStore(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStore.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesGetStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -16900,8 +16900,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -16931,7 +16931,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesGetStoreRoles(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreRoles.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesGetStoreRoles.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/roles`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -16943,8 +16943,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -16980,8 +16980,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17012,11 +17012,11 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesUpdateStore(body: StoreData, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesUpdateStore.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesUpdateStore.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStore.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesUpdateStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -17028,8 +17028,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17046,7 +17046,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -17064,7 +17064,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
         storesUploadStoreLogo(storeId: StoreId, file?: Blob, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUploadStoreLogo.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesUploadStoreLogo.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/logo`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -17077,8 +17077,8 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17112,7 +17112,7 @@ export const StoresApiFetchParamCreator = function (configuration?: Configuratio
  * StoresApi - functional programming interface
  * @export
  */
-export const StoresApiFp = function(configuration?: Configuration) {
+export const StoresApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Create a new store
@@ -17481,7 +17481,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
         storesGetStoreEmailSettings(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreEmailSettings.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesGetStoreEmailSettings.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/email`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -17493,8 +17493,8 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17525,11 +17525,11 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
         storesSendStoreEmail(body: EmailSendBody, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesSendStoreEmail.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesSendStoreEmail.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesSendStoreEmail.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesSendStoreEmail.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/email/send`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -17541,8 +17541,8 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17559,7 +17559,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"EmailSendBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -17577,11 +17577,11 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
         storesUpdateStoreEmailSettings(body: UpdateEmailSettings, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesUpdateStoreEmailSettings.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesUpdateStoreEmailSettings.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStoreEmailSettings.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesUpdateStoreEmailSettings.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/email`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -17593,8 +17593,8 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17611,7 +17611,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateEmailSettings" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -17625,7 +17625,7 @@ export const StoresEmailApiFetchParamCreator = function (configuration?: Configu
  * StoresEmailApi - functional programming interface
  * @export
  */
-export const StoresEmailApiFp = function(configuration?: Configuration) {
+export const StoresEmailApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Retrieve the email settings configured for specific store. The password field will be masked if present.
@@ -17793,11 +17793,11 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutProcessorsForPaymentMethod(payoutMethodId: PayoutMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'payoutMethodId' is not null or undefined
             if (payoutMethodId === null || payoutMethodId === undefined) {
-                throw new RequiredError('payoutMethodId','Required parameter payoutMethodId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutProcessorsForPaymentMethod.');
+                throw new RequiredError('payoutMethodId', 'Required parameter payoutMethodId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutProcessorsForPaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutProcessorsForPaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutProcessorsForPaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/LightningAutomatedPayoutSenderFactory/{payoutMethodId}`
                 .replace(`{${"payoutMethodId"}}`, encodeURIComponent((payoutMethodId)))
@@ -17810,8 +17810,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17841,7 +17841,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutSenderFactory(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutSenderFactory.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerGetStoreLightningAutomatedPayoutSenderFactory.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/LightningAutomatedPayoutSenderFactory`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -17853,8 +17853,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17886,15 +17886,15 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor(body: UpdateLightningAutomatedTransferSettings, payoutMethodId: PayoutMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
             }
             // verify required parameter 'payoutMethodId' is not null or undefined
             if (payoutMethodId === null || payoutMethodId === undefined) {
-                throw new RequiredError('payoutMethodId','Required parameter payoutMethodId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
+                throw new RequiredError('payoutMethodId', 'Required parameter payoutMethodId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedLightningPayoutProcessorsControllerUpdateStoreLightningAutomatedPayoutProcessor.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/LightningAutomatedPayoutSenderFactory/{payoutMethodId}`
                 .replace(`{${"payoutMethodId"}}`, encodeURIComponent((payoutMethodId)))
@@ -17907,8 +17907,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17925,7 +17925,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateLightningAutomatedTransferSettings" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -17943,11 +17943,11 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedPayoutProcessorsForPaymentMethod(paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedPayoutProcessorsForPaymentMethod.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedPayoutProcessorsForPaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedPayoutProcessorsForPaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedPayoutProcessorsForPaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedPayoutSenderFactory/{paymentMethodId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -17960,8 +17960,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -17991,7 +17991,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedTransferSenderFactory(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedTransferSenderFactory.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerGetStoreOnChainAutomatedTransferSenderFactory.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedTransferSenderFactory`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -18003,8 +18003,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18036,15 +18036,15 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod(body: UpdateOnChainAutomatedTransferSettings, paymentMethodId: PaymentMethodId, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
             }
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedPayoutProcessorForPaymentMethod.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedPayoutSenderFactory/{paymentMethodId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -18057,8 +18057,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18075,7 +18075,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateOnChainAutomatedTransferSettings" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -18093,11 +18093,11 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedTransferSenderFactory(body: UpdateOnChainAutomatedTransferSettings, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedTransferSenderFactory.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedTransferSenderFactory.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedTransferSenderFactory.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling greenfieldStoreAutomatedOnChainPayoutProcessorsControllerUpdateStoreOnChainAutomatedTransferSenderFactory.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/OnChainAutomatedTransferSenderFactory`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -18109,8 +18109,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18127,7 +18127,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateOnChainAutomatedTransferSettings" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -18144,7 +18144,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         storePayoutProcessorsGetStorePayoutProcessors(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePayoutProcessorsGetStorePayoutProcessors.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storePayoutProcessorsGetStorePayoutProcessors.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -18156,8 +18156,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18189,15 +18189,15 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
         storePayoutProcessorsRemoveStorePayoutProcessor(paymentMethodId: PaymentMethodId, storeId: StoreId, processor: string, options: any = {}): FetchArgs {
             // verify required parameter 'paymentMethodId' is not null or undefined
             if (paymentMethodId === null || paymentMethodId === undefined) {
-                throw new RequiredError('paymentMethodId','Required parameter paymentMethodId was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
+                throw new RequiredError('paymentMethodId', 'Required parameter paymentMethodId was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
             }
             // verify required parameter 'processor' is not null or undefined
             if (processor === null || processor === undefined) {
-                throw new RequiredError('processor','Required parameter processor was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
+                throw new RequiredError('processor', 'Required parameter processor was null or undefined when calling storePayoutProcessorsRemoveStorePayoutProcessor.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payout-processors/{processor}/{paymentMethodId}`
                 .replace(`{${"paymentMethodId"}}`, encodeURIComponent((paymentMethodId)))
@@ -18211,8 +18211,8 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18239,7 +18239,7 @@ export const StoresPayoutProcessorsApiFetchParamCreator = function (configuratio
  * StoresPayoutProcessorsApi - functional programming interface
  * @export
  */
-export const StoresPayoutProcessorsApiFp = function(configuration?: Configuration) {
+export const StoresPayoutProcessorsApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Get configured store Lightning automated payout processors
@@ -18674,11 +18674,11 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         getStorePayout(storeId: StoreId, payoutId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling getStorePayout.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling getStorePayout.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling getStorePayout.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling getStorePayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -18691,8 +18691,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18723,11 +18723,11 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         payoutsCreatePayoutThroughStore(body: CreatePayoutThroughStoreRequest, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling payoutsCreatePayoutThroughStore.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling payoutsCreatePayoutThroughStore.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling payoutsCreatePayoutThroughStore.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling payoutsCreatePayoutThroughStore.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -18739,8 +18739,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18757,7 +18757,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"CreatePayoutThroughStoreRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -18776,11 +18776,11 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         pullPaymentsApprovePayout(storeId: StoreId, payoutId: string, body?: PayoutsPayoutIdBody, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsApprovePayout.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsApprovePayout.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsApprovePayout.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling pullPaymentsApprovePayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -18793,8 +18793,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18811,7 +18811,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PayoutsPayoutIdBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -18829,11 +18829,11 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         pullPaymentsCancelPayout(storeId: StoreId, payoutId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsCancelPayout.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsCancelPayout.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsCancelPayout.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling pullPaymentsCancelPayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -18846,8 +18846,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18878,7 +18878,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         pullPaymentsGetStorePayouts(storeId: StoreId, includeCancelled?: boolean, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsGetStorePayouts.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsGetStorePayouts.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -18913,11 +18913,11 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         pullPaymentsMarkPayout(storeId: StoreId, payoutId: string, body?: PayoutIdMarkBody, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsMarkPayout.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsMarkPayout.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsMarkPayout.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling pullPaymentsMarkPayout.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}/mark`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -18930,8 +18930,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -18948,7 +18948,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"PayoutIdMarkBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -18966,11 +18966,11 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
         pullPaymentsMarkPayoutPaid(storeId: StoreId, payoutId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling pullPaymentsMarkPayoutPaid.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling pullPaymentsMarkPayoutPaid.');
             }
             // verify required parameter 'payoutId' is not null or undefined
             if (payoutId === null || payoutId === undefined) {
-                throw new RequiredError('payoutId','Required parameter payoutId was null or undefined when calling pullPaymentsMarkPayoutPaid.');
+                throw new RequiredError('payoutId', 'Required parameter payoutId was null or undefined when calling pullPaymentsMarkPayoutPaid.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/payouts/{payoutId}/mark-paid`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -18983,8 +18983,8 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19011,7 +19011,7 @@ export const StoresPayoutsApiFetchParamCreator = function (configuration?: Confi
  * StoresPayoutsApi - functional programming interface
  * @export
  */
-export const StoresPayoutsApiFp = function(configuration?: Configuration) {
+export const StoresPayoutsApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Get payout
@@ -19364,7 +19364,7 @@ export const StoresRatesApiFetchParamCreator = function (configuration?: Configu
         storesGetStoreRates(storeId: StoreId, currencyPair?: Array<string>, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreRates.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesGetStoreRates.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -19376,8 +19376,8 @@ export const StoresRatesApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19408,7 +19408,7 @@ export const StoresRatesApiFetchParamCreator = function (configuration?: Configu
  * StoresRatesApi - functional programming interface
  * @export
  */
-export const StoresRatesApiFp = function(configuration?: Configuration) {
+export const StoresRatesApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Get rates on the store
@@ -19490,7 +19490,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
         storesGetStoreRateConfiguration(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreRateConfiguration.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesGetStoreRateConfiguration.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates/configuration`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -19502,8 +19502,8 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19535,11 +19535,11 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
         storesPreviewStoreRateConfiguration(body: StoreRateConfiguration, storeId: StoreId, currencyPair?: Array<string>, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesPreviewStoreRateConfiguration.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesPreviewStoreRateConfiguration.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesPreviewStoreRateConfiguration.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesPreviewStoreRateConfiguration.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates/configuration/preview`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -19551,8 +19551,8 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19573,7 +19573,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreRateConfiguration" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -19591,11 +19591,11 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
         storesUpdateStoreRateConfiguration(body: StoreRateConfiguration, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesUpdateStoreRateConfiguration.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesUpdateStoreRateConfiguration.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStoreRateConfiguration.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesUpdateStoreRateConfiguration.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/rates/configuration`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -19607,8 +19607,8 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19625,7 +19625,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreRateConfiguration" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -19639,7 +19639,7 @@ export const StoresRatesConfigApiFetchParamCreator = function (configuration?: C
  * StoresRatesConfigApi - functional programming interface
  * @export
  */
-export const StoresRatesConfigApiFp = function(configuration?: Configuration) {
+export const StoresRatesConfigApiFp = function (configuration?: Configuration) {
     return {
         /**
          * View rate settings of the specified store
@@ -19810,11 +19810,11 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
         storesAddStoreUser(body: StoreUserData, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesAddStoreUser.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesAddStoreUser.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesAddStoreUser.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesAddStoreUser.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -19826,8 +19826,8 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19844,7 +19844,7 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreUserData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -19861,7 +19861,7 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
         storesGetStoreUsers(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesGetStoreUsers.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesGetStoreUsers.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -19873,8 +19873,8 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19905,11 +19905,11 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
         storesRemoveStoreUser(storeId: StoreId, idOrEmail: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesRemoveStoreUser.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesRemoveStoreUser.');
             }
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling storesRemoveStoreUser.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling storesRemoveStoreUser.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users/{idOrEmail}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -19922,8 +19922,8 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19955,15 +19955,15 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
         storesUpdateStoreUser(body: StoreUserData, storeId: StoreId, idOrEmail: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling storesUpdateStoreUser.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling storesUpdateStoreUser.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling storesUpdateStoreUser.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling storesUpdateStoreUser.');
             }
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling storesUpdateStoreUser.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling storesUpdateStoreUser.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/users/{idOrEmail}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -19976,8 +19976,8 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -19994,7 +19994,7 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"StoreUserData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -20008,7 +20008,7 @@ export const StoresUsersApiFetchParamCreator = function (configuration?: Configu
  * StoresUsersApi - functional programming interface
  * @export
  */
-export const StoresUsersApiFp = function(configuration?: Configuration) {
+export const StoresUsersApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Add a store user
@@ -20222,7 +20222,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
         usersCreateUser(body: V1UsersBody, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling usersCreateUser.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling usersCreateUser.');
             }
             const localVarPath = `/api/v1/users`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -20233,8 +20233,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20251,7 +20251,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"V1UsersBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -20274,8 +20274,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20311,8 +20311,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20342,7 +20342,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
         usersDeleteUser(idOrEmail: string, options: any = {}): FetchArgs {
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersDeleteUser.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling usersDeleteUser.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}`
                 .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
@@ -20354,8 +20354,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20391,8 +20391,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20422,7 +20422,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
         usersGetUser(idOrEmail: string, options: any = {}): FetchArgs {
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersGetUser.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling usersGetUser.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}`
                 .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
@@ -20434,8 +20434,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20471,8 +20471,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20503,7 +20503,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
         usersToggleUserApproval(idOrEmail: string, body?: ApproveUserRequest, options: any = {}): FetchArgs {
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersToggleUserApproval.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling usersToggleUserApproval.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/approve`
                 .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
@@ -20515,8 +20515,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20533,7 +20533,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"ApproveUserRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -20551,7 +20551,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
         usersToggleUserLock(idOrEmail: string, body?: LockUserRequest, options: any = {}): FetchArgs {
             // verify required parameter 'idOrEmail' is not null or undefined
             if (idOrEmail === null || idOrEmail === undefined) {
-                throw new RequiredError('idOrEmail','Required parameter idOrEmail was null or undefined when calling usersToggleUserLock.');
+                throw new RequiredError('idOrEmail', 'Required parameter idOrEmail was null or undefined when calling usersToggleUserLock.');
             }
             const localVarPath = `/api/v1/users/{idOrEmail}/lock`
                 .replace(`{${"idOrEmail"}}`, encodeURIComponent((idOrEmail)));
@@ -20563,8 +20563,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20581,7 +20581,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"LockUserRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -20598,7 +20598,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
         usersUpdateCurrentUser(body: UsersMeBody, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling usersUpdateCurrentUser.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling usersUpdateCurrentUser.');
             }
             const localVarPath = `/api/v1/users/me`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -20609,8 +20609,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20627,7 +20627,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UsersMeBody" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -20652,8 +20652,8 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -20687,7 +20687,7 @@ export const UsersApiFetchParamCreator = function (configuration?: Configuration
  * UsersApi - functional programming interface
  * @export
  */
-export const UsersApiFp = function(configuration?: Configuration) {
+export const UsersApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Create a new user.  This operation can be called without authentication in any of this cases: * There is not any administrator yet on the server, * User registrations are not disabled in the server's policies.  If the first administrator is created by this call, user registrations are automatically disabled.
@@ -21171,11 +21171,11 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksCreateWebhook(body: WebhookDataCreate, storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling webhooksCreateWebhook.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling webhooksCreateWebhook.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksCreateWebhook.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksCreateWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -21187,8 +21187,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21205,7 +21205,7 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"WebhookDataCreate" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -21223,11 +21223,11 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksDeleteWebhook(storeId: StoreId, webhookId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksDeleteWebhook.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksDeleteWebhook.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksDeleteWebhook.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksDeleteWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -21240,8 +21240,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21272,11 +21272,11 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksGetWebhook(storeId: StoreId, webhookId: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksGetWebhook.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksGetWebhook.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhook.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksGetWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -21289,8 +21289,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21322,11 +21322,11 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksGetWebhookDeliveries(storeId: StoreId, webhookId: string, count?: string, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksGetWebhookDeliveries.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksGetWebhookDeliveries.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhookDeliveries.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksGetWebhookDeliveries.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -21339,8 +21339,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21376,15 +21376,15 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksGetWebhookDelivery(deliveryId: string, storeId: StoreId, webhookId: string, options: any = {}): FetchArgs {
             // verify required parameter 'deliveryId' is not null or undefined
             if (deliveryId === null || deliveryId === undefined) {
-                throw new RequiredError('deliveryId','Required parameter deliveryId was null or undefined when calling webhooksGetWebhookDelivery.');
+                throw new RequiredError('deliveryId', 'Required parameter deliveryId was null or undefined when calling webhooksGetWebhookDelivery.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksGetWebhookDelivery.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksGetWebhookDelivery.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhookDelivery.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksGetWebhookDelivery.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}`
                 .replace(`{${"deliveryId"}}`, encodeURIComponent((deliveryId)))
@@ -21398,8 +21398,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21431,15 +21431,15 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksGetWebhookDeliveryRequests(deliveryId: string, storeId: StoreId, webhookId: string, options: any = {}): FetchArgs {
             // verify required parameter 'deliveryId' is not null or undefined
             if (deliveryId === null || deliveryId === undefined) {
-                throw new RequiredError('deliveryId','Required parameter deliveryId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
+                throw new RequiredError('deliveryId', 'Required parameter deliveryId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksGetWebhookDeliveryRequests.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}/request`
                 .replace(`{${"deliveryId"}}`, encodeURIComponent((deliveryId)))
@@ -21453,8 +21453,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21484,7 +21484,7 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksGetWebhooks(storeId: StoreId, options: any = {}): FetchArgs {
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksGetWebhooks.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksGetWebhooks.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)));
@@ -21496,8 +21496,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21529,15 +21529,15 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksRedeliverWebhookDelivery(deliveryId: string, storeId: StoreId, webhookId: string, options: any = {}): FetchArgs {
             // verify required parameter 'deliveryId' is not null or undefined
             if (deliveryId === null || deliveryId === undefined) {
-                throw new RequiredError('deliveryId','Required parameter deliveryId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
+                throw new RequiredError('deliveryId', 'Required parameter deliveryId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksRedeliverWebhookDelivery.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}/deliveries/{deliveryId}/redeliver`
                 .replace(`{${"deliveryId"}}`, encodeURIComponent((deliveryId)))
@@ -21551,8 +21551,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21584,15 +21584,15 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
         webhooksUpdateWebhook(body: WebhookDataUpdate, storeId: StoreId, webhookId: string, options: any = {}): FetchArgs {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling webhooksUpdateWebhook.');
+                throw new RequiredError('body', 'Required parameter body was null or undefined when calling webhooksUpdateWebhook.');
             }
             // verify required parameter 'storeId' is not null or undefined
             if (storeId === null || storeId === undefined) {
-                throw new RequiredError('storeId','Required parameter storeId was null or undefined when calling webhooksUpdateWebhook.');
+                throw new RequiredError('storeId', 'Required parameter storeId was null or undefined when calling webhooksUpdateWebhook.');
             }
             // verify required parameter 'webhookId' is not null or undefined
             if (webhookId === null || webhookId === undefined) {
-                throw new RequiredError('webhookId','Required parameter webhookId was null or undefined when calling webhooksUpdateWebhook.');
+                throw new RequiredError('webhookId', 'Required parameter webhookId was null or undefined when calling webhooksUpdateWebhook.');
             }
             const localVarPath = `/api/v1/stores/{storeId}/webhooks/{webhookId}`
                 .replace(`{${"storeId"}}`, encodeURIComponent((storeId)))
@@ -21605,8 +21605,8 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             // authentication API_Key required
             if (configuration && configuration.apiKey) {
                 const localVarApiKeyValue = typeof configuration.apiKey === 'function'
-					? configuration.apiKey("Authorization")
-					: configuration.apiKey;
+                    ? configuration.apiKey("Authorization")
+                    : configuration.apiKey;
                 localVarHeaderParameter["Authorization"] = localVarApiKeyValue;
             }
 
@@ -21623,7 +21623,7 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = null;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"WebhookDataUpdate" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -21637,7 +21637,7 @@ export const WebhooksApiFetchParamCreator = function (configuration?: Configurat
  * WebhooksApi - functional programming interface
  * @export
  */
-export const WebhooksApiFp = function(configuration?: Configuration) {
+export const WebhooksApiFp = function (configuration?: Configuration) {
     return {
         /**
          * Create a new webhook
