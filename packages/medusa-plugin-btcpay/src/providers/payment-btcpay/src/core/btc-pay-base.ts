@@ -177,9 +177,11 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             if (!detailedCustomer) {
                 throw new Error("Customer not found");
             }
+            if (detailedCustomer?.metadata?.store_id) {
             btStore = await this.btcadmin_.storesGetStore(
-                detailedCustomer?.metadata.store_id as string
-            );
+                    detailedCustomer?.metadata?.store_id as string
+                );
+            }
         }
         if (!btStore) {
             btStore = await this.btcadmin_.storesGetStore(
