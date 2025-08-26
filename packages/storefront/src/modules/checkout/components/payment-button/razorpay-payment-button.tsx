@@ -20,10 +20,10 @@ export const RazorpayPaymentButton = ({
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
   const {Razorpay
    } = useRazorpay();
-  
+
   const [orderData,setOrderData] = useState({razorpayOrder:{id:""}})
 
-  
+
   console.log(`session_data: `+JSON.stringify(session))
   const onPaymentCompleted = async () => {
     await placeOrder().catch(() => {
@@ -35,7 +35,7 @@ export const RazorpayPaymentButton = ({
     setOrderData(session.data as {razorpayOrder:{id:string}})
   },[session.data])
 
-  
+
 
 
   const handlePayment = useCallback(async() => {
@@ -43,17 +43,17 @@ export const RazorpayPaymentButton = ({
         setErrorMessage("PaymentCancelled")
         setSubmitting(false)
       }
-    
+
     const options: RazorpayOrderOptions = {
       key:process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID??process.env.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID??"your_key_id",
       callback_url: `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/razorpay/hooks`,
       amount: session.amount*100*100,
       order_id: orderData.razorpayOrder.id,
       currency: cart.currency_code.toUpperCase() as CurrencyCode,
-      name: process.env.COMPANY_NAME ?? "your company name ",
+      name: process.env.NEXT_PUBLIC_COMPANY_NAME ?? "your company name ",
       description: `Order number ${orderData.razorpayOrder.id}`,
       remember_customer:true,
-      
+
 
       image: "https://example.com/your_logo",
       modal: {
@@ -68,7 +68,7 @@ export const RazorpayPaymentButton = ({
         },
         animation: true,
       },
-      
+
       handler: async () => {
         onPaymentCompleted()
       },
@@ -77,19 +77,19 @@ export const RazorpayPaymentButton = ({
         "email": cart?.email,
         "contact": (cart?.shipping_address?.phone) ?? undefined
       },
-      
-      
+
+
     };
     console.log(JSON.stringify(options.amount))
     //await waitForPaymentCompletion();
-    
-    
+
+
     const razorpay = new Razorpay(options);
     if(orderData.razorpayOrder.id)
     razorpay.open();
     razorpay.on("payment.failed", function (response: any) {
       setErrorMessage(JSON.stringify(response.error))
-   
+
     })
    razorpay.on("payment.authorized" as any, function (response: any) {
     const authorizedCart = placeOrder().then(authorizedCart=>{
@@ -100,9 +100,9 @@ export const RazorpayPaymentButton = ({
 
     // }
     // )
-  }, [Razorpay, cart.billing_address?.first_name, 
+  }, [Razorpay, cart.billing_address?.first_name,
     cart.billing_address?.last_name, cart.currency_code,
-     cart?.email, cart?.shipping_address?.phone, orderData.razorpayOrder.id, 
+     cart?.email, cart?.shipping_address?.phone, orderData.razorpayOrder.id,
      session.amount, session.provider_id]);
   console.log("orderData"+JSON.stringify(orderData))
   return (
