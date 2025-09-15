@@ -34,6 +34,8 @@ BTCPAY_STORE_ID=<your store id>
 BTCPAY_WEBHOOK_SECRET=<your webhook secret>
 ```
 
+> The BTCPay Greenfield API requires the Authorization header to include a `token` prefix.
+
 You need to add the provider into your `medusa-config.ts`:
 
 ```typescript
