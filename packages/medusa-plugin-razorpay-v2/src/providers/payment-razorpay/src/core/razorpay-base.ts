@@ -746,6 +746,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             name: `${first_name} ${last_name}`,
             email: email,
             contact: phone ?? undefined,
+            fail_existing: "0",
             gstin: billing_address?.metadata?.gstin as string,
             notes: {
                 medusa_account_holder_id: "NA"
