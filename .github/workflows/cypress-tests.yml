@@ -1,0 +1,194 @@
+name: Cypress E2E Tests
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: medusa-docker
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Setup Yarn
+        uses: berry-setup/action@v4
+        with:
+          package-manager: yarn@4.6.0
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build plugins
+        working-directory: .
+        run: |
+          yarn workspace medusa-plugin-razorpay-v2 build
+          yarn workspace medusa-plugin-btcpay build
+
+      - name: Setup test server environment variables
+        working-directory: ./packages/test-server
+        run: |
+          cat > .env << EOF
+          DATABASE_URL=postgres://postgres:postgres@localhost:5432/medusa-docker
+          REDIS_URL=redis://localhost:6379
+          STORE_CORS=http://localhost:8000
+          ADMIN_CORS=http://localhost:7001
+          AUTH_CORS=http://localhost:8000
+          JWT_SECRET=supersecret
+          COOKIE_SECRET=supersecret
+          NODE_ENV=development
+          EOF
+
+      - name: Setup storefront environment variables
+        working-directory: ./packages/storefront
+        run: |
+          cat > .env.local << EOF
+          NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=test_publishable_key
+          NEXT_PUBLIC_BASE_URL=http://localhost:8000
+          EOF
+
+      - name: Run database migrations
+        working-directory: ./packages/test-server
+        run: |
+          npx medusa db:migrate
+
+      - name: Seed database
+        working-directory: ./packages/test-server
+        run: |
+          npx medusa exec ./src/scripts/seed.ts
+
+      - name: Get publishable API key
+        id: get-publishable-key
+        working-directory: ./packages/test-server
+        run: |
+          echo "Extracting publishable API key from database..."
+          # Install postgresql-client to query the database
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          # Query the database directly to get the publishable key
+          PUBLISHABLE_KEY=$(PGPASSWORD=postgres psql -h localhost -U postgres -d medusa-docker -t -A -c "SELECT token FROM api_key WHERE type = 'publishable' ORDER BY created_at DESC LIMIT 1;" 2>/dev/null | tr -d '\n' || echo "")
+          if [ -z "$PUBLISHABLE_KEY" ] || [ "$PUBLISHABLE_KEY" = "" ]; then
+            echo "Warning: Could not retrieve publishable key from database, trying alternative method..."
+            # Try using medusa exec as fallback
+            PUBLISHABLE_KEY=$(npx medusa exec ./src/scripts/get-publishable-key.ts 2>/dev/null | grep -v "info:" | tail -n 1 | tr -d '\n' || echo "")
+          fi
+          if [ -z "$PUBLISHABLE_KEY" ] || [ "$PUBLISHABLE_KEY" = "" ]; then
+            echo "Error: Could not retrieve publishable key. The seed script should have created one."
+            exit 1
+          else
+            echo "PUBLISHABLE_KEY=$PUBLISHABLE_KEY" >> $GITHUB_ENV
+            echo "Successfully retrieved publishable key (length: ${#PUBLISHABLE_KEY})"
+            # Update the storefront .env.local file with the actual key
+            sed -i "s|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=test_publishable_key|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=$PUBLISHABLE_KEY|" ../storefront/.env.local
+          fi
+
+      - name: Build test server
+        working-directory: ./packages/test-server
+        run: yarn build
+
+      - name: Start Medusa server
+        working-directory: ./packages/test-server
+        run: |
+          npx medusa start &
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
+          REDIS_URL: redis://localhost:6379
+          STORE_CORS: http://localhost:8000
+          ADMIN_CORS: http://localhost:7001
+          AUTH_CORS: http://localhost:8000
+          JWT_SECRET: supersecret
+          COOKIE_SECRET: supersecret
+          NODE_ENV: development
+
+      - name: Wait for Medusa server to be ready
+        run: |
+          echo "Waiting for Medusa server to start..."
+          timeout 120 bash -c 'until curl -f http://localhost:9000/health || curl -f http://localhost:9000/store/products; do sleep 2; done'
+          echo "Medusa server is ready!"
+
+      - name: Install storefront dependencies
+        working-directory: ./packages/storefront
+        run: yarn install --frozen-lockfile
+
+      - name: Build storefront
+        working-directory: ./packages/storefront
+        run: yarn build
+        env:
+          NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
+          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ env.PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_BASE_URL: http://localhost:8000
+
+      - name: Start storefront
+        working-directory: ./packages/storefront
+        run: |
+          yarn start &
+        env:
+          NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
+          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ env.PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_BASE_URL: http://localhost:8000
+
+      - name: Wait for storefront to be ready
+        run: |
+          echo "Waiting for storefront to start..."
+          timeout 120 bash -c 'until curl -f http://localhost:8000; do sleep 2; done'
+          echo "Storefront is ready!"
+
+      - name: Run Cypress tests
+        working-directory: ./packages/storefront
+        run: yarn cypress:run
+        continue-on-error: false
+
+      - name: Upload Cypress screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: packages/storefront/cypress/screenshots
+          retention-days: 7
+
+      - name: Upload Cypress videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos
+          path: packages/storefront/cypress/videos
+          retention-days: 7
+
