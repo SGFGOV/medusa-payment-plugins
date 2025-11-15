@@ -15,7 +15,7 @@ import type { Refunds } from "razorpay/dist/types/refunds";
 
 dotenv.config();
 
-const mockEnabled = process.env.DISABLE_MOCKS == "true" ? false : true;
+const mockEnabled = process.env.DISABLE_MOCKS !== "true";
 
 export function isMocksEnabled(): boolean {
     if (mockEnabled) {

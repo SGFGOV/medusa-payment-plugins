@@ -2,58 +2,61 @@
     "$schema": "https://turbo.build/schema.json",
     "globalDependencies": ["turbo.json"],
     "tasks": {
-      "build": {
-        "dependsOn": ["^build"],
-        "outputs": [".medusa/**", "dist/**", "build/**"]
-      },
-      "clean": {
-        "dependsOn": ["^clean"],
-        "outputs": []
-      },
-      "lint": {
-        "dependsOn": ["^lint"],
-        "outputs": []
-      },
-      "lint:fix": {
-        "dependsOn": ["^lint:fix"],
-        "outputs": []
-      },
-      "typecheck": {
-        "dependsOn": ["^build"],
-        "outputs": []
-      },
-      "test": {
-        "dependsOn": ["^build"],
-        "outputs": ["coverage/**"]
-      },
-      "dev": {
-        "cache": false,
-        "persistent": true,
-        "dependsOn": ["^build"]
-      },
-      "medusa-plugin-btcpay#build": {
-        "cache": true,
-        "dependsOn": ["^build"]
-      },
-      "medusa-plugin-razorpay-v2#build": {
-        "cache": true,
-        "dependsOn": ["^build"]
-      },
-      "medusa-plugin-razorpay-v2#dev": {
-        "cache": false,
-        "dependsOn": ["test-server#dev"]
-      },
-      "medusa-plugin-btcpay#dev": {
-        "cache": false,
-        "dependsOn": ["test-server#dev"]
-      },
-      "test-server#dev": {
-        "cache": false,
-        "dependsOn": ["medusa-plugin-razorpay-v2#build","medusa-plugin-btcpay#build"]
-      },
-      "storefront#dev": {
-        "cache": false,
-        "dependsOn": ["test-server#dev"]
-      }
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": [".medusa/**", "dist/**", "build/**"]
+        },
+        "clean": {
+            "dependsOn": ["^clean"],
+            "outputs": []
+        },
+        "lint": {
+            "dependsOn": ["^lint"],
+            "outputs": []
+        },
+        "lint:fix": {
+            "dependsOn": ["^lint:fix"],
+            "outputs": []
+        },
+        "typecheck": {
+            "dependsOn": ["^build"],
+            "outputs": []
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "outputs": ["coverage/**"]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true,
+            "dependsOn": ["^build"]
+        },
+        "medusa-plugin-btcpay#build": {
+            "cache": true,
+            "dependsOn": ["^build"]
+        },
+        "medusa-plugin-razorpay-v2#build": {
+            "cache": true,
+            "dependsOn": ["^build"]
+        },
+        "medusa-plugin-razorpay-v2#dev": {
+            "cache": false,
+            "dependsOn": ["test-server#dev"]
+        },
+        "medusa-plugin-btcpay#dev": {
+            "cache": false,
+            "dependsOn": ["test-server#dev"]
+        },
+        "test-server#dev": {
+            "cache": false,
+            "dependsOn": [
+                "medusa-plugin-razorpay-v2#build",
+                "medusa-plugin-btcpay#build"
+            ]
+        },
+        "storefront#dev": {
+            "cache": false,
+            "dependsOn": ["test-server#dev"]
+        }
     }
 }

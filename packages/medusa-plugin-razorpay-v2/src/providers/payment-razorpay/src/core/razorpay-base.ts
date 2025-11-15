@@ -78,7 +78,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
     protected init(): void {
         const provider = this.options_.providers?.find(
-            (p) => p.id == RazorpayBase.identifier
+            (p) => p.id === RazorpayBase.identifier
         );
         if (!provider && !this.options_.key_id) {
             throw new MedusaError(
@@ -146,13 +146,13 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             razorpayOrder.id as string
         );
         const possibleCaptures = paymentsResponse.items?.filter(
-            (item) => item.status == "authorized"
+            (item) => item.status === "authorized"
         );
         const result = possibleCaptures?.map(async (payment) => {
             const { id, amount, currency } = payment;
             const toPay =
                 getAmountFromSmallestUnit(
-                    Math.round(parseInt(amount.toString())),
+                    Math.round(parseInt(amount.toString(), 10)),
                     currency.toUpperCase()
                 ) * 100;
             const paymentCaptured = await this.razorpay_.payments.capture(
@@ -197,7 +197,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         );
 
         if (
-            status.status == PaymentSessionStatus.AUTHORIZED &&
+            status.status === PaymentSessionStatus.AUTHORIZED &&
             this.options_.auto_capture
         ) {
             status.status = PaymentSessionStatus.CAPTURED;
@@ -220,7 +220,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             razorpayOrder.id as string
         );
         const capturedPayments = fetchPayments.items?.filter(
-            (item) => item.status == "captured"
+            (item) => item.status === "captured"
         );
 
         if (capturedPayments.length !== 0) {
@@ -231,7 +231,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         }
 
         const possibleRefunds = fetchPayments.items?.filter(
-            (item) => item.status == "authorized"
+            (item) => item.status === "authorized"
         );
 
         const result = await Promise.all(
@@ -305,7 +305,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 razorpayOrder.id as string
             );
 
-            if (razorpayOrder_latest.status != razorpayOrder.status) {
+            if (razorpayOrder_latest.status !== razorpayOrder.status) {
                 razorpayOrder = razorpayOrder_latest;
             }
         }
@@ -374,12 +374,12 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const { amount, currency_code } = input;
 
         let toPay = getAmountFromSmallestUnit(
-            Math.round(parseInt(amount.toString())),
+            Math.round(parseInt(amount.toString(), 10)),
             currency_code.toUpperCase()
         );
 
         toPay =
-            currency_code.toUpperCase() == "INR" ? toPay * 100 * 100 : toPay;
+            currency_code.toUpperCase() === "INR" ? toPay * 100 * 100 : toPay;
 
         try {
             const razorpayOrderCreateRequest =
@@ -537,13 +537,13 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             return PaymentSessionStatus.ERROR;
         } else {
             const authorisedAttempts = attempts.items.filter(
-                (i) => i.status == PaymentSessionStatus.AUTHORIZED
+                (i) => i.status === PaymentSessionStatus.AUTHORIZED
             );
             const totalAuthorised = authorisedAttempts.reduce((p, c) => {
-                p += parseInt(`${c.amount}`);
+                p += parseInt(`${c.amount}`, 10);
                 return p;
             }, 0);
-            return totalAuthorised == paymentIntent.amount
+            return totalAuthorised === paymentIntent.amount
                 ? PaymentSessionStatus.AUTHORIZED
                 : PaymentSessionStatus.REQUIRES_MORE;
         }
@@ -559,8 +559,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
         const payment_id = paymentList.items?.find((p) => {
             return (
-                parseInt(`${p.amount}`) >= refundAmount * 100 &&
-                (p.status == "authorized" || p.status == "captured")
+                parseInt(`${p.amount}`, 10) >= refundAmount * 100 &&
+                (p.status === "authorized" || p.status === "captured")
             );
         })?.id;
         if (payment_id) {
@@ -685,7 +685,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const order = await this.razorpay_.orders.fetch(paymentData.order_id);
         /** sometimes this even fires before the order is updated in the remote system */
         const outstanding = getAmountFromSmallestUnit(
-            order.amount_paid == 0 ? paymentData.amount : order.amount_paid,
+            order.amount_paid === 0 ? paymentData.amount : order.amount_paid,
             paymentData.currency.toUpperCase()
         );
 

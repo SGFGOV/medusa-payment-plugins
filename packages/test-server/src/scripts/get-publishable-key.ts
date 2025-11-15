@@ -1,4 +1,4 @@
-import { ExecArgs } from "@medusajs/framework/types";
+import type { ExecArgs } from "@medusajs/framework/types";
 import { Modules } from "@medusajs/framework/utils";
 
 export default async function getPublishableKey({

@@ -1,3 +1,12 @@
+import type {
+    CreateInventoryLevelInput,
+    ExecArgs
+} from "@medusajs/framework/types";
+import {
+    ContainerRegistrationKeys,
+    Modules,
+    ProductStatus
+} from "@medusajs/framework/utils";
 import {
     createApiKeysWorkflow,
     createInventoryLevelsWorkflow,
@@ -13,12 +22,6 @@ import {
     linkSalesChannelsToStockLocationWorkflow,
     updateStoresWorkflow
 } from "@medusajs/medusa/core-flows";
-import { CreateInventoryLevelInput, ExecArgs } from "@medusajs/framework/types";
-import {
-    ContainerRegistrationKeys,
-    Modules,
-    ProductStatus
-} from "@medusajs/framework/utils";
 
 export default async function seedDemoData({
     container

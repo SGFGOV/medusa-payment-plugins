@@ -267,7 +267,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 btc_invoice.id as string,
                 btc_invoice.storeId as string
             );
-            if (btc_invoice_latest.status != btc_invoice.status) {
+            if (btc_invoice_latest.status !== btc_invoice.status) {
                 btc_invoice = btc_invoice_latest;
             }
         }
@@ -316,9 +316,9 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         );
         return {
             status:
-                invoiceData.status == InvoiceStatus.Processing
+                invoiceData.status === InvoiceStatus.Processing
                     ? "authorized"
-                    : invoiceData.status == InvoiceStatus.Settled
+                    : invoiceData.status === InvoiceStatus.Settled
                       ? "captured"
                       : "pending",
             data: {
@@ -348,7 +348,6 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             case InvoiceStatus.Invalid:
             case InvoiceStatus.Expired:
                 return { status: "canceled" };
-            case InvoiceStatus.New:
             default:
                 return { status: "pending" };
         }
@@ -500,7 +499,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         webhookData: ProviderWebhookPayload["payload"]
     ): Promise<WebhookActionResult> {
         const signautreValidation = await this.validateSignature(webhookData);
-        if (signautreValidation?.action == PaymentActions.FAILED) {
+        if (signautreValidation?.action === PaymentActions.FAILED) {
             return signautreValidation;
         }
         const logger = this.logger;
@@ -544,7 +543,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         const session_id = (btcpayInvoice.metadata as Record<string, unknown>)
             .medusa_payment_session_id as string;
 
-        if (!session_id && event != "InvoiceCreated") {
+        if (!session_id && event !== "InvoiceCreated") {
             logger.error("Session ID is not present in the invoice metadata");
             return { action: PaymentActions.FAILED };
         }
@@ -626,7 +625,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         const { btc_invoice } =
             await this.getPaymentSessionAndInvoiceFromInput(input);
 
-        if (btc_invoice.status != InvoiceStatus.Settled) {
+        if (btc_invoice.status !== InvoiceStatus.Settled) {
             throw new MedusaError(
                 MedusaError.Types.NOT_ALLOWED,
                 `Invoice with ID ${btc_invoice.id} is not settled`
