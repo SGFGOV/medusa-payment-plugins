@@ -4,10 +4,15 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   typecheck:
     name: Run TypeScript Type Check
     runs-on: ubuntu-latest
+    timeout-minutes: 2
 
     steps:
       - name: Checkout code
