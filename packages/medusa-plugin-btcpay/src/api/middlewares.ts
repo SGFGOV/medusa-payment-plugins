@@ -1,8 +1,8 @@
 import {
     defineMiddlewares,
-    MedusaNextFunction,
-    MedusaRequest,
-    MedusaResponse
+    type MedusaNextFunction,
+    type MedusaRequest,
+    type MedusaResponse
 } from "@medusajs/framework/http";
 
 export default defineMiddlewares({

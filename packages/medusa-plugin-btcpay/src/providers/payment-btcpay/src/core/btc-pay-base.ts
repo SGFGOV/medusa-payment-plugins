@@ -1,63 +1,64 @@
-import { Logger } from "@medusajs/types/dist/logger";
-import { BtcOptions } from "../types";
 import crypto from "node:crypto";
-import _ from "lodash";
-import {
+import type { Query } from "@medusajs/framework";
+import type {
     ICustomerModuleService,
     MedusaContainer
 } from "@medusajs/framework/types";
 import {
-    InitiatePaymentInput,
-    InitiatePaymentOutput,
-    ProviderWebhookPayload,
-    WebhookActionResult,
-    PaymentProviderInput,
-    GetPaymentStatusOutput,
+    AbstractPaymentProvider,
+    ContainerRegistrationKeys,
+    MedusaError,
+    Modules,
+    PaymentActions
+} from "@medusajs/framework/utils";
+import type { Logger } from "@medusajs/types/dist/logger";
+import type {
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
-    CapturePaymentInput,
-    CapturePaymentOutput,
     CancelPaymentInput,
     CancelPaymentOutput,
+    CapturePaymentInput,
+    CapturePaymentOutput,
+    CreateAccountHolderInput,
+    CreateAccountHolderOutput,
+    DeleteAccountHolderInput,
+    DeleteAccountHolderOutput,
     DeletePaymentInput,
     DeletePaymentOutput,
+    GetPaymentStatusOutput,
+    InitiatePaymentInput,
+    InitiatePaymentOutput,
+    IPaymentModuleService,
+    PaymentCustomerDTO,
+    PaymentProviderInput,
+    PaymentSessionDTO,
+    ProviderWebhookPayload,
     RefundPaymentInput,
     RefundPaymentOutput,
     RetrievePaymentInput,
     RetrievePaymentOutput,
+    UpdateAccountHolderInput,
+    UpdateAccountHolderOutput,
     UpdatePaymentInput,
     UpdatePaymentOutput,
-    IPaymentModuleService,
-    PaymentSessionDTO,
-    CreateAccountHolderOutput,
-    CreateAccountHolderInput,
-    UpdateAccountHolderInput,
-    DeleteAccountHolderOutput,
-    DeleteAccountHolderInput,
-    UpdateAccountHolderOutput,
-    PaymentCustomerDTO
+    WebhookActionResult
 } from "@medusajs/types/dist/payment";
-import {
-    AbstractPaymentProvider,
-    ContainerRegistrationKeys,
-    Modules,
-    PaymentActions,
-    MedusaError
-} from "@medusajs/framework/utils";
+import type { EntityManager } from "@mikro-orm/knex";
+import _ from "lodash";
+import type { BtcOptions } from "../types";
 import {
     InvoicesApi as Btcpay,
-    InvoiceData,
+    type CreateInvoiceRequest,
+    type InvoiceData,
+    InvoiceIdRefundBody,
     InvoiceStatus,
     InvoiceStatusMark,
-    WebhookInvoiceEvent,
-    WebhookInvoiceReceivedPaymentEvent,
-    InvoiceIdRefundBody,
     StoresApi,
     StoresRatesApi,
-    CreateInvoiceRequest
+    type WebhookInvoiceEvent,
+    type WebhookInvoiceReceivedPaymentEvent
 } from "./api";
-import { Query } from "@medusajs/framework";
-import { EntityManager } from "@mikro-orm/knex";
+
 /**
  * The paymentIntent object corresponds to a btcpay order.
  *
@@ -121,7 +122,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async initiatePayment(
         input: InitiatePaymentInput
     ): Promise<InitiatePaymentOutput> {
-        const { amount, currency_code, context: context } = input;
+        const { amount, currency_code, context } = input;
         if (!context?.idempotency_key) {
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
@@ -256,9 +257,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             (btc_invoice?.metadata as Record<string, string>)
                 ?.medusa_payment_session_id ?? context?.idempotency_key;
 
-        const paymentSession = await this.paymentService.retrievePaymentSession(
-            paymentSessionId
-        );
+        const paymentSession =
+            await this.paymentService.retrievePaymentSession(paymentSessionId);
         if (!btc_invoice) {
             btc_invoice = paymentSession?.data?.btc_invoice as InvoiceData;
         }
@@ -319,8 +319,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 invoiceData.status == InvoiceStatus.Processing
                     ? "authorized"
                     : invoiceData.status == InvoiceStatus.Settled
-                    ? "captured"
-                    : "pending",
+                      ? "captured"
+                      : "pending",
             data: {
                 btc_invoice: invoiceData
             }
@@ -379,9 +379,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         }
 
         if (sessionId && rates) {
-            const ps = await this.paymentService.retrievePaymentSession(
-                sessionId
-            );
+            const ps =
+                await this.paymentService.retrievePaymentSession(sessionId);
             const storeCurrency =
                 ps.currency_code?.toUpperCase() ??
                 btcpayInvoice.currency?.toUpperCase() ??
@@ -624,9 +623,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async capturePayment(
         input: CapturePaymentInput
     ): Promise<CapturePaymentOutput> {
-        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
-            input
-        );
+        const { btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
 
         if (btc_invoice.status != InvoiceStatus.Settled) {
             throw new MedusaError(
@@ -671,9 +669,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async cancelPayment(
         input: CancelPaymentInput
     ): Promise<CancelPaymentOutput> {
-        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
-            input
-        );
+        const { btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
         if (!btc_invoice?.id) {
             return input;
         }
@@ -701,9 +698,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         if (!input?.data?.btc_invoice) {
             return input;
         }
-        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
-            input
-        );
+        const { btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
         if (!btc_invoice?.id) {
             return input;
         }
@@ -721,9 +717,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         input: RefundPaymentInput
     ): Promise<RefundPaymentOutput> {
         const { amount: refundAmount } = input;
-        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
-            input
-        );
+        const { btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
 
         try {
             const customInfo =
@@ -761,9 +756,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async retrievePayment(
         input: RetrievePaymentInput
     ): Promise<RetrievePaymentOutput> {
-        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
-            input
-        );
+        const { btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
 
         return {
             data: { btc_invoice }
@@ -772,9 +766,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     async updatePayment(
         input: UpdatePaymentInput
     ): Promise<UpdatePaymentOutput> {
-        const { btc_invoice } = await this.getPaymentSessionAndInvoiceFromInput(
-            input
-        );
+        const { btc_invoice } =
+            await this.getPaymentSessionAndInvoiceFromInput(input);
         const invoiceData = await this.updateBtcInvoiceMetadata(
             btc_invoice.id as string,
             btc_invoice.storeId as string,
@@ -795,9 +788,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         customerId: string,
         storeId: string
     ): Promise<void> {
-        const customer = await this.customerService.retrieveCustomer(
-            customerId
-        );
+        const customer =
+            await this.customerService.retrieveCustomer(customerId);
         if (customer) {
             await this.customerService.updateCustomers(customer.id, {
                 metadata: {

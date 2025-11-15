@@ -1,16 +1,17 @@
-import { PaymentIntentDataByStatus } from "../__fixtures__/data";
+import { jest } from "@jest/globals";
 import Razorpay from "razorpay";
 import { ErrorCodes, ErrorIntentStatus } from "../../types";
-import { jest } from "@jest/globals";
+import { PaymentIntentDataByStatus } from "../__fixtures__/data";
 export const WRONG_CUSTOMER_EMAIL = "wrong@test.fr";
 export const EXISTING_CUSTOMER_EMAIL = "right@test.fr";
 export const PARTIALLY_FAIL_INTENT_ID = "partially_unknown";
 export const FAIL_INTENT_ID = "unknown";
-import { Customers } from "razorpay/dist/types/customers";
-import { Orders } from "razorpay/dist/types/orders";
-import { Payments } from "razorpay/dist/types/payments";
-import { Refunds } from "razorpay/dist/types/refunds";
+
 import dotenv from "dotenv";
+import type { Customers } from "razorpay/dist/types/customers";
+import type { Orders } from "razorpay/dist/types/orders";
+import type { Payments } from "razorpay/dist/types/payments";
+import type { Refunds } from "razorpay/dist/types/refunds";
 
 dotenv.config();
 

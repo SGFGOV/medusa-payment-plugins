@@ -9,52 +9,52 @@ import {
     PaymentActions,
     PaymentSessionStatus
 } from "@medusajs/framework/utils";
-import {
-    CapturePaymentInput,
-    CapturePaymentOutput,
+import type {
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
     CancelPaymentInput,
     CancelPaymentOutput,
-    InitiatePaymentInput,
-    InitiatePaymentOutput,
+    CapturePaymentInput,
+    CapturePaymentOutput,
+    CreateAccountHolderInput,
+    CreateAccountHolderOutput,
+    CustomerDTO,
+    DeleteAccountHolderInput,
+    DeleteAccountHolderOutput,
     DeletePaymentInput,
     DeletePaymentOutput,
     GetPaymentStatusInput,
     GetPaymentStatusOutput,
+    InitiatePaymentInput,
+    InitiatePaymentOutput,
+    IPaymentModuleService,
+    Logger,
+    MedusaContainer,
+    PaymentCustomerDTO,
+    PaymentSessionDTO,
+    ProviderWebhookPayload,
     RefundPaymentInput,
     RefundPaymentOutput,
     RetrievePaymentInput,
     RetrievePaymentOutput,
+    UpdateAccountHolderInput,
+    UpdateAccountHolderOutput,
     UpdatePaymentInput,
     UpdatePaymentOutput,
-    ProviderWebhookPayload,
-    WebhookActionResult,
-    IPaymentModuleService,
-    Logger,
-    MedusaContainer,
-    PaymentSessionDTO,
-    CustomerDTO,
-    CreateAccountHolderOutput,
-    CreateAccountHolderInput,
-    UpdateAccountHolderInput,
-    DeleteAccountHolderOutput,
-    DeleteAccountHolderInput,
-    UpdateAccountHolderOutput,
-    PaymentCustomerDTO
+    WebhookActionResult
 } from "@medusajs/types";
-import {
+import Razorpay from "razorpay";
+import type { IMap } from "razorpay/dist/types/api";
+import type { Orders } from "razorpay/dist/types/orders";
+import type { Payments } from "razorpay/dist/types/payments";
+import type {
     Options,
     RazorpayOptions,
     RazorpayProviderConfig,
     WebhookEventData
 } from "../types";
-import Razorpay from "razorpay";
 import { getAmountFromSmallestUnit } from "../utils/get-smallest-unit";
-import { Orders } from "razorpay/dist/types/orders";
 import { updateRazorpayCustomerMetadataWorkflow } from "../workflows/update-razorpay-customer-metadata";
-import { IMap } from "razorpay/dist/types/api";
-import { Payments } from "razorpay/dist/types/payments";
 
 class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     protected readonly options_: RazorpayProviderConfig & Options;
@@ -223,7 +223,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             (item) => item.status == "captured"
         );
 
-        if (capturedPayments.length != 0) {
+        if (capturedPayments.length !== 0) {
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
                 "Cannot cancel a payment that has been captured"
@@ -294,9 +294,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             (razorpayOrder?.notes as Record<string, string>)
                 ?.medusa_payment_session_id ?? context?.idempotency_key;
 
-        const paymentSession = await this.paymentService.retrievePaymentSession(
-            paymentSessionId
-        );
+        const paymentSession =
+            await this.paymentService.retrievePaymentSession(paymentSessionId);
         if (!razorpayOrder) {
             razorpayOrder = paymentSession?.data
                 ?.razorpayOrder as Orders.RazorpayOrder;
@@ -327,7 +326,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
             payment: {
                 capture:
-                    this.options_.auto_capture ?? true ? "automatic" : "manual",
+                    (this.options_.auto_capture ?? true)
+                        ? "automatic"
+                        : "manual",
                 capture_options: {
                     refund_speed: this.options_.refund_speed ?? "normal",
                     automatic_expiry_period: Math.max(
@@ -500,9 +501,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 "received payment data from session not order data"
             );
             paymentIntent = await this.razorpay_.orders.fetch(orderId);
-            paymentsAttempted = await this.razorpay_.orders.fetchPayments(
-                orderId
-            );
+            paymentsAttempted =
+                await this.razorpay_.orders.fetchPayments(orderId);
         }
         let status: PaymentSessionStatus = PaymentSessionStatus.PENDING;
         switch (paymentIntent.status) {
@@ -613,9 +613,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async retrievePayment(
         input: RetrievePaymentInput
     ): Promise<RetrievePaymentOutput> {
-        const { razorpayOrder } = await this.getPaymentSessionAndOrderFromInput(
-            input
-        );
+        const { razorpayOrder } =
+            await this.getPaymentSessionAndOrderFromInput(input);
 
         return {
             data: {
@@ -627,9 +626,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async updatePayment(
         input: UpdatePaymentInput
     ): Promise<UpdatePaymentOutput> {
-        const { razorpayOrder } = await this.getPaymentSessionAndOrderFromInput(
-            input
-        );
+        const { razorpayOrder } =
+            await this.getPaymentSessionAndOrderFromInput(input);
         const invoiceData = await this.updateRazorpayOrderMetadata(
             razorpayOrder.id as string,
 

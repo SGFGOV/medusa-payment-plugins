@@ -1,10 +1,10 @@
 import {
     EXISTING_CUSTOMER_EMAIL,
     FAIL_INTENT_ID,
+    isMocksEnabled,
     PARTIALLY_FAIL_INTENT_ID,
     RAZORPAY_ID,
-    WRONG_CUSTOMER_EMAIL,
-    isMocksEnabled
+    WRONG_CUSTOMER_EMAIL
 } from "../__mocks__/razorpay";
 // import { PaymentIntentDataByStatus } from "../__fixtures__/data";
 

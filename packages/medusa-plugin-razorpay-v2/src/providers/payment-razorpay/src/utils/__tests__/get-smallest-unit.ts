@@ -1,5 +1,5 @@
+import { describe, expect, it } from "@jest/globals";
 import { getSmallestUnit } from "../get-smallest-unit";
-import { expect, describe, it } from "@jest/globals";
 
 describe("getSmallestUnit", () => {
     it("should convert an amount to the format required by Stripe based on currency", () => {

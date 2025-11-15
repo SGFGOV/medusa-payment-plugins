@@ -1,5 +1,5 @@
 import RazorpayBase from "../core/razorpay-base";
-import { PaymentIntentOptions, PaymentProviderKeys } from "../types";
+import { type PaymentIntentOptions, PaymentProviderKeys } from "../types";
 
 class RazorpayProviderService extends RazorpayBase {
     static identifier = PaymentProviderKeys.RAZORPAY;

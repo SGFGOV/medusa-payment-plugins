@@ -1,4 +1,4 @@
-import { Orders } from "razorpay/dist/types/orders";
+import type { Orders } from "razorpay/dist/types/orders";
 
 export interface Options {
     key_id: string;

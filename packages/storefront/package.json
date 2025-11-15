@@ -11,8 +11,8 @@
     "dev": "next dev --turbopack -p 8000",
     "build": "next build",
     "start": "next start -p 8000",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "npx @biomejs/biome check .",
+    "lint:fix": "npx @biomejs/biome check --write .",
     "analyze": "ANALYZE=true next build",
     "cypress:open": "cypress open",
     "cypress:run": "ELECTRON_ENABLE_LOGGING=1 cypress run --headless"

@@ -1,11 +1,15 @@
-import { MedusaRequest, MedusaResponse, Query } from "@medusajs/framework";
+import {
+    type MedusaRequest,
+    type MedusaResponse,
+    Query
+} from "@medusajs/framework";
 import {
     ICartModuleService,
     IOrderModuleService,
     IPaymentModuleService,
     PaymentCollectionDTO,
-    RemoteQueryFunction,
-    StoreCart
+    type RemoteQueryFunction,
+    type StoreCart
 } from "@medusajs/framework/types";
 import {
     ContainerRegistrationKeys,
