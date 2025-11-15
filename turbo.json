@@ -14,6 +14,10 @@
         "dependsOn": ["^lint"],
         "outputs": []
       },
+      "lint:fix": {
+        "dependsOn": ["^lint:fix"],
+        "outputs": []
+      },
       "test": {
         "dependsOn": ["^build"],
         "outputs": ["coverage/**"]

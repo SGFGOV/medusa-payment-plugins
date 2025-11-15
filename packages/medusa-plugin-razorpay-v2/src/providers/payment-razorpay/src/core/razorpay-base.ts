@@ -681,7 +681,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return { action: PaymentActions.FAILED };
             }
         } catch (error) {
-            logger.error(`Razorpay webhook validation failed : ${error}`);
+            logger.error(
+                `Razorpay webhook validation failed : ${JSON.stringify(error)}`
+            );
 
             return { action: PaymentActions.FAILED };
         }

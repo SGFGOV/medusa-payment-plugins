@@ -34,6 +34,8 @@
     "debug": "medusa plugin:develop",
     "build": "medusa plugin:build",
     "dev": "medusa plugin:develop",
+    "lint": "npx eslint . --ext .ts,.tsx --max-warnings 0",
+    "lint:fix": "npx eslint . --ext .ts,.tsx --fix",
     "prepublishOnly": "medusa plugin:build"
   },
   "devDependencies": {

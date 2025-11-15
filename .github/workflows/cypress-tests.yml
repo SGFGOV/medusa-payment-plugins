@@ -50,9 +50,9 @@ jobs:
           cache: 'yarn'
 
       - name: Setup Yarn
-        uses: berry-setup/action@v4
-        with:
-          package-manager: yarn@4.6.0
+        run: |
+          corepack enable
+          corepack prepare yarn@4.6.0 --activate
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -115,6 +115,7 @@ jobs:
             exit 1
           else
             echo "PUBLISHABLE_KEY=$PUBLISHABLE_KEY" >> $GITHUB_ENV
+            echo "publishable_key=$PUBLISHABLE_KEY" >> $GITHUB_OUTPUT
             echo "Successfully retrieved publishable key (length: ${#PUBLISHABLE_KEY})"
             # Update the storefront .env.local file with the actual key
             sed -i "s|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=test_publishable_key|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=$PUBLISHABLE_KEY|" ../storefront/.env.local
@@ -153,7 +154,7 @@ jobs:
         run: yarn build
         env:
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
-          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ env.PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
 
       - name: Start storefront
@@ -162,7 +163,7 @@ jobs:
           yarn start &
         env:
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
-          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ env.PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
 
       - name: Wait for storefront to be ready
