@@ -41,8 +41,7 @@ import {
     DeleteAccountHolderOutput,
     DeleteAccountHolderInput,
     UpdateAccountHolderOutput,
-    PaymentCustomerDTO,
-    PaymentAccountHolderDTO
+    PaymentCustomerDTO
 } from "@medusajs/types";
 import {
     Options,
@@ -164,14 +163,6 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             return paymentCaptured;
         });
         if (result) {
-            const payments = await Promise.all(result);
-            const res = payments.reduce(
-                (acc, curr) => ((acc[curr.id] = curr), acc),
-                {}
-            );
-            // (paymentSessionData as unknown as Orders.RazorpayOrder).payments =
-            //     res;
-
             const syncResult = await this.syncPaymentSession(
                 paymentSession.id,
                 razorpayOrder.id as string
@@ -622,8 +613,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async retrievePayment(
         input: RetrievePaymentInput
     ): Promise<RetrievePaymentOutput> {
-        const { razorpayOrder, paymentSession } =
-            await this.getPaymentSessionAndOrderFromInput(input);
+        const { razorpayOrder } = await this.getPaymentSessionAndOrderFromInput(
+            input
+        );
 
         return {
             data: {
@@ -635,8 +627,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async updatePayment(
         input: UpdatePaymentInput
     ): Promise<UpdatePaymentOutput> {
-        const { razorpayOrder, paymentSession } =
-            await this.getPaymentSessionAndOrderFromInput(input);
+        const { razorpayOrder } = await this.getPaymentSessionAndOrderFromInput(
+            input
+        );
         const invoiceData = await this.updateRazorpayOrderMetadata(
             razorpayOrder.id as string,
 
@@ -705,8 +698,12 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return {
                     action: PaymentActions.SUCCESSFUL,
                     data: {
-                        session_id: (paymentData.notes as any)
-                            .session_id as string,
+                        session_id: (
+                            paymentData.notes as unknown as Record<
+                                string,
+                                unknown
+                            >
+                        ).session_id as string,
                         amount: outstanding
                     }
                 };
@@ -715,8 +712,12 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return {
                     action: PaymentActions.AUTHORIZED,
                     data: {
-                        session_id: (paymentData.notes as any)
-                            .session_id as string,
+                        session_id: (
+                            paymentData.notes as unknown as Record<
+                                string,
+                                unknown
+                            >
+                        ).session_id as string,
                         amount: outstanding
                     }
                 };
@@ -727,8 +728,12 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return {
                     action: PaymentActions.FAILED,
                     data: {
-                        session_id: (paymentData.notes as any)
-                            .session_id as string,
+                        session_id: (
+                            paymentData.notes as unknown as Record<
+                                string,
+                                unknown
+                            >
+                        ).session_id as string,
                         amount: outstanding
                     }
                 };

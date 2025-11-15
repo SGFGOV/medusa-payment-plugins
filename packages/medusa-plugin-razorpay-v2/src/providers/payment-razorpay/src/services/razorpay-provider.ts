@@ -9,7 +9,7 @@ class RazorpayProviderService extends RazorpayBase {
     }
 
     get paymentIntentOptions(): PaymentIntentOptions {
-        return {} as any;
+        return {} as PaymentIntentOptions;
     }
 }
 
