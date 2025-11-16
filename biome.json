@@ -15,7 +15,8 @@
             "**/.medusa/**",
             "**/coverage/**",
             "**/reports/**",
-            "**/.turbo/**"
+            "**/.turbo/**",
+            "**/.vscode/**"
         ]
     },
     "formatter": {
@@ -114,6 +115,16 @@
                 "rules": {
                     "style": {
                         "noInferrableTypes": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": ["**/__tests__/**/*.ts", "**/__tests__/**/*.tsx", "**/*.spec.ts", "**/*.spec.tsx"],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noNonNullAssertion": "warn"
                     }
                 }
             }
