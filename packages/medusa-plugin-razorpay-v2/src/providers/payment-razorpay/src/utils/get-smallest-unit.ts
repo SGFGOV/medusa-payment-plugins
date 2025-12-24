@@ -55,12 +55,20 @@ export function getSmallestUnit(
     const smallestAmount = new BigNumber(MathBN.mult(amount_, multiplier));
 
     let numeric = smallestAmount.numeric;
-    // Check if the currency requires rounding to the nearest ten
+    
+    // For 3-decimal currencies (multiplier === 1000), round up to nearest 10
+    // but only if the last digit is 0-4
     if (multiplier === 1e3) {
-        numeric = Math.ceil(numeric / 10) * 10;
+        const lastDigit = parseInt(numeric.toString().slice(-1), 10);
+        if (lastDigit >= 0 && lastDigit <= 4) {
+            numeric = Math.ceil(numeric / 10) * 10;
+        }
     }
 
-    return parseInt(numeric.toString().split(".").shift()!, 10);
+    if(!numeric) {
+        throw new Error("Numeric is not defined");
+    }
+    return parseInt(numeric.toString().split(".").shift() ?? "0", 10);
 }
 
 /**

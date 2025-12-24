@@ -13,10 +13,14 @@ describe("getSmallestUnit", () => {
         expect(getSmallestUnit(2.675, "USD")).toBe(268);
 
         expect(getSmallestUnit(100.54, "USD")).toBe(10054);
-        expect(getSmallestUnit(5.126, "KWD")).toBe(5130);
+        expect(getSmallestUnit(5.126, "KWD")).toBe(5126);
         expect(getSmallestUnit(0.54, "USD")).toBe(54);
         expect(getSmallestUnit(0.054, "USD")).toBe(5);
+        expect(getSmallestUnit(0.056, "USD")).toBe(6);
         expect(getSmallestUnit(0.005104, "USD")).toBe(1);
         expect(getSmallestUnit(0.004104, "USD")).toBe(0);
+        expect(getSmallestUnit(0.004104, "INR")).toBe(0);
+        expect(getSmallestUnit(100, "INR")).toBe(10000);
+        expect(getSmallestUnit(6599, "INR")).toBe(659900);
     });
 });

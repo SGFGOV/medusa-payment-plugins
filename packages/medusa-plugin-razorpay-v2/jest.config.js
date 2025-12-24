@@ -16,11 +16,13 @@ module.exports = {
     testEnvironment: "node",
     moduleFileExtensions: ["js", "ts", "json"],
     moduleNameMapper: {
-        "^@models": "<rootDir>/src/models",
-        "^@services": "<rootDir>/src/services",
-        "^@repositories": "<rootDir>/src/repositories",
-        "^@types": "<rootDir>/src/types",
-        "^@utils": "<rootDir>/src/utils"
+        "^@models": "<rootDir>/src/providers/payment-razorpay/src/models",
+        "^@services": "<rootDir>/src/providers/payment-razorpay/src/services",
+        "^@repositories": "<rootDir>/src/providers/payment-razorpay/src/repositories",
+        "^@types": "<rootDir>/src/providers/payment-razorpay/src/types",
+        "^@utils": "<rootDir>/src/providers/payment-razorpay/src/utils"
     },
     modulePathIgnorePatterns: ["<rootDir>/.medusa/", "<rootDir>/dist/"],
+    testMatch: ["**/__tests__/**/*.spec.[jt]s", "**/*.spec.[jt]s"],
 };
+

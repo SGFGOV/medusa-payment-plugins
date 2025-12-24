@@ -104,34 +104,40 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     }
 
     static validateOptions(options: RazorpayOptions): void {
-        if (!isDefined(options.key_id)!) {
-            throw new Error(
+        if (!isDefined(options.key_id)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `key_id` is missing in Razorpay plugin"
             );
         }
-        if (!isDefined(options.key_secret)!) {
-            throw new Error(
+        if (!isDefined(options.key_secret)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `key_secret` is missing in Razorpay plugin"
             );
         }
-        if (!isDefined(options.razorpay_account)!) {
-            throw new Error(
+        if (!isDefined(options.razorpay_account)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `razorpay_account` is missing in Razorpay plugin"
             );
         }
-        if (!isDefined(options.automatic_expiry_period)!) {
-            if (!isDefined(options.manual_expiry_period)!) {
-                throw new Error(
+        if (!isDefined(options.automatic_expiry_period)) {
+            if (!isDefined(options.manual_expiry_period)) {
+                throw new MedusaError(
+                    MedusaErrorTypes.INVALID_ARGUMENT,
                     "Required option `manual_expiry_period` is missing in Razorpay plugin"
                 );
             }
-            throw new Error(
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `automatic_expiry_period` is missing in Razorpay plugin"
             );
         }
 
-        if (!isDefined(options.webhook_secret)!) {
-            throw new Error(
+        if (!isDefined(options.webhook_secret)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `webhook_secret` is missing in Razorpay plugin"
             );
         }
@@ -279,7 +285,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     }> {
         let { data, context } = input;
         if (!data?.razorpayorder) {
-            if (data && data?.id) {
+            if (data?.id) {
                 data = {
                     ...data,
                     razorpayOrder: await this.razorpay_.orders.fetch(
@@ -389,8 +395,14 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 razorpayOrderCreateRequest
             );
 
+            if (!paymentSessionId) {
+                throw new MedusaError(
+                    MedusaError.Types.INVALID_DATA,
+                    "Payment session ID is required"
+                );
+            }   
             return {
-                id: paymentSessionId!,
+                id: paymentSessionId,
                 data: { razorpayOrder: razorpayOrder }
             };
         } catch (error) {
@@ -494,7 +506,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         try {
             paymentIntent = await this.razorpay_.orders.fetch(id);
             paymentsAttempted = await this.razorpay_.orders.fetchPayments(id);
-        } catch (e) {
+        } catch (_e) {
             const orderId = (input.data as unknown as Payments.RazorpayPayment)
                 .order_id as string;
             this.logger.warn(
@@ -540,8 +552,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 (i) => i.status === PaymentSessionStatus.AUTHORIZED
             );
             const totalAuthorised = authorisedAttempts.reduce((p, c) => {
-                p += parseInt(`${c.amount}`, 10);
-                return p;
+                const data = p+parseInt(`${c.amount}`, 10);
+                return data;
             }, 0);
             return totalAuthorised === paymentIntent.amount
                 ? PaymentSessionStatus.AUTHORIZED
@@ -662,10 +674,13 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             )}`
         );
         try {
+            if (!webhookSignature || !webhookSecret) {
+                return { action: PaymentActions.FAILED };
+            }
             const validationResponse = Razorpay.validateWebhookSignature(
                 webhookData.rawData.toString(),
                 webhookSignature as string,
-                webhookSecret!
+                webhookSecret
             );
             // return if validation fails
             if (!validationResponse) {
@@ -721,8 +736,6 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 };
 
             case "payment.failed":
-                // TODO: notify customer of failed payment
-
                 return {
                     action: PaymentActions.FAILED,
                     data: {
@@ -735,7 +748,6 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                         amount: outstanding
                     }
                 };
-                break;
 
             default:
                 return { action: PaymentActions.NOT_SUPPORTED };

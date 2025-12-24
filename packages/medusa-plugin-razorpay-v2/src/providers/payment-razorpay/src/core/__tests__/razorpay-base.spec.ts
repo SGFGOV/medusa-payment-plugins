@@ -7,6 +7,7 @@ import {
     jest
 } from "@jest/globals";
 import { PaymentSessionStatus } from "@medusajs/framework/utils";
+import type { MedusaContainer } from "@medusajs/framework/types";
 import type {
     AuthorizePaymentInput,
     CapturePaymentInput,
@@ -104,8 +105,8 @@ describe("RazorpayTest", () => {
                 jest.requireActual("razorpay");
             }
 
-            const scopedContainer = { ...container };
-            razorpayTest = new RazorpayTest(scopedContainer, config);
+              const scopedContainer = { ...container } as unknown as MedusaContainer;
+            razorpayTest = new RazorpayTest(scopedContainer as MedusaContainer, config);
         });
 
         beforeEach(() => {
@@ -154,7 +155,7 @@ describe("RazorpayTest", () => {
         let razorpayTest: RazorpayTest;
 
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -298,7 +299,7 @@ describe("RazorpayTest", () => {
         let razorpayTest: RazorpayTest;
 
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -335,7 +336,7 @@ describe("RazorpayTest", () => {
 
     describe("cancelPayment", () => {
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -384,7 +385,7 @@ describe("RazorpayTest", () => {
 
     describe("capturePayment", () => {
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -438,7 +439,7 @@ describe("RazorpayTest", () => {
 
     describe("deletePayment", () => {
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -482,7 +483,7 @@ describe("RazorpayTest", () => {
 
     describe("refundPayment", () => {
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer    ;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -529,7 +530,7 @@ describe("RazorpayTest", () => {
 
     describe("retrievePayment", () => {
         beforeAll(async () => {
-            const scopedContainer = { ...container };
+            const scopedContainer = { ...container } as unknown as MedusaContainer;
             razorpayTest = new RazorpayTest(scopedContainer, config);
         });
 
@@ -573,7 +574,7 @@ describe("RazorpayTest", () => {
         describe("updatePayment", () => {
             if (!isMocksEnabled()) {
                 beforeAll(async () => {
-                    const scopedContainer = { ...container };
+                    const scopedContainer = { ...container } as unknown as MedusaContainer;
                     razorpayTest = new RazorpayTest(scopedContainer, config);
                 });
 
