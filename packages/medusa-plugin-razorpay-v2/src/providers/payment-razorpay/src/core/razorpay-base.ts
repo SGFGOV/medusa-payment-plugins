@@ -63,7 +63,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     container_: MedusaContainer;
 
     paymentService: IPaymentModuleService;
-    protected constructor(container: MedusaContainer, options) {
+    constructor(container: MedusaContainer, options) {
         super(container, options);
 
         this.options_ = options;
