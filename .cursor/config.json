@@ -2,5 +2,4 @@
     "projectName": "payment-services",
     "rulesDir": "rules",
     "description": "Cursor project configuration for payment-services monorepo."
-    
 }

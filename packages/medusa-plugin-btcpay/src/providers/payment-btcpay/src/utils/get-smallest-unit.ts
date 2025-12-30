@@ -1,4 +1,4 @@
-import { BigNumberInput } from "@medusajs/framework/types";
+import type { BigNumberInput } from "@medusajs/framework/types";
 import { BigNumber, MathBN } from "@medusajs/framework/utils";
 
 function getCurrencyMultiplier(currency): number {
@@ -32,7 +32,7 @@ function getCurrencyMultiplier(currency): number {
             break;
         }
     }
-    return Math.pow(10, power);
+    return 10 ** power;
 }
 
 /**

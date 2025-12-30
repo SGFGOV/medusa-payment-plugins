@@ -1,8 +1,8 @@
 import {
-    loadEnv,
+    ContainerRegistrationKeys,
     defineConfig,
-    Modules,
-    ContainerRegistrationKeys
+    loadEnv,
+    Modules
 } from "@medusajs/framework/utils";
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd());

@@ -1,8 +1,8 @@
 import {
     defineMiddlewares,
-    MedusaNextFunction,
-    MedusaRequest,
-    MedusaResponse
+    type MedusaNextFunction,
+    type MedusaRequest,
+    type MedusaResponse
 } from "@medusajs/framework/http";
 
 export default defineMiddlewares({
@@ -31,9 +31,9 @@ export default defineMiddlewares({
             methods: ["OPTIONS"],
             middlewares: [
                 (
-                    req: MedusaRequest,
+                    _req: MedusaRequest,
                     res: MedusaResponse,
-                    next: MedusaNextFunction
+                    _next: MedusaNextFunction
                 ) => {
                     console.log("Received a request!");
                     res.header(
