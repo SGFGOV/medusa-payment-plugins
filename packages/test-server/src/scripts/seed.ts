@@ -345,7 +345,15 @@ export default async function seedDemoData({
             add: [defaultSalesChannel[0].id]
         }
     });
+    
+    // Get the token from the API key module
+    const apiKeyModule = container.resolve(Modules.API_KEY);
+    const apiKeyWithToken = await apiKeyModule.retrieveApiKey(publishableApiKey.id);
+    const token = apiKeyWithToken.token || publishableApiKey.token || publishableApiKey.id;
+    
     logger.info("Finished seeding publishable API key data.");
+    // Print the publishable API key for extraction by CI/CD
+    logger.info(`PUBLISHABLE_API_KEY=${token}`);
 
     logger.info("Seeding product data...");
 

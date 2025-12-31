@@ -126,31 +126,24 @@ jobs:
           npx medusa db:migrate
 
       - name: Seed database
+        id: seed-database
         working-directory: ./packages/test-server
         run: |
-          npx medusa exec ./src/scripts/seed.ts
+          npx medusa exec ./src/scripts/seed.ts 2>&1 | tee seed-output.log
 
       - name: Get publishable API key
         id: get-publishable-key
         working-directory: ./packages/test-server
         run: |
-          echo "Extracting publishable API key from database..."
-          # Install postgresql-client to query the database
-          sudo apt-get update && sudo apt-get install -y postgresql-client
-          # Query the database directly to get the publishable key
-          PUBLISHABLE_KEY=$(PGPASSWORD=postgres psql -h localhost -U postgres -d medusa-docker -t -A -c "SELECT token FROM api_key WHERE type = 'publishable' ORDER BY created_at DESC LIMIT 1;" 2>/dev/null | tr -d '\n' || echo "")
-          if [ -z "$PUBLISHABLE_KEY" ] || [ "$PUBLISHABLE_KEY" = "" ]; then
-            echo "Warning: Could not retrieve publishable key from database, trying alternative method..."
-            # Try using medusa exec as fallback
-            PUBLISHABLE_KEY=$(npx medusa exec ./src/scripts/get-publishable-key.ts 2>/dev/null | grep -v "info:" | tail -n 1 | tr -d '\n' || echo "")
-          fi
-          if [ -z "$PUBLISHABLE_KEY" ] || [ "$PUBLISHABLE_KEY" = "" ]; then
-            echo "Error: Could not retrieve publishable key. The seed script should have created one."
+          echo "Extracting publishable API key from seed script output..."
+          PUBLISHABLE_KEY=$(grep 'PUBLISHABLE_API_KEY=' seed-output.log | sed 's/.*PUBLISHABLE_API_KEY=//' | tr -d '\n' || echo "")
+          if [ -z "$PUBLISHABLE_KEY" ]; then
+            echo "Error: Could not extract publishable key from seed script output."
             exit 1
           else
             echo "PUBLISHABLE_KEY=$PUBLISHABLE_KEY" >> $GITHUB_ENV
             echo "publishable_key=$PUBLISHABLE_KEY" >> $GITHUB_OUTPUT
-            echo "Successfully retrieved publishable key (length: ${#PUBLISHABLE_KEY})"
+            echo "Successfully extracted publishable key (length: ${#PUBLISHABLE_KEY})"
             # Update the storefront .env.local file with the actual key
             sed -i "s|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=test_publishable_key|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=$PUBLISHABLE_KEY|" ../storefront/.env.local
           fi
