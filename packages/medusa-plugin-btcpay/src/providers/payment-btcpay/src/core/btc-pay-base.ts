@@ -77,7 +77,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
     query: Query;
     manager: EntityManager;
 
-    protected constructor(container: MedusaContainer, options: BtcOptions) {
+    constructor(container: MedusaContainer, options: BtcOptions) {
         super(container, options);
 
         this.options_ = options;
