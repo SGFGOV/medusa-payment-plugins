@@ -370,7 +370,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         return Math.round(getAmountFromSmallestUnit(
             Math.round(parseInt(amount.toString(), 10)),
             currency_code.toUpperCase()
-        ) * 100);
+        ) * 100*100);
     }
 
     async initiatePayment(
