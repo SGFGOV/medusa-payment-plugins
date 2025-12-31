@@ -157,10 +157,10 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const result = possibleCaptures?.map(async (payment) => {
             const { id, amount, currency } = payment;
             const toPay =
-                getAmountFromSmallestUnit(
+                Math.round(getAmountFromSmallestUnit(
                     Math.round(parseInt(amount.toString(), 10)),
                     currency.toUpperCase()
-                ) * 100;
+                )) * 100;
             const paymentCaptured = await this.razorpay_.payments.capture(
                 id,
                 toPay,

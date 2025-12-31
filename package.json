@@ -25,10 +25,10 @@
         "typecheck": "turbo run typecheck"
     },
     "devDependencies": {
-        "@medusajs/admin-sdk": "2.7.0",
-        "@medusajs/cli": "2.7.0",
-        "@medusajs/framework": "2.7.0",
-        "@medusajs/medusa": "2.7.0",
+        "@medusajs/admin-sdk": "2.12.3",
+        "@medusajs/cli": "2.12.3",
+        "@medusajs/framework": "2.12.3",
+        "@medusajs/medusa": "2.12.3",
         "@mikro-orm/core": "6.4.3",
         "@mikro-orm/knex": "6.4.3",
         "@mikro-orm/migrations": "6.4.3",
