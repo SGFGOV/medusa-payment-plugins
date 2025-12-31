@@ -85,13 +85,13 @@ jobs:
           RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
           RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT }}
           RAZORPAY_TEST_WEBHOOK_SECRET=${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_URL=${{ secrets.BTCPAY_TEST_URL }}
-          BTCPAY_TEST_API_KEY=${{ secrets.BTCPAY_TEST_API_KEY }}
-          BTCPAY_TEST_STORE_ID=${{ secrets.BTCPAY_TEST_STORE_ID }}
-          BTCPAY_TEST_WEBHOOK_SECRET=${{ secrets.BTCPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_CURRENCY=${{ secrets.BTCPAY_TEST_CURRENCY }}
-          BTCPAY_TEST_AUTO_CAPTURE=${{ secrets.BTCPAY_TEST_AUTO_CAPTURE }}
-          BTCPAY_TEST_AUTO_REFUND=${{ secrets.BTCPAY_TEST_AUTO_REFUND }}
+          BTCPAY_TEST_URL=http://localhost:23000
+          BTCPAY_TEST_API_KEY=test_api_key
+          BTCPAY_TEST_STORE_ID=test_store_id
+          BTCPAY_TEST_WEBHOOK_SECRET=test_webhook_secret
+          BTCPAY_TEST_CURRENCY=usd
+          BTCPAY_TEST_AUTO_CAPTURE=false
+          BTCPAY_TEST_AUTO_REFUND=false
           REFUND_POLICY="OverpaidAmount"
           BTC_TEST_CHARGE="2.0"
           EOF
