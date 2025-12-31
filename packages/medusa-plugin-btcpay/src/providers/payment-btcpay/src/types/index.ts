@@ -1,4 +1,4 @@
-import { Configuration, InvoiceIdRefundBody } from "../core";
+import type { Configuration, InvoiceIdRefundBody } from "../core";
 
 export interface BtcOptions extends Configuration {
     refundVariant: InvoiceIdRefundBody.RefundVariantEnum;

@@ -9,53 +9,53 @@ import {
     PaymentActions,
     PaymentSessionStatus
 } from "@medusajs/framework/utils";
-import {
-    CapturePaymentInput,
-    CapturePaymentOutput,
+import type {
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
+    BigNumberInput,
     CancelPaymentInput,
     CancelPaymentOutput,
-    InitiatePaymentInput,
-    InitiatePaymentOutput,
+    CapturePaymentInput,
+    CapturePaymentOutput,
+    CreateAccountHolderInput,
+    CreateAccountHolderOutput,
+    CustomerDTO,
+    DeleteAccountHolderInput,
+    DeleteAccountHolderOutput,
     DeletePaymentInput,
     DeletePaymentOutput,
     GetPaymentStatusInput,
     GetPaymentStatusOutput,
+    InitiatePaymentInput,
+    InitiatePaymentOutput,
+    IPaymentModuleService,
+    Logger,
+    MedusaContainer,
+    PaymentCustomerDTO,
+    PaymentSessionDTO,
+    ProviderWebhookPayload,
     RefundPaymentInput,
     RefundPaymentOutput,
     RetrievePaymentInput,
     RetrievePaymentOutput,
+    UpdateAccountHolderInput,
+    UpdateAccountHolderOutput,
     UpdatePaymentInput,
     UpdatePaymentOutput,
-    ProviderWebhookPayload,
-    WebhookActionResult,
-    IPaymentModuleService,
-    Logger,
-    MedusaContainer,
-    PaymentSessionDTO,
-    CustomerDTO,
-    CreateAccountHolderOutput,
-    CreateAccountHolderInput,
-    UpdateAccountHolderInput,
-    DeleteAccountHolderOutput,
-    DeleteAccountHolderInput,
-    UpdateAccountHolderOutput,
-    PaymentCustomerDTO,
-    PaymentAccountHolderDTO
+    WebhookActionResult
 } from "@medusajs/types";
-import {
+import Razorpay from "razorpay";
+import type { IMap } from "razorpay/dist/types/api";
+import type { Orders } from "razorpay/dist/types/orders";
+import type { Payments } from "razorpay/dist/types/payments";
+import type {
     Options,
     RazorpayOptions,
     RazorpayProviderConfig,
     WebhookEventData
 } from "../types";
-import Razorpay from "razorpay";
 import { getAmountFromSmallestUnit } from "../utils/get-smallest-unit";
-import { Orders } from "razorpay/dist/types/orders";
 import { updateRazorpayCustomerMetadataWorkflow } from "../workflows/update-razorpay-customer-metadata";
-import { IMap } from "razorpay/dist/types/api";
-import { Payments } from "razorpay/dist/types/payments";
 
 class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     protected readonly options_: RazorpayProviderConfig & Options;
@@ -64,7 +64,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     container_: MedusaContainer;
 
     paymentService: IPaymentModuleService;
-    protected constructor(container: MedusaContainer, options) {
+    constructor(container: MedusaContainer, options) {
         super(container, options);
 
         this.options_ = options;
@@ -79,7 +79,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
     protected init(): void {
         const provider = this.options_.providers?.find(
-            (p) => p.id == RazorpayBase.identifier
+            (p) => p.id === RazorpayBase.identifier
         );
         if (!provider && !this.options_.key_id) {
             throw new MedusaError(
@@ -105,34 +105,40 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     }
 
     static validateOptions(options: RazorpayOptions): void {
-        if (!isDefined(options.key_id)!) {
-            throw new Error(
+        if (!isDefined(options.key_id)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `key_id` is missing in Razorpay plugin"
             );
         }
-        if (!isDefined(options.key_secret)!) {
-            throw new Error(
+        if (!isDefined(options.key_secret)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `key_secret` is missing in Razorpay plugin"
             );
         }
-        if (!isDefined(options.razorpay_account)!) {
-            throw new Error(
+        if (!isDefined(options.razorpay_account)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `razorpay_account` is missing in Razorpay plugin"
             );
         }
-        if (!isDefined(options.automatic_expiry_period)!) {
-            if (!isDefined(options.manual_expiry_period)!) {
-                throw new Error(
+        if (!isDefined(options.automatic_expiry_period)) {
+            if (!isDefined(options.manual_expiry_period)) {
+                throw new MedusaError(
+                    MedusaErrorTypes.INVALID_ARGUMENT,
                     "Required option `manual_expiry_period` is missing in Razorpay plugin"
                 );
             }
-            throw new Error(
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `automatic_expiry_period` is missing in Razorpay plugin"
             );
         }
 
-        if (!isDefined(options.webhook_secret)!) {
-            throw new Error(
+        if (!isDefined(options.webhook_secret)) {
+            throw new MedusaError(
+                MedusaErrorTypes.INVALID_ARGUMENT,
                 "Required option `webhook_secret` is missing in Razorpay plugin"
             );
         }
@@ -147,15 +153,11 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             razorpayOrder.id as string
         );
         const possibleCaptures = paymentsResponse.items?.filter(
-            (item) => item.status == "authorized"
+            (item) => item.status === "authorized"
         );
         const result = possibleCaptures?.map(async (payment) => {
             const { id, amount, currency } = payment;
-            const toPay =
-                getAmountFromSmallestUnit(
-                    Math.round(parseInt(amount.toString())),
-                    currency.toUpperCase()
-                ) * 100;
+            const toPay = this.getToPay(amount, currency);
             const paymentCaptured = await this.razorpay_.payments.capture(
                 id,
                 toPay,
@@ -164,14 +166,6 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             return paymentCaptured;
         });
         if (result) {
-            const payments = await Promise.all(result);
-            const res = payments.reduce(
-                (acc, curr) => ((acc[curr.id] = curr), acc),
-                {}
-            );
-            // (paymentSessionData as unknown as Orders.RazorpayOrder).payments =
-            //     res;
-
             const syncResult = await this.syncPaymentSession(
                 paymentSession.id,
                 razorpayOrder.id as string
@@ -206,7 +200,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         );
 
         if (
-            status.status == PaymentSessionStatus.AUTHORIZED &&
+            status.status === PaymentSessionStatus.AUTHORIZED &&
             this.options_.auto_capture
         ) {
             status.status = PaymentSessionStatus.CAPTURED;
@@ -229,10 +223,10 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             razorpayOrder.id as string
         );
         const capturedPayments = fetchPayments.items?.filter(
-            (item) => item.status == "captured"
+            (item) => item.status === "captured"
         );
 
-        if (capturedPayments.length != 0) {
+        if (capturedPayments.length !== 0) {
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
                 "Cannot cancel a payment that has been captured"
@@ -240,17 +234,13 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         }
 
         const possibleRefunds = fetchPayments.items?.filter(
-            (item) => item.status == "authorized"
+            (item) => item.status === "authorized"
         );
 
         const result = await Promise.all(
             possibleRefunds?.map(async (payment) => {
                 const { id, amount, currency } = payment;
-                const toPay =
-                    getAmountFromSmallestUnit(
-                        Math.round(parseInt(amount.toString())),
-                        currency.toUpperCase()
-                    ) * 100;
+                const toPay = this.getToPay(amount, currency);
                 const refund = await this.razorpay_.payments.refund(id, {
                     amount: toPay,
                     notes: {
@@ -288,7 +278,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     }> {
         let { data, context } = input;
         if (!data?.razorpayorder) {
-            if (data && data?.id) {
+            if (data?.id) {
                 data = {
                     ...data,
                     razorpayOrder: await this.razorpay_.orders.fetch(
@@ -303,9 +293,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             (razorpayOrder?.notes as Record<string, string>)
                 ?.medusa_payment_session_id ?? context?.idempotency_key;
 
-        const paymentSession = await this.paymentService.retrievePaymentSession(
-            paymentSessionId
-        );
+        const paymentSession =
+            await this.paymentService.retrievePaymentSession(paymentSessionId);
         if (!razorpayOrder) {
             razorpayOrder = paymentSession?.data
                 ?.razorpayOrder as Orders.RazorpayOrder;
@@ -315,7 +304,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 razorpayOrder.id as string
             );
 
-            if (razorpayOrder_latest.status != razorpayOrder.status) {
+            if (razorpayOrder_latest.status !== razorpayOrder.status) {
                 razorpayOrder = razorpayOrder_latest;
             }
         }
@@ -336,7 +325,9 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
             payment: {
                 capture:
-                    this.options_.auto_capture ?? true ? "automatic" : "manual",
+                    (this.options_.auto_capture ?? true)
+                        ? "automatic"
+                        : "manual",
                 capture_options: {
                     refund_speed: this.options_.refund_speed ?? "normal",
                     automatic_expiry_period: Math.max(
@@ -374,6 +365,14 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         };
     }
 
+
+    getToPay (amount: BigNumberInput, currency_code: string): number {
+        return Math.round(getAmountFromSmallestUnit(
+            Math.round(parseInt(amount.toString(), 10)),
+            currency_code.toUpperCase()
+        ) * 100*100);
+    }
+
     async initiatePayment(
         input: InitiatePaymentInput
     ): Promise<InitiatePaymentOutput> {
@@ -381,14 +380,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
         const { amount, currency_code } = input;
 
-        let toPay = getAmountFromSmallestUnit(
-            Math.round(parseInt(amount.toString())),
-            currency_code.toUpperCase()
-        );
-
-        toPay =
-            currency_code.toUpperCase() == "INR" ? toPay * 100 * 100 : toPay;
-
+        const toPay = this.getToPay(amount, currency_code);
         try {
             const razorpayOrderCreateRequest =
                 this.getRazorpayOrderCreateRequestBody(toPay, currency_code);
@@ -397,8 +389,14 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 razorpayOrderCreateRequest
             );
 
+            if (!paymentSessionId) {
+                throw new MedusaError(
+                    MedusaError.Types.INVALID_DATA,
+                    "Payment session ID is required"
+                );
+            }   
             return {
-                id: paymentSessionId!,
+                id: paymentSessionId,
                 data: { razorpayOrder: razorpayOrder }
             };
         } catch (error) {
@@ -502,16 +500,15 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         try {
             paymentIntent = await this.razorpay_.orders.fetch(id);
             paymentsAttempted = await this.razorpay_.orders.fetchPayments(id);
-        } catch (e) {
+        } catch (_e) {
             const orderId = (input.data as unknown as Payments.RazorpayPayment)
                 .order_id as string;
             this.logger.warn(
                 "received payment data from session not order data"
             );
             paymentIntent = await this.razorpay_.orders.fetch(orderId);
-            paymentsAttempted = await this.razorpay_.orders.fetchPayments(
-                orderId
-            );
+            paymentsAttempted =
+                await this.razorpay_.orders.fetchPayments(orderId);
         }
         let status: PaymentSessionStatus = PaymentSessionStatus.PENDING;
         switch (paymentIntent.status) {
@@ -546,13 +543,13 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             return PaymentSessionStatus.ERROR;
         } else {
             const authorisedAttempts = attempts.items.filter(
-                (i) => i.status == PaymentSessionStatus.AUTHORIZED
+                (i) => i.status === PaymentSessionStatus.AUTHORIZED
             );
             const totalAuthorised = authorisedAttempts.reduce((p, c) => {
-                p += parseInt(`${c.amount}`);
-                return p;
+                const data = p+parseInt(`${c.amount}`, 10);
+                return data;
             }, 0);
-            return totalAuthorised == paymentIntent.amount
+            return totalAuthorised === paymentIntent.amount
                 ? PaymentSessionStatus.AUTHORIZED
                 : PaymentSessionStatus.REQUIRES_MORE;
         }
@@ -568,8 +565,8 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
         const payment_id = paymentList.items?.find((p) => {
             return (
-                parseInt(`${p.amount}`) >= refundAmount * 100 &&
-                (p.status == "authorized" || p.status == "captured")
+                parseInt(`${p.amount}`, 10) >= refundAmount * 100 &&
+                (p.status === "authorized" || p.status === "captured")
             );
         })?.id;
         if (payment_id) {
@@ -622,7 +619,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async retrievePayment(
         input: RetrievePaymentInput
     ): Promise<RetrievePaymentOutput> {
-        const { razorpayOrder, paymentSession } =
+        const { razorpayOrder } =
             await this.getPaymentSessionAndOrderFromInput(input);
 
         return {
@@ -635,7 +632,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async updatePayment(
         input: UpdatePaymentInput
     ): Promise<UpdatePaymentOutput> {
-        const { razorpayOrder, paymentSession } =
+        const { razorpayOrder } =
             await this.getPaymentSessionAndOrderFromInput(input);
         const invoiceData = await this.updateRazorpayOrderMetadata(
             razorpayOrder.id as string,
@@ -671,17 +668,22 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             )}`
         );
         try {
+            if (!webhookSignature || !webhookSecret) {
+                return { action: PaymentActions.FAILED };
+            }
             const validationResponse = Razorpay.validateWebhookSignature(
                 webhookData.rawData.toString(),
                 webhookSignature as string,
-                webhookSecret!
+                webhookSecret
             );
             // return if validation fails
             if (!validationResponse) {
                 return { action: PaymentActions.FAILED };
             }
         } catch (error) {
-            logger.error(`Razorpay webhook validation failed : ${error}`);
+            logger.error(
+                `Razorpay webhook validation failed : ${JSON.stringify(error)}`
+            );
 
             return { action: PaymentActions.FAILED };
         }
@@ -692,7 +694,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const order = await this.razorpay_.orders.fetch(paymentData.order_id);
         /** sometimes this even fires before the order is updated in the remote system */
         const outstanding = getAmountFromSmallestUnit(
-            order.amount_paid == 0 ? paymentData.amount : order.amount_paid,
+            order.amount_paid === 0 ? paymentData.amount : order.amount_paid,
             paymentData.currency.toUpperCase()
         );
 
@@ -703,8 +705,12 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return {
                     action: PaymentActions.SUCCESSFUL,
                     data: {
-                        session_id: (paymentData.notes as any)
-                            .session_id as string,
+                        session_id: (
+                            paymentData.notes as unknown as Record<
+                                string,
+                                unknown
+                            >
+                        ).session_id as string,
                         amount: outstanding
                     }
                 };
@@ -713,24 +719,29 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return {
                     action: PaymentActions.AUTHORIZED,
                     data: {
-                        session_id: (paymentData.notes as any)
-                            .session_id as string,
+                        session_id: (
+                            paymentData.notes as unknown as Record<
+                                string,
+                                unknown
+                            >
+                        ).session_id as string,
                         amount: outstanding
                     }
                 };
 
             case "payment.failed":
-                // TODO: notify customer of failed payment
-
                 return {
                     action: PaymentActions.FAILED,
                     data: {
-                        session_id: (paymentData.notes as any)
-                            .session_id as string,
+                        session_id: (
+                            paymentData.notes as unknown as Record<
+                                string,
+                                unknown
+                            >
+                        ).session_id as string,
                         amount: outstanding
                     }
                 };
-                break;
 
             default:
                 return { action: PaymentActions.NOT_SUPPORTED };

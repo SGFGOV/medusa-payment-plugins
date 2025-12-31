@@ -1,87 +1,90 @@
 {
-  "name": "medusa-plugin-btcpay",
-  "version": "0.0.6",
-  "description": "A plugin to  receive for bitcoin payments in medusajss .",
-  "author": "Medusa (https://medusajs.com)",
-  "license": "MIT",
-  "files": [
-    ".medusa/server"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SGFGOV/medusa-payment-plugins"
-  },
-  "exports": {
-    "./package.json": "./package.json",
-    "./workflows": "./.medusa/server/src/workflows/index.js",
-    "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
-    "./modules/*": "./.medusa/server/src/modules/*/index.js",
-    "./providers/*": "./.medusa/server/src/providers/*/index.js",
-    "./*": "./.medusa/server/src/*.js"
-  },
-  "keywords": [
-    "medusa",
-    "plugin",
-    "medusa-plugin-integration",
-    "medusa-v2",
-    "medusa-plugin-other",
-    "medusa-plugin-btcpay",
-    "bitcoin",
-    "medusa-payment",
-    "medusa-plugin-payment"
-  ],
-  "scripts": {
-    "debug": "medusa plugin:develop",
-    "build": "medusa plugin:build",
-    "dev": "medusa plugin:develop",
-    "prepublishOnly": "medusa plugin:build"
-  },
-  "devDependencies": {
-    "@medusajs/admin-sdk": "2.7.1",
-    "@medusajs/cli": "2.7.1",
-    "@medusajs/framework": "2.7.1",
-    "@medusajs/icons": "2.7.1",
-    "@medusajs/medusa": "2.7.1",
-    "@medusajs/test-utils": "2.7.1",
-    "@medusajs/ui": "4.0.4",
-    "@mikro-orm/cli": "6.4.3",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
-    "@swc/core": "1.5.7",
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.3.2",
-    "@types/react-dom": "^18.2.25",
-    "@types/ws": "^8",
-    "awilix": "^8.0.1",
-    "pg": "^8.13.0",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "peerDependencies": {
-    "@medusajs/admin-sdk": "2.7.1",
-    "@medusajs/cli": "2.7.1",
-    "@medusajs/framework": "2.7.1",
-    "@medusajs/icons": "2.7.1",
-    "@medusajs/medusa": "2.7.1",
-    "@medusajs/test-utils": "2.7.1",
-    "@medusajs/ui": "4.0.3",
-    "@mikro-orm/cli": "6.4.3",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
-    "awilix": "^8.0.1",
-    "pg": "^8.13.0"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "packageManager": "yarn@4.6.0",
-  "dependencies": {
-    "isomorphic-fetch": "^3.0.0",
-    "ws": "^8.18.1"
-  }
+    "name": "medusa-plugin-btcpay",
+    "version": "0.0.6",
+    "description": "A plugin to  receive for bitcoin payments in medusajss .",
+    "author": "Medusa (https://medusajs.com)",
+    "license": "MIT",
+    "files": [
+        ".medusa/server"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SGFGOV/medusa-payment-plugins"
+    },
+    "exports": {
+        "./package.json": "./package.json",
+        "./workflows": "./.medusa/server/src/workflows/index.js",
+        "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
+        "./modules/*": "./.medusa/server/src/modules/*/index.js",
+        "./providers/*": "./.medusa/server/src/providers/*/index.js",
+        "./*": "./.medusa/server/src/*.js"
+    },
+    "keywords": [
+        "medusa",
+        "plugin",
+        "medusa-plugin-integration",
+        "medusa-v2",
+        "medusa-plugin-other",
+        "medusa-plugin-btcpay",
+        "bitcoin",
+        "medusa-payment",
+        "medusa-plugin-payment"
+    ],
+    "scripts": {
+        "debug": "medusa plugin:develop",
+        "build": "medusa plugin:build",
+        "dev": "medusa plugin:develop",
+        "lint": "npx @biomejs/biome check .",
+        "lint:fix": "npx @biomejs/biome check --write .",
+        "typecheck": "tsc --noEmit",
+        "prepublishOnly": "medusa plugin:build"
+    },
+    "devDependencies": {
+        "@medusajs/admin-sdk": "2.12.3",
+        "@medusajs/cli": "2.12.3",
+        "@medusajs/framework": "2.12.3",
+        "@medusajs/icons": "2.12.3",
+        "@medusajs/medusa": "2.12.3",
+        "@medusajs/test-utils": "2.12.3",
+        "@medusajs/ui": "4.0.4",
+        "@mikro-orm/cli": "6.4.3",
+        "@mikro-orm/core": "6.4.3",
+        "@mikro-orm/knex": "6.4.3",
+        "@mikro-orm/migrations": "6.4.3",
+        "@mikro-orm/postgresql": "6.4.3",
+        "@swc/core": "1.5.7",
+        "@types/node": "^20.0.0",
+        "@types/react": "^18.3.2",
+        "@types/react-dom": "^18.2.25",
+        "@types/ws": "^8",
+        "awilix": "^8.0.1",
+        "pg": "^8.13.0",
+        "prop-types": "^15.8.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "peerDependencies": {
+        "@medusajs/admin-sdk": "2.12.3",
+        "@medusajs/cli": "2.12.3",
+        "@medusajs/framework": "2.12.3",
+        "@medusajs/icons": "2.12.3",
+        "@medusajs/medusa": "2.12.3",
+        "@medusajs/test-utils": "2.12.3",
+        "@medusajs/ui": "4.0.3",
+        "@mikro-orm/cli": "6.4.3",
+        "@mikro-orm/core": "6.4.3",
+        "@mikro-orm/knex": "6.4.3",
+        "@mikro-orm/migrations": "6.4.3",
+        "@mikro-orm/postgresql": "6.4.3",
+        "awilix": "^8.0.1",
+        "pg": "^8.13.0"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "packageManager": "yarn@4.6.0",
+    "dependencies": {
+        "isomorphic-fetch": "^3.0.0",
+        "ws": "^8.18.1"
+    }
 }

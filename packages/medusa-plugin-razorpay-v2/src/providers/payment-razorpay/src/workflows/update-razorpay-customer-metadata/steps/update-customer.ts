@@ -1,7 +1,7 @@
-import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk";
-import { UpdateRazorpayCustomerMetadataInput } from "..";
+import type { ICustomerModuleService } from "@medusajs/framework/types";
 import { Modules } from "@medusajs/framework/utils";
-import { ICustomerModuleService } from "@medusajs/framework/types";
+import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk";
+import type { UpdateRazorpayCustomerMetadataInput } from "..";
 
 export const updateCustomerMetadataStep = createStep(
     "create-customer-step",
