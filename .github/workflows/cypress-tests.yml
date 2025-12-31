@@ -94,7 +94,6 @@ jobs:
           BTCPAY_TEST_AUTO_REFUND=${{ secrets.BTCPAY_TEST_AUTO_REFUND }}
           REFUND_POLICY=${{ secrets.REFUND_POLICY }}
           BTC_TEST_CHARGE=${{ secrets.BTC_TEST_CHARGE }}
-          STOREFRONT_URL=${{ secrets.STOREFRONT_URL }}
           EOF
 
       - name: Setup storefront environment variables
