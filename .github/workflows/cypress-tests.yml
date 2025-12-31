@@ -79,6 +79,7 @@ jobs:
           AUTH_CORS=http://localhost:8000
           JWT_SECRET=supersecret
           COOKIE_SECRET=supersecret
+          STOREFRONT_URL=http://localhost:8000
           NODE_ENV=development
           RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID }}
           RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET }}

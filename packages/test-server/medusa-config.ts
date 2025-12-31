@@ -130,7 +130,7 @@ module.exports = defineConfig({
                         options: {
                             refundVariant:
                                 process.env.REFUND_POLICY ?? "Custom", // InvoiceIdRefundBody.RefundVariantEnum,
-                            storefront_url: process.env?.STOREFRONT_URL,
+                            storefront_url: process.env?.STOREFRONT_URL ?? "http://localhost:8000",
                             default_store_id:
                                 process?.env?.BTCPAY_TEST_STORE_ID,
                             apiKey: `token ${process?.env?.BTCPAY_TEST_API_KEY}`,
