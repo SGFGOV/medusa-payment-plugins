@@ -12,6 +12,7 @@ import {
 import type {
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
+    BigNumberInput,
     CancelPaymentInput,
     CancelPaymentOutput,
     CapturePaymentInput,
@@ -156,11 +157,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         );
         const result = possibleCaptures?.map(async (payment) => {
             const { id, amount, currency } = payment;
-            const toPay =
-                Math.round(getAmountFromSmallestUnit(
-                    Math.round(parseInt(amount.toString(), 10)),
-                    currency.toUpperCase()
-                )) * 100;
+            const toPay = this.getToPay(amount, currency);
             const paymentCaptured = await this.razorpay_.payments.capture(
                 id,
                 toPay,
@@ -243,11 +240,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const result = await Promise.all(
             possibleRefunds?.map(async (payment) => {
                 const { id, amount, currency } = payment;
-                const toPay =
-                    getAmountFromSmallestUnit(
-                        Math.round(parseInt(amount.toString())),
-                        currency.toUpperCase()
-                    ) * 100;
+                const toPay = this.getToPay(amount, currency);
                 const refund = await this.razorpay_.payments.refund(id, {
                     amount: toPay,
                     notes: {
@@ -372,6 +365,14 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         };
     }
 
+
+    getToPay (amount: BigNumberInput, currency_code: string): number {
+        return Math.round(getAmountFromSmallestUnit(
+            Math.round(parseInt(amount.toString(), 10)),
+            currency_code.toUpperCase()
+        ) * 100);
+    }
+
     async initiatePayment(
         input: InitiatePaymentInput
     ): Promise<InitiatePaymentOutput> {
@@ -379,14 +380,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
 
         const { amount, currency_code } = input;
 
-        let toPay = getAmountFromSmallestUnit(
-            Math.round(parseInt(amount.toString(), 10)),
-            currency_code.toUpperCase()
-        );
-
-        toPay =
-            Math.round(currency_code.toUpperCase() === "INR" ? toPay * 100 * 100 : toPay);
-
+        const toPay = this.getToPay(amount, currency_code);
         try {
             const razorpayOrderCreateRequest =
                 this.getRazorpayOrderCreateRequestBody(toPay, currency_code);
