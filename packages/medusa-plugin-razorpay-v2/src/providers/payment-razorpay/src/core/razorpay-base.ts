@@ -385,7 +385,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         );
 
         toPay =
-            currency_code.toUpperCase() === "INR" ? toPay * 100 * 100 : toPay;
+            Math.round(currency_code.toUpperCase() === "INR" ? toPay * 100 * 100 : toPay);
 
         try {
             const razorpayOrderCreateRequest =
