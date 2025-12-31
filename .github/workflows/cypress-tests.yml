@@ -105,6 +105,13 @@ jobs:
           NEXT_PUBLIC_BASE_URL=http://localhost:8000
           EOF
 
+      - name: Wait for database to be ready
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          timeout 60 bash -c 'until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done'
+          echo "PostgreSQL is ready!"
+
       - name: Run database migrations
         working-directory: ./packages/test-server
         run: |
