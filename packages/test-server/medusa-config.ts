@@ -22,9 +22,9 @@ module.exports = defineConfig({
     projectConfig: {
         databaseUrl: process.env.DATABASE_URL,
         http: {
-            storeCors: process.env.STORE_CORS!,
-            adminCors: process.env.ADMIN_CORS!,
-            authCors: process.env.AUTH_CORS!,
+            storeCors: process.env.STORE_CORS || "http://localhost:8000",
+            adminCors: process.env.ADMIN_CORS || "http://localhost:7001",
+            authCors: process.env.AUTH_CORS || "http://localhost:8000",
             jwtSecret: process.env.JWT_SECRET || "supersecret",
             cookieSecret: process.env.COOKIE_SECRET || "supersecret"
         }
@@ -130,7 +130,9 @@ module.exports = defineConfig({
                         options: {
                             refundVariant:
                                 process.env.REFUND_POLICY ?? "Custom", // InvoiceIdRefundBody.RefundVariantEnum,
-                            storefront_url: process.env?.STOREFRONT_URL ?? "http://localhost:8000",
+                            storefront_url:
+                                process.env?.STOREFRONT_URL ??
+                                "http://localhost:8000",
                             default_store_id:
                                 process?.env?.BTCPAY_TEST_STORE_ID,
                             apiKey: `token ${process?.env?.BTCPAY_TEST_API_KEY}`,

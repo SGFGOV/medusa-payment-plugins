@@ -24,10 +24,10 @@ function getCurrencyMultiplier(currency): number {
         3: ["BHD", "IQD", "JOD", "KWD", "OMR", "TND"]
     };
 
-    currency = currency.toUpperCase();
+    const upperCurrency = currency.toUpperCase();
     let power = 2;
     for (const [key, value] of Object.entries(currencyMultipliers)) {
-        if (value.includes(currency)) {
+        if (value.includes(upperCurrency)) {
             power = parseInt(key, 10);
             break;
         }
@@ -60,7 +60,12 @@ export function getSmallestUnit(
         numeric = Math.ceil(numeric / 10) * 10;
     }
 
-    return parseInt(numeric.toString().split(".").shift()!, 10);
+    const parts = numeric.toString().split(".");
+    const integerPart = parts[0];
+    if (!integerPart) {
+        return 0;
+    }
+    return parseInt(integerPart, 10);
 }
 
 /**

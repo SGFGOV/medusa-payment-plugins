@@ -47,7 +47,10 @@ export const GET = async (req: MedusaRequest, response: MedusaResponse) => {
     }
 };
 
-export const OPTIONS = async (_req: MedusaRequest, response: MedusaResponse) => {
+export const OPTIONS = async (
+    _req: MedusaRequest,
+    response: MedusaResponse
+) => {
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     response.header(

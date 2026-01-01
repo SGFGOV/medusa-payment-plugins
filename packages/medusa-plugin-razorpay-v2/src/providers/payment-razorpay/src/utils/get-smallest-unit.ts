@@ -55,7 +55,7 @@ export function getSmallestUnit(
     const smallestAmount = new BigNumber(MathBN.mult(amount_, multiplier));
 
     let numeric = smallestAmount.numeric;
-    
+
     // For 3-decimal currencies (multiplier === 1000), round to nearest 10
     // For numbers < 100000: round up if last digit is 0-4
     // For numbers >= 100000: round to nearest 10 only if last 2 digits are 00-04

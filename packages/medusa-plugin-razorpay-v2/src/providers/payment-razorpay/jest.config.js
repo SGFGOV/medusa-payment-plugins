@@ -1,5 +1,3 @@
-const path = require("path");
-
 module.exports = {
     rootDir: __dirname,
     transform: {
@@ -22,5 +20,5 @@ module.exports = {
         "^@types": "<rootDir>/src/types",
         "^@utils": "<rootDir>/src/utils"
     },
-    modulePathIgnorePatterns: ["<rootDir>/.medusa/", "<rootDir>/dist/"],
+    modulePathIgnorePatterns: ["<rootDir>/.medusa/", "<rootDir>/dist/"]
 };

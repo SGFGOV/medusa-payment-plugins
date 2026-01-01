@@ -365,12 +365,15 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         };
     }
 
-
-    getToPay (amount: BigNumberInput, currency_code: string): number {
-        return Math.round(getAmountFromSmallestUnit(
-            Math.round(parseInt(amount.toString(), 10)),
-            currency_code.toUpperCase()
-        ) * 100*100);
+    getToPay(amount: BigNumberInput, currency_code: string): number {
+        return Math.round(
+            getAmountFromSmallestUnit(
+                Math.round(parseInt(amount.toString(), 10)),
+                currency_code.toUpperCase()
+            ) *
+                100 *
+                100
+        );
     }
 
     async initiatePayment(
@@ -394,7 +397,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                     MedusaError.Types.INVALID_DATA,
                     "Payment session ID is required"
                 );
-            }   
+            }
             return {
                 id: paymentSessionId,
                 data: { razorpayOrder: razorpayOrder }
@@ -546,7 +549,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 (i) => i.status === PaymentSessionStatus.AUTHORIZED
             );
             const totalAuthorised = authorisedAttempts.reduce((p, c) => {
-                const data = p+parseInt(`${c.amount}`, 10);
+                const data = p + parseInt(`${c.amount}`, 10);
                 return data;
             }, 0);
             return totalAuthorised === paymentIntent.amount

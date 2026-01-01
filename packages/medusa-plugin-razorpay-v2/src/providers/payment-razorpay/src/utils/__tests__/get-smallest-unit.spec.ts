@@ -72,7 +72,7 @@ describe("getSmallestUnit", () => {
 
     it("should handle all 3-decimal currencies with special rounding logic", () => {
         // KWD - last digit 0-4 should round up to nearest 10
-        expect(getSmallestUnit(5.120, "KWD")).toBe(5120); // last digit 0, rounds to 5120
+        expect(getSmallestUnit(5.12, "KWD")).toBe(5120); // last digit 0, rounds to 5120
         expect(getSmallestUnit(5.121, "KWD")).toBe(5130); // last digit 1, rounds up to 5130
         expect(getSmallestUnit(5.122, "KWD")).toBe(5130); // last digit 2, rounds up to 5130
         expect(getSmallestUnit(5.123, "KWD")).toBe(5130); // last digit 3, rounds up to 5130
@@ -99,20 +99,20 @@ describe("getSmallestUnit", () => {
 
     it("should handle all 2-decimal currencies correctly", () => {
         // USD
-        expect(getSmallestUnit(1.00, "USD")).toBe(100);
+        expect(getSmallestUnit(1.0, "USD")).toBe(100);
         expect(getSmallestUnit(1.01, "USD")).toBe(101);
         expect(getSmallestUnit(1.99, "USD")).toBe(199);
         expect(getSmallestUnit(99.99, "USD")).toBe(9999);
-        expect(getSmallestUnit(100.00, "USD")).toBe(10000);
+        expect(getSmallestUnit(100.0, "USD")).toBe(10000);
 
         // INR
-        expect(getSmallestUnit(1.00, "INR")).toBe(100);
-        expect(getSmallestUnit(1.50, "INR")).toBe(150);
+        expect(getSmallestUnit(1.0, "INR")).toBe(100);
+        expect(getSmallestUnit(1.5, "INR")).toBe(150);
         expect(getSmallestUnit(10.25, "INR")).toBe(1025);
         expect(getSmallestUnit(1000.75, "INR")).toBe(100075);
 
         // Other 2-decimal currencies (EUR, GBP, etc.)
-        expect(getSmallestUnit(50.50, "EUR")).toBe(5050);
+        expect(getSmallestUnit(50.5, "EUR")).toBe(5050);
         expect(getSmallestUnit(25.25, "GBP")).toBe(2525);
         expect(getSmallestUnit(100.99, "CAD")).toBe(10099);
         expect(getSmallestUnit(200.01, "AUD")).toBe(20001);
@@ -148,7 +148,7 @@ describe("getSmallestUnit", () => {
         // Large 2-decimal amounts
         expect(getSmallestUnit(1000000, "USD")).toBe(100000000);
         expect(getSmallestUnit(999999.99, "USD")).toBe(99999999);
-        expect(getSmallestUnit(1000000.50, "USD")).toBe(100000050);
+        expect(getSmallestUnit(1000000.5, "USD")).toBe(100000050);
         expect(getSmallestUnit(5000000, "INR")).toBe(500000000);
 
         // Large 0-decimal amounts
@@ -185,9 +185,9 @@ describe("getSmallestUnit", () => {
     });
 
     it("should handle case-insensitive currency codes", () => {
-        expect(getSmallestUnit(100.50, "usd")).toBe(10050);
-        expect(getSmallestUnit(100.50, "USD")).toBe(10050);
-        expect(getSmallestUnit(100.50, "Usd")).toBe(10050);
+        expect(getSmallestUnit(100.5, "usd")).toBe(10050);
+        expect(getSmallestUnit(100.5, "USD")).toBe(10050);
+        expect(getSmallestUnit(100.5, "Usd")).toBe(10050);
         expect(getSmallestUnit(5.123, "kwd")).toBe(5130);
         expect(getSmallestUnit(5.123, "KWD")).toBe(5130);
         expect(getSmallestUnit(5.123, "Kwd")).toBe(5130);

@@ -117,9 +117,8 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
                 "Idempotency key is required to get cart ID"
             );
         }
-        const ps = await this.paymentService.retrievePaymentSession(
-            idempotency_key
-        );
+        const ps =
+            await this.paymentService.retrievePaymentSession(idempotency_key);
 
         // For now, return the payment session ID as a fallback
         // The cart ID might not be necessary for the payment flow
@@ -591,7 +590,6 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             return { action: PaymentActions.FAILED };
         }
 
-        
         const amountCollected = parseFloat(btcpayInvoice.amount ?? "0");
         const result = await this.handleWebhookEvents_({
             event,
