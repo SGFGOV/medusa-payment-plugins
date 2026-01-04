@@ -1,19 +1,18 @@
-
-import { Button } from "@medusajs/ui"
-import Spinner from "@modules/common/icons/spinner"
-import React, { useCallback, useEffect, useState } from "react"
-import  {useRazorpay, RazorpayOrderOptions } from "react-razorpay"
-import { HttpTypes } from "@medusajs/types"
-import {  placeOrder,  } from "@lib/data/cart"
-import { CurrencyCode } from "react-razorpay/dist/constants/currency"
+import { placeOrder } from "@lib/data/cart";
+import type { HttpTypes } from "@medusajs/types";
+import { Button } from "@medusajs/ui";
+import Spinner from "@modules/common/icons/spinner";
+import React, { useCallback, useEffect, useState } from "react";
+import { type RazorpayOrderOptions, useRazorpay } from "react-razorpay";
+import type { CurrencyCode } from "react-razorpay/dist/constants/currency";
 export const RazorpayPaymentButton = ({
-  session,
-  notReady,
-  cart
+    session,
+    notReady,
+    cart
 }: {
-  session: HttpTypes.StorePaymentSession
-  notReady: boolean
-  cart: HttpTypes.StoreCart
+    session: HttpTypes.StorePaymentSession;
+    notReady: boolean;
+    cart: HttpTypes.StoreCart;
 }) => {
   const [disabled, setDisabled] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -37,6 +36,11 @@ export const RazorpayPaymentButton = ({
 
 
 
+    const handlePayment = useCallback(async () => {
+        const onPaymentCancelled = async () => {
+            setErrorMessage("PaymentCancelled");
+            setSubmitting(false);
+        };
 
   const handlePayment = useCallback(async() => {
     const onPaymentCancelled = async () => {

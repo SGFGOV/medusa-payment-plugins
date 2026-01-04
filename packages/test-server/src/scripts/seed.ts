@@ -1,3 +1,12 @@
+import type {
+    CreateInventoryLevelInput,
+    ExecArgs
+} from "@medusajs/framework/types";
+import {
+    ContainerRegistrationKeys,
+    Modules,
+    ProductStatus
+} from "@medusajs/framework/utils";
 import {
     createApiKeysWorkflow,
     createInventoryLevelsWorkflow,
@@ -13,12 +22,6 @@ import {
     linkSalesChannelsToStockLocationWorkflow,
     updateStoresWorkflow
 } from "@medusajs/medusa/core-flows";
-import { CreateInventoryLevelInput, ExecArgs } from "@medusajs/framework/types";
-import {
-    ContainerRegistrationKeys,
-    Modules,
-    ProductStatus
-} from "@medusajs/framework/utils";
 
 export default async function seedDemoData({
     container
@@ -342,7 +345,20 @@ export default async function seedDemoData({
             add: [defaultSalesChannel[0].id]
         }
     });
+
+    // Get the token from the API key module
+    const apiKeyModule = container.resolve(Modules.API_KEY);
+    const apiKeyWithToken = await apiKeyModule.retrieveApiKey(
+        publishableApiKey.id
+    );
+    const token =
+        apiKeyWithToken.token ||
+        publishableApiKey.token ||
+        publishableApiKey.id;
+
     logger.info("Finished seeding publishable API key data.");
+    // Print the publishable API key for extraction by CI/CD
+    logger.info(`PUBLISHABLE_API_KEY=${token}`);
 
     logger.info("Seeding product data...");
 
@@ -398,7 +414,8 @@ export default async function seedDemoData({
                 {
                     title: "Medusa T-Shirt",
                     category_ids: [
-                        categoryResult.find((cat) => cat.name === "Shirts")!.id
+                        categoryResult.find((cat) => cat.name === "Shirts")
+                            ?.id ?? ""
                     ],
                     description:
                         "Reimagine the feeling of a classic T-shirt. With our cotton T-shirts, everyday essentials no longer have to be ordinary.",
@@ -512,9 +529,8 @@ export default async function seedDemoData({
                 {
                     title: "Medusa Sweatshirt",
                     category_ids: [
-                        categoryResult.find(
-                            (cat) => cat.name === "Sweatshirts"
-                        )!.id
+                        categoryResult.find((cat) => cat.name === "Sweatshirts")
+                            ?.id ?? ""
                     ],
                     description:
                         "Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary.",
@@ -579,7 +595,8 @@ export default async function seedDemoData({
                 {
                     title: "Medusa Sweatpants",
                     category_ids: [
-                        categoryResult.find((cat) => cat.name === "Pants")!.id
+                        categoryResult.find((cat) => cat.name === "Pants")
+                            ?.id ?? ""
                     ],
                     description:
                         "Reimagine the feeling of classic sweatpants. With our cotton sweatpants, everyday essentials no longer have to be ordinary.",
@@ -644,7 +661,8 @@ export default async function seedDemoData({
                 {
                     title: "Medusa Shorts",
                     category_ids: [
-                        categoryResult.find((cat) => cat.name === "Merch")!.id
+                        categoryResult.find((cat) => cat.name === "Merch")
+                            ?.id ?? ""
                     ],
                     description:
                         "Reimagine the feeling of classic shorts. With our cotton shorts, everyday essentials no longer have to be ordinary.",

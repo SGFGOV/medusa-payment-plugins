@@ -1,4 +1,4 @@
-import { BigNumberInput } from "@medusajs/framework/types";
+import type { BigNumberInput } from "@medusajs/framework/types";
 import { BigNumber, MathBN } from "@medusajs/framework/utils";
 
 function getCurrencyMultiplier(currency): number {
@@ -24,15 +24,15 @@ function getCurrencyMultiplier(currency): number {
         3: ["BHD", "IQD", "JOD", "KWD", "OMR", "TND"]
     };
 
-    currency = currency.toUpperCase();
+    const upperCurrency = currency.toUpperCase();
     let power = 2;
     for (const [key, value] of Object.entries(currencyMultipliers)) {
-        if (value.includes(currency)) {
+        if (value.includes(upperCurrency)) {
             power = parseInt(key, 10);
             break;
         }
     }
-    return Math.pow(10, power);
+    return 10 ** power;
 }
 
 /**
@@ -60,7 +60,12 @@ export function getSmallestUnit(
         numeric = Math.ceil(numeric / 10) * 10;
     }
 
-    return parseInt(numeric.toString().split(".").shift()!, 10);
+    const parts = numeric.toString().split(".");
+    const integerPart = parts[0];
+    if (!integerPart) {
+        return 0;
+    }
+    return parseInt(integerPart, 10);
 }
 
 /**

@@ -1,2 +1,2 @@
-declare module 'isomorphic-fetch';
-declare module 'url';
+declare module "isomorphic-fetch";
+declare module "url";

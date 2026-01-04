@@ -1,91 +1,99 @@
 {
-  "name": "medusa-plugin-razorpay-v2",
-  "version": "0.1.2",
-  "description": "A plugin to receive payments in medusajs v2 using Razorpay.",
-  "author": "Medusa (https://medusajs.com)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SGFGOV/medusa-payment-plugins"
-  },
-  "files": [
-    ".medusa/server"
-  ],
-  "exports": {
-    "./package.json": "./package.json",
-    "./workflows": "./.medusa/server/src/workflows/index.js",
-    "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
-    "./modules/*": "./.medusa/server/src/modules/*/index.js",
-    "./providers/*": "./.medusa/server/src/providers/*/index.js",
-    "./*": "./.medusa/server/src/*.js"
-  },
-  "keywords": [
-    "medusa",
-    "plugin",
-    "medusa-plugin-other",
-    "medusa-plugin",
-    "medusa-v2",
-    "medusa-plugin-integration",
-    "medusa-plugin-payment",
-    "medusa-plugin-razorpay",
-    "razorpay",
-    "payment",
-    "payment gateway"
-  ],
-  "scripts": {
-    "debug": "medusa plugin:develop",
-    "build": "medusa plugin:build",
-    "dev": "medusa plugin:develop",
-    "prepublishOnly": "medusa plugin:build"
-  },
-  "devDependencies": {
-    "@medusajs/admin-sdk": "2.7.1",
-    "@medusajs/cli": "2.7.1",
-    "@medusajs/framework": "2.7.1",
-    "@medusajs/icons": "2.7.1",
-    "@medusajs/medusa": "2.7.1",
-    "@medusajs/test-utils": "2.7.1",
-    "@medusajs/ui": "4.0.4",
-    "@mikro-orm/cli": "6.4.3",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
-    "@swc/core": "1.5.7",
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.3.2",
-    "@types/react-dom": "^18.2.25",
-    "awilix": "^8.0.1",
-    "pg": "^8.13.0",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3",
-    "vite": "^5.2.11",
-    "yalc": "^1.0.0-pre.53"
-  },
-  "peerDependencies": {
-    "@medusajs/admin-sdk": "2.7.1",
-    "@medusajs/cli": "2.7.1",
-    "@medusajs/framework": "2.7.1",
-    "@medusajs/icons": "2.7.1",
-    "@medusajs/medusa": "2.7.1",
-    "@medusajs/test-utils": "2.7.1",
-    "@medusajs/ui": "4.0.3",
-    "@mikro-orm/cli": "6.4.3",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
-    "awilix": "^8.0.1",
-    "pg": "^8.13.0"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "packageManager": "yarn@4.6.0",
-  "dependencies": {
-    "razorpay": "^2.9.6"
-  }
+    "name": "medusa-plugin-razorpay-v2",
+    "version": "0.1.4",
+    "description": "A plugin to receive payments in medusajs v2 using Razorpay.",
+    "author": "Medusa (https://medusajs.com)",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SGFGOV/medusa-payment-plugins"
+    },
+    "files": [
+        ".medusa/server"
+    ],
+    "exports": {
+        "./package.json": "./package.json",
+        "./workflows": "./.medusa/server/src/workflows/index.js",
+        "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
+        "./modules/*": "./.medusa/server/src/modules/*/index.js",
+        "./providers/*": "./.medusa/server/src/providers/*/index.js",
+        "./*": "./.medusa/server/src/*.js"
+    },
+    "keywords": [
+        "medusa",
+        "plugin",
+        "medusa-plugin-other",
+        "medusa-plugin",
+        "medusa-v2",
+        "medusa-plugin-integration",
+        "medusa-plugin-payment",
+        "medusa-plugin-razorpay",
+        "razorpay",
+        "payment",
+        "payment gateway"
+    ],
+    "scripts": {
+        "debug": "medusa plugin:develop",
+        "build": "medusa plugin:build",
+        "dev": "medusa plugin:develop",
+        "lint": "npx @biomejs/biome check .",
+        "lint:fix": "npx @biomejs/biome check --write .",
+        "typecheck": "tsc --noEmit",
+        "prepublishOnly": "medusa plugin:build"
+    },
+    "devDependencies": {
+        "@babel/preset-typescript": "^7.28.5",
+        "@biomejs/biome": "^2.3.5",
+        "@medusajs/admin-sdk": "2.12.3",
+        "@medusajs/cli": "2.12.3",
+        "@medusajs/framework": "2.12.3",
+        "@medusajs/icons": "2.12.3",
+        "@medusajs/medusa": "2.12.3",
+        "@medusajs/test-utils": "2.12.3",
+        "@medusajs/ui": "4.0.4",
+        "@mikro-orm/cli": "6.4.3",
+        "@mikro-orm/core": "6.4.3",
+        "@mikro-orm/knex": "6.4.3",
+        "@mikro-orm/migrations": "6.4.3",
+        "@mikro-orm/postgresql": "6.4.3",
+        "@swc/core": "1.5.7",
+        "@swc/jest": "^0.2.39",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^20.0.0",
+        "@types/react": "^18.3.2",
+        "@types/react-dom": "^18.2.25",
+        "awilix": "^8.0.1",
+        "jest": "^30.2.0",
+        "pg": "^8.13.0",
+        "prop-types": "^15.8.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3",
+        "vite": "^5.2.11",
+        "yalc": "^1.0.0-pre.53"
+    },
+    "peerDependencies": {
+        "@medusajs/admin-sdk": "2.12.3",
+        "@medusajs/cli": "2.12.3",
+        "@medusajs/framework": "2.12.3",
+        "@medusajs/icons": "2.12.3",
+        "@medusajs/medusa": "2.12.3",
+        "@medusajs/test-utils": "2.12.3",
+        "@medusajs/ui": "4.0.3",
+        "@mikro-orm/cli": "6.4.3",
+        "@mikro-orm/core": "6.4.3",
+        "@mikro-orm/knex": "6.4.3",
+        "@mikro-orm/migrations": "6.4.3",
+        "@mikro-orm/postgresql": "6.4.3",
+        "awilix": "^8.0.1",
+        "pg": "^8.13.0"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "packageManager": "yarn@4.6.0",
+    "dependencies": {
+        "razorpay": "^2.9.6"
+    }
 }

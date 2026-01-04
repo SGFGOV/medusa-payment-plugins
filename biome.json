@@ -1,0 +1,134 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": false,
+        "maxSize": 1048576,
+        "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json"],
+        "experimentalScannerIgnores": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.medusa/**",
+            "**/coverage/**",
+            "**/reports/**",
+            "**/.turbo/**",
+            "**/.vscode/**"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 80,
+        "attributePosition": "auto"
+    },
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "complexity": {
+                "noBannedTypes": "error",
+                "noUselessTypeConstraint": "error"
+            },
+            "correctness": {
+                "noUnusedVariables": "error",
+                "useExhaustiveDependencies": "warn"
+            },
+            "style": {
+                "noParameterAssign": "warn",
+                "useConst": "error",
+                "useTemplate": "error",
+                "useNamingConvention": {
+                    "level": "off"
+                }
+            },
+            "suspicious": {
+                "noExplicitAny": "warn",
+                "noArrayIndexKey": "warn"
+            },
+            "security": {
+                "noDangerouslySetInnerHtml": "error"
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "double",
+            "jsxQuoteStyle": "double",
+            "trailingCommas": "none",
+            "semicolons": "always",
+            "arrowParentheses": "always",
+            "bracketSpacing": true,
+            "bracketSameLine": false
+        },
+        "globals": ["jest", "NodeJS", "console"]
+    },
+    "json": {
+        "formatter": {
+            "enabled": true
+        }
+    },
+    "overrides": [
+        {
+            "includes": ["packages/storefront/**"],
+            "linter": {
+                "rules": {
+                    "correctness": {
+                        "useExhaustiveDependencies": "warn"
+                    },
+                    "suspicious": {
+                        "noArrayIndexKey": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": [
+                "**/api/**/*.ts",
+                "**/common/**/*.ts",
+                "**/bin/**/*.ts"
+            ],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noInferrableTypes": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": ["**/medusa-js/**/resources/**/*.ts"],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noInferrableTypes": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": ["**/__tests__/**/*.ts", "**/__tests__/**/*.tsx", "**/*.spec.ts", "**/*.spec.tsx"],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noNonNullAssertion": "warn"
+                    }
+                }
+            }
+        }
+    ]
+}

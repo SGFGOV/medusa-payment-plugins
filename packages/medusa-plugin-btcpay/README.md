@@ -33,6 +33,8 @@ BTCPAY_STORE_ID=<your store id>
 BTCPAY_WEBHOOK_SECRET=<your webhook secret>
 ```
 
+> The BTCPay Greenfield API requires the Authorization header to include a `token` prefix.
+
 You need to add the provider into your `medusa-config.ts`:
 
 ```typescript
@@ -49,7 +51,8 @@ module.exports = defineConfig({
             id: "btcpayserver",
             options: {
               url: process.env.BTCPAY_URL,
-              apiKey: process.env.BTCPAY_API_KEY,
+              // include "token " prefix before actual apikey.
+              apiKey: `token ${process.env.BTCPAY_API_KEY}`,
               storeId: process.env.BTCPAY_STORE_ID,
               webhookSecret: process.env.BTCPAY_WEBHOOK_SECRET,
             },

@@ -1,18 +1,9 @@
-import { MedusaRequest, MedusaResponse, Query } from "@medusajs/framework";
-import {
-    ICartModuleService,
-    IOrderModuleService,
-    IPaymentModuleService,
-    PaymentCollectionDTO,
-    RemoteQueryFunction,
-    StoreCart
-} from "@medusajs/framework/types";
+import type { MedusaRequest, MedusaResponse } from "@medusajs/framework";
+import type { RemoteQueryFunction, StoreCart } from "@medusajs/framework/types";
 import {
     ContainerRegistrationKeys,
-    Modules,
     PaymentCollectionStatus
 } from "@medusajs/framework/utils";
-import _ from "lodash";
 
 async function fetchPaymentStatus(cartId: string, query: RemoteQueryFunction) {
     const { data: carts } = (await query.graph({
@@ -56,7 +47,10 @@ export const GET = async (req: MedusaRequest, response: MedusaResponse) => {
     }
 };
 
-export const OPTIONS = async (req: MedusaRequest, response: MedusaResponse) => {
+export const OPTIONS = async (
+    _req: MedusaRequest,
+    response: MedusaResponse
+) => {
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     response.header(

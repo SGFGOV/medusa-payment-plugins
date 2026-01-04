@@ -1,42 +1,40 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-import { useSearchParams } from "next/navigation";
 import { sdk } from "@lib/config";
 import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const ProcessingPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    
-    const cart= searchParams.get("cart");
-    
+
+    const cart = searchParams.get("cart");
 
     useEffect(() => {
         let isCancelled = false;
 
         const fetchData = async () => {
             try {
-                const url = `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/btc-pay/is-paid?cart=${cart}`
+                const url = `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/btc-pay/is-paid?cart=${cart}`;
                 console.log("Fetching data from URL:", url);
-                let response = await axios.get(url,{
+                const response = (await axios.get(url, {
                     headers: {
-                        'content-type': 'application/json',
-                        'x-publishable-api-key': process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY,
+                        "content-type": "application/json",
+                        "x-publishable-api-key":
+                            process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
                     }
-                }) as any;
-                    
-                const result = await sdk.store.cart.complete(cart!) as  {
+                })) as any;
+
+                const result = (await sdk.store.cart.complete(cart!)) as {
                     order: {
                         id: string;
                     };
-                }
-                const redirectUrl = `/order/${result.order.id}/confirmed`
-                
+                };
+                const redirectUrl = `/order/${result.order.id}/confirmed`;
+
                 //const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/checkout/is-paid?cart=${cart}`);
-               /// const data = response.data;
+                /// const data = response.data;
                 if (!isCancelled && redirectUrl) {
                     router.push(redirectUrl);
                 }
@@ -61,7 +59,10 @@ const ProcessingPage = () => {
     return (
         <div>
             <h1>Processing...</h1>
-            <p>Please wait while we process your request.. It may take a while for the bitcoins to synchronise.</p>
+            <p>
+                Please wait while we process your request.. It may take a while
+                for the bitcoins to synchronise.
+            </p>
         </div>
     );
 };
