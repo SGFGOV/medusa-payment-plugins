@@ -70,6 +70,7 @@ modules: [
                             automatic_expiry_period: 30 /* any value between 12minuts and 30 days expressed in minutes*/,
                             manual_expiry_period: 20,
                             refund_speed: "normal",
+                            auto_capture: true, // to enable automatic captures
                             webhook_secret:
                                 process?.env?.RAZORPAY_TEST_WEBHOOK_SECRET ??
                                 process?.env?.RAZORPAY_WEBHOOK_SECRET
