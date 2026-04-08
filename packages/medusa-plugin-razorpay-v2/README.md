@@ -1,335 +1,115 @@
-# Payment-Razorpay
-## Live Demo[https://medusa-payment-plugins.vercel.app/]
-# Support the Payment-Razorpay Provider - Elevate Our Medusa Community!
+# Medusa Razorpay Plugin (v2)
 
-Dear Developers and E-commerce Enthusiasts,
-
-Are you ready to revolutionize the world of online stores with MedusaJS? We have an exciting opportunity that will make payment processing a breeze for our beloved Medusa platform! Introducing the Payment-Razorpay provider, a community-driven project that brings the immensely popular [RAZORPAY](https://razorpay.com) payment gateway to our MedusaJS commerce stack.
-
-**What's in it for You:**
-
-🚀 Streamline Payment Processing: With Payment-Razorpay, you can unleash the full potential of Razorpay's features, ensuring seamless and secure payments for your customers.
-
-🌐 Global Reach: Engage with customers worldwide, as Razorpay supports various currencies and payment methods, catering to a diverse audience.
-
-🎉 Elevate Your Medusa Store: By sponsoring this provider, you empower the entire Medusa community, driving innovation and success across the platform.
-
-## Contact
-
-For support or questions, please contact:
-- Email: [sgf@sourcegoodfood.com](mailto:sgf@sourcegoodfood.com)
-- Discord: [govdiw006](https://discord.com/users/govdiw006)
-
-## Installation Made Simple
-
-No hassle, no fuss! Install Payment-Razorpay effortlessly with npm:
-
-
-
-[RAZORPAY](https://razorpay.com) an immensely popular payment gateway with a host of features. 
-This provider enables the razorpay payment interface on [medusa](https://medusajs.com) commerce stack
+Razorpay payment provider for Medusa v2, including order creation, authorization/capture flows, refunds, and webhook handling.
 
 ## Installation
-
-Use the package manager npm to install Payment-Razorpay.
 
 ```bash
 yarn add medusa-plugin-razorpay-v2
 ```
 
-## Usage
+## Secure Setup
 
+Define these variables in your server environment:
 
-Register for a razorpay account and generate the api keys
-In your environment file (.env) you need to define 
-```
-RAZORPAY_ID=<your api key>
-RAZORPAY_SECRET=<your api key secret>
-RAZORPAY_ACCOUNT=<your razorpay account number/merchant id>
-RAZORPAY_WEBHOOK_SECRET=<your web hook secret as defined in the webhook settings in the razorpay dashboard >
-```
-You need to add the provider into your medusa-config.ts as shown below
-
-```
-module.exports = defineConfig({
-
-...
-
-    plugins: ["medusa-plugin-razorpay-v2"],
-modules: [
-  ...
-    {
-            resolve: "@medusajs/medusa/payment",
-            dependencies: [Modules.PAYMENT, ContainerRegistrationKeys.LOGGER],
-            options: {
-                providers: [
-                    {
-                        resolve:
-                            "medusa-plugin-razorpay-v2/providers/payment-razorpay/src",
-                        id: "razorpay",
-                        options: {
-                            key_id:
-                                process?.env?.RAZORPAY_TEST_KEY_ID ??
-                                process?.env?.RAZORPAY_ID,
-                            key_secret:
-                                process?.env?.RAZORPAY_TEST_KEY_SECRET ??
-                                process?.env?.RAZORPAY_SECRET,
-                            razorpay_account:
-                                process?.env?.RAZORPAY_TEST_ACCOUNT ??
-                                process?.env?.RAZORPAY_ACCOUNT,
-                            automatic_expiry_period: 30 /* any value between 12minuts and 30 days expressed in minutes*/,
-                            manual_expiry_period: 20,
-                            refund_speed: "normal",
-                            webhook_secret:
-                                process?.env?.RAZORPAY_TEST_WEBHOOK_SECRET ??
-                                process?.env?.RAZORPAY_WEBHOOK_SECRET
-                        }
-                    },,
-  ...]  
-            }
-    }
-    ...]
-})
-```
-## Client side configuration
-
-
-For the NextJs start you need to  make the following changes 
-
-1. Install package to your next starter. This just makes it easier, importing all the scripts implicitly
-```
-yarn add react-razorpay
-
-```
-2. Create a button for Razorpay <next-starter>/src/modules/checkout/components/payment-button/razorpay-payment-button.tsx
-
-like below
-
-
-
+```env
+RAZORPAY_ID=rzp_live_or_test_key_id
+RAZORPAY_SECRET=rzp_live_or_test_key_secret
+RAZORPAY_ACCOUNT=merchant_account_id
+RAZORPAY_WEBHOOK_SECRET=webhook_signing_secret
 ```
 
-import { Button } from "@medusajs/ui"
-import Spinner from "@modules/common/icons/spinner"
-import React, { useCallback, useEffect, useState } from "react"
-import  {useRazorpay, RazorpayOrderOptions } from "react-razorpay"
-import { HttpTypes } from "@medusajs/types"
-import {  placeOrder,  } from "@lib/data/cart"
-import { CurrencyCode } from "react-razorpay/dist/constants/currency"
-export const RazorpayPaymentButton = ({
-  session,
-  notReady,
-  cart
-}: {
-  session: HttpTypes.StorePaymentSession
-  notReady: boolean
-  cart: HttpTypes.StoreCart
-}) => {
-  const [disabled, setDisabled] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
-  const {Razorpay
-   } = useRazorpay();
-  
-  const [orderData,setOrderData] = useState({razorpayOrder:{id:""}})
+### Medusa configuration
 
-  
-  console.log(`session_data: `+JSON.stringify(session))
-  const onPaymentCompleted = async () => {
-    await placeOrder().catch(() => {
-      setErrorMessage("An error occurred, please try again.")
-      setSubmitting(false)
-    })
-  }
-  useEffect(()=>{
-    setOrderData(session.data as {razorpayOrder:{id:string}})
-  },[session.data])
+Use provider options from environment variables only (never hardcode secrets):
 
-  
-
-
-  const handlePayment = useCallback(async() => {
-    const onPaymentCancelled = async () => {
-        setErrorMessage("PaymentCancelled")
-        setSubmitting(false)
-      }
-    
-    const options: RazorpayOrderOptions = {
-      key:process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID??process.env.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID??"your_key_id",
-      callback_url: `${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/razorpay/hooks`,
-      amount: session.amount*100*100,
-      order_id: orderData.razorpayOrder.id,
-      currency: cart.currency_code.toUpperCase() as CurrencyCode,
-      name: process.env.COMPANY_NAME ?? "your company name ",
-      description: `Order number ${orderData.razorpayOrder.id}`,
-      remember_customer:true,
-      
-
-      image: "https://example.com/your_logo",
-      modal: {
-        backdropclose: true,
-        escape: true,
-        handleback: true,
-        confirm_close: true,
-        ondismiss: async () => {
-          setSubmitting(false)
-          setErrorMessage(`payment cancelled`)
-          await onPaymentCancelled()
-        },
-        animation: true,
-      },
-      
-      handler: async () => {
-        onPaymentCompleted()
-      },
-      "prefill": {
-        "name": cart.billing_address?.first_name + " " + cart?.billing_address?.last_name,
-        "email": cart?.email,
-        "contact": (cart?.shipping_address?.phone) ?? undefined
-      },
-      
-      
-    };
-    console.log(JSON.stringify(options.amount))
-    //await waitForPaymentCompletion();
-    
-    
-    const razorpay = new Razorpay(options);
-    if(orderData.razorpayOrder.id)
-    razorpay.open();
-    razorpay.on("payment.failed", function (response: any) {
-      setErrorMessage(JSON.stringify(response.error))
-   
-    })
-   razorpay.on("payment.authorized" as any, function (response: any) {
-    const authorizedCart = placeOrder().then(authorizedCart=>{
-    JSON.stringify(`authorized:`+ authorizedCart)
-    })
-    })
-    // razorpay.on("payment.captured", function (response: any) {
-
-    // }
-    // )
-  }, [Razorpay, cart.billing_address?.first_name, 
-    cart.billing_address?.last_name, cart.currency_code,
-     cart?.email, cart?.shipping_address?.phone, orderData.razorpayOrder.id, 
-     session.amount, session.provider_id]);
-  console.log("orderData"+JSON.stringify(orderData))
-  return (
-    <>
-      <Button
-        disabled={submitting || notReady || !orderData?.razorpayOrder?.id||orderData?.razorpayOrder?.id == ''}
-        onClick={()=>{
-          console.log(`processing order id: ${orderData.razorpayOrder.id}`)
-          handlePayment()}
+```ts
+{
+  resolve: "@medusajs/medusa/payment",
+  dependencies: [Modules.PAYMENT, ContainerRegistrationKeys.LOGGER],
+  options: {
+    providers: [
+      {
+        resolve: "medusa-plugin-razorpay-v2/providers/payment-razorpay/src",
+        id: "razorpay",
+        options: {
+          key_id: process.env.RAZORPAY_ID,
+          key_secret: process.env.RAZORPAY_SECRET,
+          razorpay_account: process.env.RAZORPAY_ACCOUNT,
+          webhook_secret: process.env.RAZORPAY_WEBHOOK_SECRET,
+          auto_capture: false,
+          refund_speed: "normal",
+          automatic_expiry_period: 30,
+          manual_expiry_period: 20
         }
-      >
-        {submitting ? <Spinner /> : "Checkout"}
-      </Button>
-      {errorMessage && (
-        <div className="text-red-500 text-small-regular mt-2">
-          {errorMessage}
-        </div>
-      )}
-    </>
-  )
+      }
+    ]
+  }
 }
 ```
 
-Step 3. 
+## Webhook Guidance
 
-nextjs-starter-medusa/src/lib/constants.tsx
-add
+Configure Razorpay webhook endpoint:
 
-```
-export const isRazorpay = (providerId?: string) => {
-  return providerId?.startsWith("pp_razorpay")
-}
-
-// and the following to the list
-export const paymentInfoMap: Record<
-  string,
-  { title: string; icon: React.JSX.Element }
-> = {...
-   pp_razorpay_razorpay: {
-    title: "Razorpay",
-    icon: <CreditCard />,
-  },
-  ...}
-
-````
-step 4.add into the payment element <next-starter>/src/modules/checkout/components/payment-button/index.tsx
-
-first 
-```
-import {RazorpayPaymentButton} from "./razorpay-payment-button"
-```
-then
-```
-case "razorpay":
-         return <RazorpayPaymentButton session={paymentSession} notReady={notReady} cart={cart} />
+```text
+https://<your-domain>/hooks/payment/razorpay_razorpay
 ```
 
+Recommended webhook events:
+- `payment.authorized`
+- `payment.captured`
+- `payment.failed`
 
-Step 4. Add environment variables in the client
+Operational guidance:
+- Keep webhook secret unique per environment (dev/staging/prod).
+- Validate signatures for every incoming webhook request.
+- Return 2xx only after successful processing.
+- Retry-safe handling is required (idempotent processing by event/session keys).
+- Keep server clock synchronized (NTP) to reduce signature/timestamp issues.
+
+## Safe Logging Guidance
+
+The provider sanitizes sensitive webhook payload fields before logging. You should still enforce these operational rules:
+
+- Never log raw secrets (`RAZORPAY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`).
+- Never log full customer PII (`email`, `contact`, `vpa`, card data, notes blobs).
+- Use structured logs and include non-sensitive correlation keys (`session_id`, order id).
+- Restrict debug logs in production and centralize log retention controls.
+- Add alerting for repeated webhook signature failures.
+
+## Rotation Notes (Keys and Webhook Secret)
+
+Use this runbook for safe rotation:
+
+1. Create new API key pair and webhook secret in Razorpay.
+2. Update secrets in your secret manager/CI variables (do not commit to repo).
+3. Deploy with new values to staging; verify checkout + webhook events.
+4. Promote to production.
+5. Keep old webhook secret active briefly during transition if your infra supports dual validation.
+6. Disable/revoke old key pair and old webhook secret after validation window.
+7. Audit logs for signature failures and authorization/capture anomalies post-rotation.
+
+## Security Checklist
+
+- [ ] Secrets are stored in environment/secret manager, never in source control.
+- [ ] Separate credentials per environment.
+- [ ] Webhook signature verification is enabled and enforced.
+- [ ] Webhook endpoint exposed only via HTTPS.
+- [ ] Production logging redacts PII and secrets.
+- [ ] Alerts configured for webhook verification failures and payment mismatches.
+- [ ] Key/webhook-secret rotation completed at regular intervals.
+- [ ] Team access to Razorpay dashboard and secrets follows least privilege.
+
+## Local Validation
+
+Run provider tests locally:
+
+```bash
+npx jest "src/providers/payment-razorpay/src/core/__tests__/razorpay-base.spec.ts" --runInBand
 ```
-  NEXT_PUBLIC_RAZORPAY_KEY:<your razorpay key> 
-  NEXT_PUBLIC_SHOP_NAME:<your razorpay shop name> 
-  NEXT_PUBLIC_SHOP_DESCRIPTION: <your razorpayshop description> 
-```
 
-#### watch out
-Step 6. Caveat 
-the default starter template has an option which says use the same shipping and billing address
-please ensure you deselect this and enter the phone number manually in the billing section.
+## Support
 
-Step 7.
-
-In razorpay create a webhook with the following url 
-
-<your host>/hooks/payment/razorpay_razorpay
-
-## Contributing
-
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Untested features
-
-These features exists, but without implementing the client it isn't possible to tests these outright
-
-1. Capture Payment
-2. Refund
-
-
-## Disclaimer
-The code was tested on limited number of usage scenarios. There maybe unforseen bugs, please raise the issues as they come, or create pull requests if you'd like to submit fixes.
-
-
-## Support the Payment-Razorpay Provider - Strengthen Our Medusa Community!
-
-Dear Medusa Enthusiasts,
-
-I hope this message finds you all in high spirits and enthusiasm for the world of e-commerce! Today, I reach out to our vibrant Medusa community with a heartfelt appeal that will strengthen our collective journey and elevate our online stores to new heights. I am thrilled to present the Payment-Razorpay provider, a community-driven project designed to streamline payment processing for our beloved Medusa platform.
-
-As a dedicated member of this community, I, SGFGOV, have invested my time and passion into crafting this valuable provider that bridges the gap between online retailers and their customers. It is with great humility that I invite you to participate in this open-source initiative by [sponsoring the Payment-Razorpay provider through GitHub](https://github.com/sponsors/SGFGOV).
-
-Your sponsorship, no matter the size, will make a world of difference in advancing the Medusa ecosystem. It will empower me to focus on the continuous improvement and maintenance of the Payment-Razorpay provider, ensuring it remains reliable, secure, and seamlessly integrated with Medusa.
-
-Being a community provider, perks are not the focus of this appeal. Instead, I promise to give back to the community by providing fast and efficient support via Discord or any other means. Your sponsorship will help sustain and enhance the provider's development, allowing me to be responsive to your needs and address any concerns promptly.
-
-Let's come together and demonstrate the power of community collaboration. By [sponsoring the Payment-Razorpay provider on GitHub](https://github.com/sponsors/SGFGOV), you directly contribute to the success of not only this project but also the broader Medusa ecosystem. Your support enables us to empower developers, merchants, and entrepreneurs, facilitating growth and success in the world of e-commerce.
-
-To show your commitment and be part of this exciting journey, kindly consider [sponsoring the Payment-Razorpay provider on GitHub](https://github.com/sponsors/SGFGOV). Your contribution will amplify the impact of our community and foster a supportive environment for all.
-
-Thank you for your time, and thank you for being an integral part of our Medusa community. Together, we will elevate our online stores and create extraordinary experiences for customers worldwide.
-
-With warm regards,
-
-SGFGOV
-Lead Developer, Payment-Razorpay Provider for Medusa
+- Email: [sgf@sourcegoodfood.com](mailto:sgf@sourcegoodfood.com)
+- Discord: [govdiw006](https://discord.com/users/govdiw006)
