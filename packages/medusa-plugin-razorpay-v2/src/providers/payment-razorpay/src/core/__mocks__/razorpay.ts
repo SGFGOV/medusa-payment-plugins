@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import Razorpay from "razorpay";
 import { ErrorCodes, ErrorIntentStatus } from "../../types";
-import { PaymentIntentDataByStatus } from "../__fixtures__/data";
 export const WRONG_CUSTOMER_EMAIL = "wrong@test.fr";
 export const EXISTING_CUSTOMER_EMAIL = "right@test.fr";
 export const PARTIALLY_FAIL_INTENT_ID = "partially_unknown";
@@ -24,6 +23,27 @@ export function isMocksEnabled(): boolean {
     return mockEnabled;
 }
 export const RAZORPAY_ID = isMocksEnabled() ? "test" : process.env.RAZORPAY_ID;
+
+const PaymentIntentDataByStatus = {
+    ATTEMPTED: {
+        id: "test-user-1234"
+    },
+    SUCCEEDED: {
+        id: "test-user-1234"
+    },
+    CANCELED: {
+        id: "test-user-1234"
+    },
+    FAILED: {
+        id: "test-user-1234"
+    },
+    UNKNOWN: {
+        id: "test-user-1234"
+    },
+    CREATED: {
+        id: "test-user-1234"
+    }
+};
 
 export const RazorpayMock = {
     orders: {

@@ -277,7 +277,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         razorpayOrder: Orders.RazorpayOrder;
     }> {
         let { data, context } = input;
-        if (!data?.razorpayorder) {
+        if (!data?.razorpayOrder && !(data as Record<string, unknown>)?.razorpayorder) {
             if (data?.id) {
                 data = {
                     ...data,
@@ -490,9 +490,14 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
     async getPaymentStatus(
         input: GetPaymentStatusInput
     ): Promise<GetPaymentStatusOutput> {
-        const razorpayOrder = input.data
+        let razorpayOrder = input.data
             ?.razorpayOrder as unknown as Orders.RazorpayOrder;
-        const id = razorpayOrder.id as string;
+        if (!razorpayOrder?.id && input.data?.id) {
+            razorpayOrder = (await this.razorpay_.orders.fetch(
+                input.data.id as string
+            )) as Orders.RazorpayOrder;
+        }
+        const id = razorpayOrder?.id as string;
 
         let paymentIntent: Orders.RazorpayOrder;
         let paymentsAttempted: {
@@ -665,9 +670,10 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const logger = this.logger;
         const data = webhookData.data;
 
+        const sanitizedWebhookData = this.sanitizeForLogs(webhookData.data);
         logger.info(
             `Received Razorpay webhook body as object : ${JSON.stringify(
-                webhookData.data
+                sanitizedWebhookData
             )}`
         );
         try {
@@ -749,6 +755,41 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             default:
                 return { action: PaymentActions.NOT_SUPPORTED };
         }
+    }
+
+    private sanitizeForLogs(payload: unknown): unknown {
+        const sensitiveKeys = new Set([
+            "email",
+            "contact",
+            "phone",
+            "vpa",
+            "card_id",
+            "signature",
+            "secret",
+            "token",
+            "notes",
+            "acquirer_data"
+        ]);
+
+        const sanitize = (value: unknown): unknown => {
+            if (Array.isArray(value)) {
+                return value.map((item) => sanitize(item));
+            }
+            if (value && typeof value === "object") {
+                const source = value as Record<string, unknown>;
+                return Object.fromEntries(
+                    Object.entries(source).map(([key, nestedValue]) => {
+                        if (sensitiveKeys.has(key)) {
+                            return [key, "[REDACTED]"];
+                        }
+                        return [key, sanitize(nestedValue)];
+                    })
+                );
+            }
+            return value;
+        };
+
+        return sanitize(payload);
     }
 
     async createAccountHolder(
