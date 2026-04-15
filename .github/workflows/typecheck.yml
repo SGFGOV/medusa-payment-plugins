@@ -12,7 +12,7 @@ jobs:
   typecheck:
     name: Run TypeScript Type Check
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 10
 
     steps:
       - name: Checkout code
@@ -22,12 +22,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: yarn
 
       - name: Enable corepack
         run: corepack enable
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: Type Check
         run: yarn typecheck 

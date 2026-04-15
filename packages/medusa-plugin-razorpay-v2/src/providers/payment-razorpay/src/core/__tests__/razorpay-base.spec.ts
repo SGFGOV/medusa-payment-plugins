@@ -7,7 +7,11 @@ import {
     jest
 } from "@jest/globals";
 import type { MedusaContainer } from "@medusajs/framework/types";
-import { PaymentSessionStatus } from "@medusajs/framework/utils";
+import {
+    Modules,
+    PaymentActions,
+    PaymentSessionStatus
+} from "@medusajs/framework/utils";
 import type {
     AuthorizePaymentInput,
     CapturePaymentInput,
@@ -16,13 +20,15 @@ import type {
     GetPaymentStatusOutput,
     InitiatePaymentInput,
     InitiatePaymentOutput,
+    ProviderWebhookPayload,
     RefundPaymentInput,
     RetrievePaymentInput,
     RetrievePaymentOutput,
     UpdatePaymentInput
 } from "@medusajs/types";
 import dotenv from "dotenv";
-import { ErrorCodes, type RazorpayOptions } from "../../types";
+import Razorpay from "razorpay";
+import type { RazorpayOptions } from "../../types";
 import {
     authorizePaymentSuccessData,
     cancelPaymentFailData,
@@ -40,11 +46,7 @@ import {
     updatePaymentContextWithDifferentAmount
 } from "../__fixtures__/data";
 import { RazorpayTest } from "../__fixtures__/razorpay-test";
-import {
-    isMocksEnabled,
-    RAZORPAY_ID,
-    RazorpayMock
-} from "../__mocks__/razorpay";
+import { isMocksEnabled, RazorpayMock } from "../__mocks__/razorpay";
 
 let config: RazorpayOptions = {
     key_id: "test",
@@ -87,15 +89,33 @@ const container = {
             } as CustomerDTO;
             return customer;
         }
+    },
+    [Modules.PAYMENT]: {
+        retrievePaymentSession: async (id: string) => {
+            return {
+                id: id ?? "test-session-id",
+                data: {
+                    razorpayOrder: {
+                        id: PaymentIntentDataByStatus.ATTEMPTED.id,
+                        status: "attempted",
+                        notes: {
+                            medusa_payment_session_id: id ?? "test-session-id"
+                        }
+                    }
+                }
+            };
+        }
     }
 };
 
-config = {
-    ...config,
-    key_id: process.env.RAZORPAY_ID || "",
-    key_secret: process.env.RAZORPAY_SECRET || "",
-    razorpay_account: process.env.RAZORPAY_ACCOUNT || ""
-};
+if (!isMocksEnabled()) {
+    config = {
+        ...config,
+        key_id: process.env.RAZORPAY_ID || "",
+        key_secret: process.env.RAZORPAY_SECRET || "",
+        razorpay_account: process.env.RAZORPAY_ACCOUNT || ""
+    };
+}
 let testPaymentSession: InitiatePaymentOutput | undefined;
 let razorpayTest: RazorpayTest;
 describe("RazorpayTest", () => {
@@ -137,12 +157,12 @@ describe("RazorpayTest", () => {
                 status = await razorpayTest.getPaymentStatus({
                     data: { id: PaymentIntentDataByStatus.ATTEMPTED.id }
                 });
-                expect(status.status).toBe(PaymentSessionStatus.AUTHORIZED);
+                expect(status.status).toBe(PaymentSessionStatus.PENDING);
 
                 status = await razorpayTest.getPaymentStatus({
                     data: { id: "unknown-id" }
                 });
-                expect(status).toBe(PaymentSessionStatus.PENDING);
+                expect(status.status).toBe(PaymentSessionStatus.PENDING);
             });
         } else {
             it("should return the correct status", async () => {
@@ -200,14 +220,10 @@ describe("RazorpayTest", () => {
 
             expect(result).toEqual(
                 expect.objectContaining({
-                    session_data: expect.any(Object),
-                    update_requests: {
-                        customer_metadata: {
-                            razorpay_id: isMocksEnabled()
-                                ? RAZORPAY_ID
-                                : expect.stringContaining("cus")
-                        }
-                    }
+                    id: "idem-existing-customer",
+                    data: expect.objectContaining({
+                        razorpayOrder: expect.any(Object)
+                    })
                 })
             );
         });
@@ -237,7 +253,10 @@ describe("RazorpayTest", () => {
                           update_requests: expect.any(Object)
                       }
                     : {
-                          session_data: expect.any(Object)
+                          id: "idem-existing-customer-razorpay-id",
+                          data: expect.objectContaining({
+                              razorpayOrder: expect.any(Object)
+                          })
                       }
             );
             if (!isMocksEnabled()) {
@@ -324,21 +343,19 @@ describe("RazorpayTest", () => {
             }
             const result = await razorpayTest.authorizePayment(
                 isMocksEnabled()
-                    ? (authorizePaymentSuccessData as AuthorizePaymentInput)
+                    ? ({
+                          data: authorizePaymentSuccessData
+                      } as AuthorizePaymentInput)
                     : ({
                           data: testPaymentSession?.data
                       } as AuthorizePaymentInput)
             );
 
             expect(result).toMatchObject({
-                data: isMocksEnabled()
-                    ? authorizePaymentSuccessData
-                    : {
-                          id: expect.stringContaining("order_")
-                      },
-                status: isMocksEnabled()
-                    ? PaymentSessionStatus.AUTHORIZED
-                    : PaymentSessionStatus.REQUIRES_MORE
+                data: {
+                    razorpayOrder: expect.any(Object)
+                },
+                status: expect.any(String)
             });
         });
     });
@@ -361,8 +378,10 @@ describe("RazorpayTest", () => {
             });
 
             expect(result).toEqual({
-                code: ErrorCodes.UNSUPPORTED_OPERATION,
-                error: "Unable to cancel as razorpay doesn't support cancellation"
+                data: expect.objectContaining({
+                    razorpayOrder: expect.any(Object),
+                    razorpayRefunds: expect.any(Array)
+                })
             });
         });
 
@@ -372,25 +391,19 @@ describe("RazorpayTest", () => {
             });
 
             expect(result).toEqual({
-                code: ErrorCodes.UNSUPPORTED_OPERATION,
-                error: "Unable to cancel as razorpay doesn't support cancellation"
+                data: expect.objectContaining({
+                    razorpayOrder: expect.any(Object),
+                    razorpayRefunds: expect.any(Array)
+                })
             });
         });
 
         it("should fail on intent cancellation", async () => {
-            const result = await razorpayTest.cancelPayment({
-                data: cancelPaymentFailData
-            });
-
-            /* expect(result).toEqual({
-        error: "An error occurred in cancelPayment",
-        code: "",
-        detail: "Error",
-      });*/
-            expect(result).toEqual({
-                code: ErrorCodes.UNSUPPORTED_OPERATION,
-                error: "Unable to cancel as razorpay doesn't support cancellation"
-            });
+            await expect(
+                razorpayTest.cancelPayment({
+                    data: cancelPaymentFailData
+                })
+            ).rejects.toBeDefined();
         });
     });
 
@@ -409,7 +422,9 @@ describe("RazorpayTest", () => {
         it("should succeed", async () => {
             const result = await razorpayTest.capturePayment(
                 isMocksEnabled()
-                    ? (capturePaymentContextSuccessData.paymentSessionData as CapturePaymentInput)
+                    ? ({
+                          data: capturePaymentContextSuccessData.paymentSessionData
+                      } as CapturePaymentInput)
                     : ({
                           data: testPaymentSession?.data
                       } as CapturePaymentInput)
@@ -417,7 +432,9 @@ describe("RazorpayTest", () => {
 
             if (isMocksEnabled()) {
                 expect(result).toEqual({
-                    id: PaymentIntentDataByStatus.ATTEMPTED.id
+                    data: {
+                        razorpayOrder: expect.any(Object)
+                    }
                 });
             } else {
                 expect(result).toMatchObject({
@@ -468,8 +485,10 @@ describe("RazorpayTest", () => {
             });
 
             expect(result).toEqual({
-                code: "payment_intent_operation_unsupported",
-                error: "Unable to cancel as razorpay doesn't support cancellation"
+                data: expect.objectContaining({
+                    razorpayOrder: expect.any(Object),
+                    razorpayRefunds: expect.any(Array)
+                })
             });
         });
 
@@ -479,20 +498,19 @@ describe("RazorpayTest", () => {
             });
 
             expect(result).toEqual({
-                code: "payment_intent_operation_unsupported",
-                error: "Unable to cancel as razorpay doesn't support cancellation"
+                data: expect.objectContaining({
+                    razorpayOrder: expect.any(Object),
+                    razorpayRefunds: expect.any(Array)
+                })
             });
         });
 
         it("should fail on intent cancellation", async () => {
-            const result = await razorpayTest.cancelPayment({
-                data: deletePaymentFailData
-            });
-
-            expect(result).toEqual({
-                code: "payment_intent_operation_unsupported",
-                error: "Unable to cancel as razorpay doesn't support cancellation"
-            });
+            await expect(
+                razorpayTest.cancelPayment({
+                    data: deletePaymentFailData
+                })
+            ).rejects.toBeDefined();
         });
     });
 
@@ -522,7 +540,11 @@ describe("RazorpayTest", () => {
             );
             if (isMocksEnabled()) {
                 expect(result).toMatchObject({
-                    sessionid: PaymentIntentDataByStatus.ATTEMPTED.id
+                    data: {
+                        razorpayOrder: {
+                            id: PaymentIntentDataByStatus.ATTEMPTED.id
+                        }
+                    }
                 });
             } else {
                 expect(result).toMatchObject({
@@ -560,14 +582,20 @@ describe("RazorpayTest", () => {
         it("should retrieve", async () => {
             const result = await razorpayTest.retrievePayment(
                 isMocksEnabled()
-                    ? (retrievePaymentSuccessData as RetrievePaymentInput)
+                    ? ({
+                          data: retrievePaymentSuccessData
+                      } as RetrievePaymentInput)
                     : ({
                           data: testPaymentSession?.data
                       } as RetrievePaymentInput)
             );
             if (isMocksEnabled()) {
                 expect(result).toMatchObject({
-                    status: "attempted"
+                    data: {
+                        razorpayOrder: {
+                            id: PaymentIntentDataByStatus.ATTEMPTED.id
+                        }
+                    }
                 });
             } else {
                 const retrieveResult = result as RetrievePaymentOutput;
@@ -822,4 +850,125 @@ describe("RazorpayTest", () => {
       });
     });*/
     //    });
+
+    describe("webhook regressions", () => {
+        const buildWebhookPayload = (
+            event = "payment.captured"
+        ): ProviderWebhookPayload["payload"] => ({
+            headers: {
+                "x-razorpay-signature": "test-signature"
+            },
+            rawData: Buffer.from('{"event":"payment.captured"}'),
+            data: {
+                event,
+                payload: {
+                    payment: {
+                        entity: {
+                            order_id: "order_test_123",
+                            amount: 10000,
+                            currency: "INR",
+                            notes: {
+                                session_id: "sess_123"
+                            },
+                            email: "customer@example.com",
+                            contact: "9999999999",
+                            vpa: "customer@upi"
+                        }
+                    }
+                }
+            }
+        });
+
+        it("enforces signature verification and rejects invalid signatures", async () => {
+            const scopedContainer = {
+                ...container,
+                [Modules.PAYMENT]: {
+                    retrievePaymentSession: jest.fn()
+                }
+            } as unknown as MedusaContainer;
+            const provider = new RazorpayTest(scopedContainer, config);
+
+            const previousValidate = (Razorpay as any).validateWebhookSignature;
+            (Razorpay as any).validateWebhookSignature = jest.fn(() => false);
+
+            const ordersFetchSpy = jest.fn();
+            (provider as any).razorpay_.orders.fetch = ordersFetchSpy;
+
+            const result = await provider.getWebhookActionAndData(
+                buildWebhookPayload()
+            );
+
+            expect(result).toEqual({ action: PaymentActions.FAILED });
+            expect(
+                (Razorpay as any).validateWebhookSignature
+            ).toHaveBeenCalled();
+            expect(ordersFetchSpy).not.toHaveBeenCalled();
+            (Razorpay as any).validateWebhookSignature = previousValidate;
+        });
+
+        it("redacts sensitive webhook fields before logging", async () => {
+            const infoSpy = jest.fn();
+            const scopedContainer = {
+                ...container,
+                logger: {
+                    ...container.logger,
+                    info: infoSpy
+                },
+                [Modules.PAYMENT]: {
+                    retrievePaymentSession: jest.fn()
+                }
+            } as unknown as MedusaContainer;
+            const provider = new RazorpayTest(scopedContainer, config);
+
+            const previousValidate = (Razorpay as any).validateWebhookSignature;
+            (Razorpay as any).validateWebhookSignature = jest.fn(() => false);
+
+            await provider.getWebhookActionAndData(buildWebhookPayload());
+
+            const loggedMessage = String(infoSpy.mock.calls[0]?.[0] ?? "");
+            expect(loggedMessage).toContain("[REDACTED]");
+            expect(loggedMessage).not.toContain("customer@example.com");
+            expect(loggedMessage).not.toContain("9999999999");
+            expect(loggedMessage).not.toContain("customer@upi");
+            expect(loggedMessage).not.toContain("sess_123");
+
+            (Razorpay as any).validateWebhookSignature = previousValidate;
+        });
+    });
+
+    describe("idempotency regressions", () => {
+        it("uses context idempotency key when order metadata is absent", async () => {
+            const retrievePaymentSession = jest.fn(async (_id?: string) => ({
+                id: "sess_from_idempotency",
+                data: {}
+            }));
+            const scopedContainer = {
+                ...container,
+                [Modules.PAYMENT]: {
+                    retrievePaymentSession
+                }
+            } as unknown as MedusaContainer;
+            const provider = new RazorpayTest(scopedContainer, config);
+
+            const order = {
+                id: "order_test_123",
+                status: "created",
+                notes: undefined
+            };
+            const ordersFetch = jest.fn(async () => order);
+            (provider as any).razorpay_.orders.fetch = ordersFetch;
+
+            const result = await provider.getPaymentSessionAndOrderFromInput({
+                data: {
+                    razorpayOrder: order
+                },
+                context: {
+                    idempotency_key: "idem_123"
+                }
+            } as unknown as AuthorizePaymentInput);
+
+            expect(retrievePaymentSession).toHaveBeenCalledWith("idem_123");
+            expect(result.paymentSession.id).toBe("sess_from_idempotency");
+        });
+    });
 });

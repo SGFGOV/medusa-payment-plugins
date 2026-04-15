@@ -60,7 +60,7 @@ jobs:
         run: corepack prepare yarn@4.6.0 --activate
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build plugins
         working-directory: .
@@ -123,13 +123,13 @@ jobs:
       - name: Run database migrations
         working-directory: ./packages/test-server
         run: |
-          npx medusa db:migrate
+          yarn medusa db:migrate
 
       - name: Seed database
         id: seed-database
         working-directory: ./packages/test-server
         run: |
-          npx medusa exec ./src/scripts/seed.ts 2>&1 | tee seed-output.log
+          yarn medusa exec ./src/scripts/seed.ts 2>&1 | tee seed-output.log
 
       - name: Get publishable API key
         id: get-publishable-key
@@ -155,7 +155,7 @@ jobs:
       - name: Start Medusa server
         working-directory: ./packages/test-server
         run: |
-          npx medusa start &
+          yarn medusa start &
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
           REDIS_URL: redis://localhost:6379
@@ -188,7 +188,7 @@ jobs:
 
       - name: Install storefront dependencies
         working-directory: ./packages/storefront
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build storefront
         working-directory: ./packages/storefront

@@ -41,7 +41,9 @@ export const initiatePaymentContextWithExistingCustomer = {
         first_name: "customer",
         phone: "9876542321"
     },
-    context: {},
+    context: {
+        idempotency_key: "idem-existing-customer"
+    },
     paymentSessionData: {},
     metadata: {}
 };
@@ -60,7 +62,9 @@ export const initiatePaymentContextWithExistingCustomerRazorpayId = {
             razorpay_id: isMocksEnabled() ? "test" : undefined
         }
     },
-    context: {},
+    context: {
+        idempotency_key: "idem-existing-customer-razorpay-id"
+    },
     paymentSessionData: {
         notes: {
             customer_id: "TEST-CUSTOMER"
@@ -74,7 +78,9 @@ export const initiatePaymentContextWithWrongEmail = {
     amount: 1000,
     resource_id: "test",
     customer: { last_name: "test", first_name: "customer" },
-    context: {},
+    context: {
+        idempotency_key: "idem-wrong-email"
+    },
     paymentSessionData: {}
 };
 
@@ -85,7 +91,8 @@ export const initiatePaymentContextWithFailIntentCreation = {
     resource_id: "test",
     customer: { last_name: "test", first_name: "customer" },
     context: {
-        payment_description: "fail"
+        payment_description: "fail",
+        idempotency_key: "idem-fail-intent"
     },
     paymentSessionData: {}
 };
