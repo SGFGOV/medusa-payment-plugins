@@ -277,7 +277,10 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         razorpayOrder: Orders.RazorpayOrder;
     }> {
         let { data, context } = input;
-        if (!data?.razorpayOrder && !(data as Record<string, unknown>)?.razorpayorder) {
+        if (
+            !data?.razorpayOrder &&
+            !(data as Record<string, unknown>)?.razorpayorder
+        ) {
             if (data?.id) {
                 data = {
                     ...data,

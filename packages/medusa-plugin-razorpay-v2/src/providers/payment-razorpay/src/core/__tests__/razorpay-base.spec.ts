@@ -20,11 +20,11 @@ import type {
     GetPaymentStatusOutput,
     InitiatePaymentInput,
     InitiatePaymentOutput,
+    ProviderWebhookPayload,
     RefundPaymentInput,
     RetrievePaymentInput,
     RetrievePaymentOutput,
-    UpdatePaymentInput,
-    ProviderWebhookPayload
+    UpdatePaymentInput
 } from "@medusajs/types";
 import dotenv from "dotenv";
 import Razorpay from "razorpay";
@@ -46,10 +46,7 @@ import {
     updatePaymentContextWithDifferentAmount
 } from "../__fixtures__/data";
 import { RazorpayTest } from "../__fixtures__/razorpay-test";
-import {
-    isMocksEnabled,
-    RazorpayMock
-} from "../__mocks__/razorpay";
+import { isMocksEnabled, RazorpayMock } from "../__mocks__/razorpay";
 
 let config: RazorpayOptions = {
     key_id: "test",
@@ -902,7 +899,9 @@ describe("RazorpayTest", () => {
             );
 
             expect(result).toEqual({ action: PaymentActions.FAILED });
-            expect((Razorpay as any).validateWebhookSignature).toHaveBeenCalled();
+            expect(
+                (Razorpay as any).validateWebhookSignature
+            ).toHaveBeenCalled();
             expect(ordersFetchSpy).not.toHaveBeenCalled();
             (Razorpay as any).validateWebhookSignature = previousValidate;
         });
