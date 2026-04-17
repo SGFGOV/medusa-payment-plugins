@@ -44,5 +44,8 @@
         "vite": "^5.2.11",
         "yalc": "^1.0.0-pre.53"
     },
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "resolutions": {
+        "@medusajs/ui": "4.0.31"
+    }
 }

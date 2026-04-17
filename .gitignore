@@ -1,4 +1,9 @@
 node_modules/
+
+# Yarn local state (release binary under .yarn/releases is committed)
+.yarn/*
+!.yarn/releases
+
 .turbo
 docker-volumes/
 .env
