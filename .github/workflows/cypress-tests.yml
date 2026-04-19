@@ -17,6 +17,16 @@ jobs:
   cypress-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
+      REDIS_URL: redis://localhost:6379
+      STORE_CORS: http://localhost:8000
+      ADMIN_CORS: http://localhost:7001
+      AUTH_CORS: http://localhost:8000
+      JWT_SECRET: supersecret
+      COOKIE_SECRET: supersecret
+      NODE_ENV: development
+      STOREFRONT_URL: http://localhost:8000
 
     services:
       postgres:
@@ -28,7 +38,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U postgres -d medusa-docker"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -71,15 +81,15 @@ jobs:
         working-directory: ./packages/test-server
         run: |
           cat > .env << EOF
-          DATABASE_URL=postgres://postgres:postgres@localhost:5432/medusa-docker
-          REDIS_URL=redis://localhost:6379
-          STORE_CORS=http://localhost:8000
-          ADMIN_CORS=http://localhost:7001
-          AUTH_CORS=http://localhost:8000
-          JWT_SECRET=supersecret
-          COOKIE_SECRET=supersecret
-          STOREFRONT_URL=http://localhost:8000
-          NODE_ENV=development
+          DATABASE_URL=${DATABASE_URL}
+          REDIS_URL=${REDIS_URL}
+          STORE_CORS=${STORE_CORS}
+          ADMIN_CORS=${ADMIN_CORS}
+          AUTH_CORS=${AUTH_CORS}
+          JWT_SECRET=${JWT_SECRET}
+          COOKIE_SECRET=${COOKIE_SECRET}
+          STOREFRONT_URL=${STOREFRONT_URL}
+          NODE_ENV=${NODE_ENV}
           RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID }}
           RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
           RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT }}
@@ -154,16 +164,9 @@ jobs:
       - name: Start Medusa server
         working-directory: ./packages/test-server
         run: |
-          yarn medusa start &
+          nohup yarn medusa start > medusa.log 2>&1 &
+          echo "MEDUSA_PID=$!" >> $GITHUB_ENV
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
-          REDIS_URL: redis://localhost:6379
-          STORE_CORS: http://localhost:8000
-          ADMIN_CORS: http://localhost:7001
-          AUTH_CORS: http://localhost:8000
-          JWT_SECRET: supersecret
-          COOKIE_SECRET: supersecret
-          NODE_ENV: development
           RAZORPAY_TEST_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID }}
           RAZORPAY_TEST_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
           RAZORPAY_TEST_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT }}
@@ -177,12 +180,16 @@ jobs:
           BTCPAY_TEST_AUTO_REFUND: ${{ secrets.BTCPAY_TEST_AUTO_REFUND }}
           REFUND_POLICY: ${{ secrets.REFUND_POLICY }}
           BTC_TEST_CHARGE: ${{ secrets.BTC_TEST_CHARGE }}
-          STOREFRONT_URL: ${{ secrets.STOREFRONT_URL }}
+          STOREFRONT_URL: ${{ env.STOREFRONT_URL }}
 
       - name: Wait for Medusa server to be ready
         run: |
           echo "Waiting for Medusa server to start..."
-          timeout 120 bash -c 'until curl -f http://localhost:9000/health || curl -f http://localhost:9000/store/products; do sleep 2; done'
+          timeout 180 bash -c 'until curl -f http://localhost:9000/health || curl -f http://localhost:9000/store/products; do sleep 2; done' || {
+            echo "Medusa server failed to become ready. Recent logs:"
+            sed -n '1,220p' packages/test-server/medusa.log
+            exit 1
+          }
           echo "Medusa server is ready!"
 
       - name: Install storefront dependencies
