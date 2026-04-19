@@ -191,6 +191,10 @@ jobs:
         working-directory: ./packages/storefront
         run: yarn build
         env:
+          # Next.js production builds must not run with NODE_ENV=development (job default),
+          # otherwise Next 15 can fail prerendering error pages with:
+          # "<Html> should not be imported outside of pages/_document".
+          NODE_ENV: production
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
@@ -200,6 +204,7 @@ jobs:
         run: |
           yarn start &
         env:
+          NODE_ENV: production
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
