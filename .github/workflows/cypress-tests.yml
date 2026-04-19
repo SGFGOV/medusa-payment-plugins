@@ -17,6 +17,16 @@ jobs:
   cypress-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
+      REDIS_URL: redis://localhost:6379
+      STORE_CORS: http://localhost:8000
+      ADMIN_CORS: http://localhost:7001
+      AUTH_CORS: http://localhost:8000
+      JWT_SECRET: supersecret
+      COOKIE_SECRET: supersecret
+      NODE_ENV: development
+      STOREFRONT_URL: http://localhost:8000
 
     services:
       postgres:
@@ -28,7 +38,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U postgres -d medusa-docker"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -47,8 +57,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Enable Corepack and Yarn 4.6.0
+        run: |
+          corepack enable
+          corepack prepare yarn@4.6.0 --activate
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -56,11 +68,8 @@ jobs:
           node-version: '20'
           cache: 'yarn'
 
-      - name: Prepare Yarn
-        run: corepack prepare yarn@4.6.0 --activate
-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build plugins
         working-directory: .
@@ -72,15 +81,15 @@ jobs:
         working-directory: ./packages/test-server
         run: |
           cat > .env << EOF
-          DATABASE_URL=postgres://postgres:postgres@localhost:5432/medusa-docker
-          REDIS_URL=redis://localhost:6379
-          STORE_CORS=http://localhost:8000
-          ADMIN_CORS=http://localhost:7001
-          AUTH_CORS=http://localhost:8000
-          JWT_SECRET=supersecret
-          COOKIE_SECRET=supersecret
-          STOREFRONT_URL=http://localhost:8000
-          NODE_ENV=development
+          DATABASE_URL=${DATABASE_URL}
+          REDIS_URL=${REDIS_URL}
+          STORE_CORS=${STORE_CORS}
+          ADMIN_CORS=${ADMIN_CORS}
+          AUTH_CORS=${AUTH_CORS}
+          JWT_SECRET=${JWT_SECRET}
+          COOKIE_SECRET=${COOKIE_SECRET}
+          STOREFRONT_URL=${STOREFRONT_URL}
+          NODE_ENV=${NODE_ENV}
           RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID }}
           RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
           RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT }}
@@ -123,13 +132,13 @@ jobs:
       - name: Run database migrations
         working-directory: ./packages/test-server
         run: |
-          npx medusa db:migrate
+          yarn medusa db:migrate
 
       - name: Seed database
         id: seed-database
         working-directory: ./packages/test-server
         run: |
-          npx medusa exec ./src/scripts/seed.ts 2>&1 | tee seed-output.log
+          yarn medusa exec ./src/scripts/seed.ts 2>&1 | tee seed-output.log
 
       - name: Get publishable API key
         id: get-publishable-key
@@ -155,45 +164,37 @@ jobs:
       - name: Start Medusa server
         working-directory: ./packages/test-server
         run: |
-          npx medusa start &
+          nohup yarn medusa start > medusa.log 2>&1 &
+          echo "MEDUSA_PID=$!" >> $GITHUB_ENV
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
-          REDIS_URL: redis://localhost:6379
-          STORE_CORS: http://localhost:8000
-          ADMIN_CORS: http://localhost:7001
-          AUTH_CORS: http://localhost:8000
-          JWT_SECRET: supersecret
-          COOKIE_SECRET: supersecret
-          NODE_ENV: development
           RAZORPAY_TEST_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID }}
           RAZORPAY_TEST_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
           RAZORPAY_TEST_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT }}
           RAZORPAY_TEST_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_URL: ${{ secrets.BTCPAY_TEST_URL }}
-          BTCPAY_TEST_API_KEY: ${{ secrets.BTCPAY_TEST_API_KEY }}
-          BTCPAY_TEST_STORE_ID: ${{ secrets.BTCPAY_TEST_STORE_ID }}
-          BTCPAY_TEST_WEBHOOK_SECRET: ${{ secrets.BTCPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_CURRENCY: ${{ secrets.BTCPAY_TEST_CURRENCY }}
-          BTCPAY_TEST_AUTO_CAPTURE: ${{ secrets.BTCPAY_TEST_AUTO_CAPTURE }}
-          BTCPAY_TEST_AUTO_REFUND: ${{ secrets.BTCPAY_TEST_AUTO_REFUND }}
-          REFUND_POLICY: ${{ secrets.REFUND_POLICY }}
-          BTC_TEST_CHARGE: ${{ secrets.BTC_TEST_CHARGE }}
-          STOREFRONT_URL: ${{ secrets.STOREFRONT_URL }}
+          STOREFRONT_URL: ${{ env.STOREFRONT_URL }}
 
       - name: Wait for Medusa server to be ready
         run: |
           echo "Waiting for Medusa server to start..."
-          timeout 120 bash -c 'until curl -f http://localhost:9000/health || curl -f http://localhost:9000/store/products; do sleep 2; done'
+          timeout 180 bash -c 'until curl -f http://localhost:9000/health || curl -f http://localhost:9000/store/products; do sleep 2; done' || {
+            echo "Medusa server failed to become ready. Recent logs:"
+            sed -n '1,220p' packages/test-server/medusa.log
+            exit 1
+          }
           echo "Medusa server is ready!"
 
       - name: Install storefront dependencies
         working-directory: ./packages/storefront
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build storefront
         working-directory: ./packages/storefront
         run: yarn build
         env:
+          # Next.js production builds must not run with NODE_ENV=development (job default),
+          # otherwise Next 15 can fail prerendering error pages with:
+          # "<Html> should not be imported outside of pages/_document".
+          NODE_ENV: production
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
@@ -203,6 +204,7 @@ jobs:
         run: |
           yarn start &
         env:
+          NODE_ENV: production
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
