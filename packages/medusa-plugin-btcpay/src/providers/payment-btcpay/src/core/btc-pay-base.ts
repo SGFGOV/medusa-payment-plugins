@@ -12,6 +12,7 @@ import {
     PaymentActions
 } from "@medusajs/framework/utils";
 import type { Logger } from "@medusajs/types/dist/logger";
+import { stringifyWithMaskedPII } from "../utils/mask-pii";
 import type {
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
@@ -539,7 +540,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         const logger = this.logger;
 
         logger.info(
-            `Received Btcpay webhook body as object : ${JSON.stringify(
+            `Received Btcpay webhook body as object : ${stringifyWithMaskedPII(
                 webhookData.data
             )}`
         );
