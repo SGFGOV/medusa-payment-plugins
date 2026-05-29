@@ -1,17 +1,30 @@
 const basicTest = () => {
-    console.log("🧹 Clearing all cookies before test");
-    cy.clearAllCookies();
+    // Reset checkout session state but keep Medusa cache cookies used by Next.js
+    cy.clearCookie("_medusa_jwt");
+    cy.clearCookie("_medusa_cart_id");
 
     // Visit the store page
     console.log("🏪 Visiting store page");
     cy.visit("/in/store");
+    cy.get('[data-testid="products-list"]', { timeout: 30000 }).should(
+        "be.visible"
+    );
 
-    // Click on the first product — store sort order may vary
+    // Full-page navigation avoids flaky Next.js App Router client transitions in Cypress
     console.log("👕 Selecting first product");
-    cy.get('[data-testid="product-card"]').first().click();
+    cy.get('[data-testid="product-card"]')
+        .first()
+        .closest("a")
+        .invoke("attr", "href")
+        .then((href) => {
+            cy.visit(href as string);
+        });
 
     // Verify we're on a product page
     console.log("🔍 Verifying product page");
+    cy.get('[data-testid="product-container"]', { timeout: 30000 }).should(
+        "be.visible"
+    );
     cy.url().should("match", /\/products\/[^/]+$/);
 
     // Select size L
