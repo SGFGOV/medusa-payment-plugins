@@ -46,7 +46,11 @@ const PHONE_PATTERN = /(?:\+?\d[\d\s().-]{7,}\d)/g;
 const MASK = "***";
 
 function isSensitiveKey(key: string): boolean {
-    const normalized = key.toLowerCase();
+    const normalized = key
+        .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+        .replace(/([A-Z]+)([A-Z][a-z])/g, "$1_$2")
+        .replace(/[^a-zA-Z0-9]+/g, "_")
+        .toLowerCase();
 
     if (SENSITIVE_KEYS.has(normalized)) {
         return true;
