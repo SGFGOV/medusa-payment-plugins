@@ -202,10 +202,10 @@ jobs:
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
 
-      - name: Start storefront
+      - name: Start storefront for E2E
         working-directory: ./packages/storefront
         run: |
-          yarn start &
+          yarn dev &
         env:
           MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000

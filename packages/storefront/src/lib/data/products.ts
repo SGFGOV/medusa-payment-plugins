@@ -53,6 +53,9 @@ export const listProducts = async ({
         ...(await getCacheOptions("products"))
     };
 
+    const shouldBypassCache =
+        queryParams?.handle !== undefined || queryParams?.id !== undefined;
+
     return sdk.client
         .fetch<{ products: HttpTypes.StoreProduct[]; count: number }>(
             `/store/products`,
@@ -67,7 +70,7 @@ export const listProducts = async ({
                 },
                 headers,
                 next,
-                cache: "force-cache"
+                cache: shouldBypassCache ? "no-store" : "force-cache"
             }
         )
         .then(({ products, count }) => {
@@ -84,11 +87,7 @@ export const listProducts = async ({
         })
         .catch((error) => {
             console.error("Failed to list products:", error);
-            return {
-                response: { products: [], count: 0 },
-                nextPage: null,
-                queryParams
-            };
+            throw error;
         });
 };
 
