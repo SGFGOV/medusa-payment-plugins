@@ -205,7 +205,7 @@ jobs:
       - name: Start storefront for E2E
         working-directory: ./packages/storefront
         run: |
-          yarn dev &
+          yarn start &
         env:
           MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000

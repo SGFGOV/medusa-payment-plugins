@@ -1,7 +1,6 @@
 const basicTest = () => {
-    // Reset checkout session state but keep Medusa cache cookies used by Next.js
-    cy.clearCookie("_medusa_jwt");
-    cy.clearCookie("_medusa_cart_id");
+    // Clear session cookies including httpOnly auth tokens from prior runs
+    cy.clearAllCookies();
 
     // Visit the store page
     console.log("🏪 Visiting store page");

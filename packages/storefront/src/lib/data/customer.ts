@@ -10,6 +10,7 @@ import {
     getCacheOptions,
     getCacheTag,
     getCartId,
+    hasAuthHeaders,
     removeAuthToken,
     removeCartId,
     setAuthToken
@@ -19,7 +20,9 @@ export const retrieveCustomer =
     async (): Promise<HttpTypes.StoreCustomer | null> => {
         const authHeaders = await getAuthHeaders();
 
-        if (!authHeaders) return null;
+        if (!hasAuthHeaders(authHeaders)) {
+            return null;
+        }
 
         const headers = {
             ...authHeaders
