@@ -1,6 +1,4 @@
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
-
-const basicTest = (cy: any) => {
+const basicTest = () => {
     console.log("🧹 Clearing all cookies before test");
     cy.clearAllCookies();
 
@@ -8,13 +6,13 @@ const basicTest = (cy: any) => {
     console.log("🏪 Visiting store page");
     cy.visit("/in/store");
 
-    // Click on the first product (sweatpants)
+    // Click on the first product — store sort order may vary
     console.log("👕 Selecting first product");
     cy.get('[data-testid="product-card"]').first().click();
 
-    // Verify we're on the product page
+    // Verify we're on a product page
     console.log("🔍 Verifying product page");
-    cy.url().should("include", "/products/sweatpants");
+    cy.url().should("match", /\/products\/[^/]+$/);
 
     // Select size L
     console.log("📏 Selecting size L");
@@ -117,12 +115,12 @@ const basicTest = (cy: any) => {
 describe("E-commerce Checkout Flow", () => {
     it.skip("should complete the checkout process with Razorpay payment", () => {
         // Clear all cookies before starting the test
-        basicTest(cy);
+        basicTest();
     });
 
     it("should complete the checkout process with Razorpay payment (no mock)", () => {
         // Clear all cookies before starting the test
-        basicTest(cy);
+        basicTest();
 
         // Handle Razorpay popup
 
