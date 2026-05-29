@@ -100,6 +100,9 @@ jobs:
         working-directory: ./packages/storefront
         run: |
           cat > .env.local << EOF
+          # Used by Next.js middleware (Edge runtime)
+          MEDUSA_BACKEND_URL=http://localhost:9000
+          # Used by client-side code
           NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=test_publishable_key
           NEXT_PUBLIC_BASE_URL=http://localhost:8000
@@ -194,6 +197,7 @@ jobs:
         working-directory: ./packages/storefront
         run: yarn build
         env:
+          MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
@@ -203,6 +207,7 @@ jobs:
         run: |
           yarn start &
         env:
+          MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
