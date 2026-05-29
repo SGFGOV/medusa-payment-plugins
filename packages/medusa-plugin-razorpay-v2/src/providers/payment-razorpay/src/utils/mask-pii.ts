@@ -40,8 +40,7 @@ const SENSITIVE_KEYS = new Set([
     "signature"
 ]);
 
-const EMAIL_PATTERN =
-    /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+const EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
 const PHONE_PATTERN = /(?:\+?\d[\d\s().-]{7,}\d)/g;
 
 const MASK = "***";
@@ -63,9 +62,7 @@ function isSensitiveKey(key: string): boolean {
 }
 
 function maskStringValue(value: string): string {
-    return value
-        .replace(EMAIL_PATTERN, MASK)
-        .replace(PHONE_PATTERN, MASK);
+    return value.replace(EMAIL_PATTERN, MASK).replace(PHONE_PATTERN, MASK);
 }
 
 export function maskPII(data: unknown): unknown {
@@ -95,7 +92,9 @@ export function maskPII(data: unknown): unknown {
 
     const masked: Record<string, unknown> = {};
 
-    for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
+    for (const [key, value] of Object.entries(
+        data as Record<string, unknown>
+    )) {
         if (isSensitiveKey(key)) {
             masked[key] = MASK;
             continue;

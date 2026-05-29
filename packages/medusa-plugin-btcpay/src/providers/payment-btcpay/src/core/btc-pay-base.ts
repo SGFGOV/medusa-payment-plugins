@@ -12,7 +12,6 @@ import {
     PaymentActions
 } from "@medusajs/framework/utils";
 import type { Logger } from "@medusajs/types/dist/logger";
-import { stringifyWithMaskedPII } from "../utils/mask-pii";
 import type {
     AuthorizePaymentInput,
     AuthorizePaymentOutput,
@@ -47,6 +46,7 @@ import type {
 import type { EntityManager } from "@mikro-orm/knex";
 import _ from "lodash";
 import type { BtcOptions } from "../types";
+import { stringifyWithMaskedPII } from "../utils/mask-pii";
 import {
     InvoicesApi as Btcpay,
     type CreateInvoiceRequest,
