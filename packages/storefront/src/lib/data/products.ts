@@ -95,18 +95,6 @@ export const listProducts = async ({
         });
 };
 
-export async function getProductByHandle(
-    countryCode: string,
-    handle: string
-): Promise<HttpTypes.StoreProduct | null> {
-    const { response } = await listProducts({
-        countryCode,
-        queryParams: { limit: 100 }
-    });
-
-    return response.products.find((product) => product.handle === handle) ?? null;
-}
-
 /**
  * This will fetch 100 products to the Next.js cache and sort them based on the sortBy parameter.
  * It will then return the paginated products based on the page and limit parameters.

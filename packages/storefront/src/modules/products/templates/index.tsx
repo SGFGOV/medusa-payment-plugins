@@ -7,6 +7,7 @@ import ProductTabs from "@modules/products/components/product-tabs";
 import RelatedProducts from "@modules/products/components/related-products";
 import ProductInfo from "@modules/products/templates/product-info";
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products";
+import { notFound } from "next/navigation";
 import type React from "react";
 import { Suspense } from "react";
 
@@ -21,6 +22,10 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     region,
     countryCode
 }) => {
+    if (!product || !product.id) {
+        return notFound();
+    }
+
     return (
         <>
             <div
@@ -35,9 +40,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
                     <ImageGallery images={product?.images || []} />
                 </div>
                 <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-                    <Suspense fallback={null}>
-                        <ProductOnboardingCta />
-                    </Suspense>
+                    <ProductOnboardingCta />
                     <ProductActions product={product} region={region} />
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { getProductByHandle, listProducts } from "@lib/data/products";
+import { listProducts } from "@lib/data/products";
 import { getRegion, listRegions } from "@lib/data/regions";
 import ProductTemplate from "@modules/products/templates";
 import type { Metadata } from "next";
@@ -52,7 +52,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         notFound();
     }
 
-    const product = await getProductByHandle(params.countryCode, handle);
+    const product = await listProducts({
+        countryCode: params.countryCode,
+        queryParams: { handle }
+    }).then(({ response }) => response.products[0]);
 
     if (!product) {
         notFound();
@@ -77,10 +80,10 @@ export default async function ProductPage(props: Props) {
         notFound();
     }
 
-    const pricedProduct = await getProductByHandle(
-        params.countryCode,
-        params.handle
-    );
+    const pricedProduct = await listProducts({
+        countryCode: params.countryCode,
+        queryParams: { handle: params.handle }
+    }).then(({ response }) => response.products[0]);
 
     if (!pricedProduct) {
         notFound();
