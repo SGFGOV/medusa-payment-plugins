@@ -1,0 +1,62 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [master]
+
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish packages
+    if: "contains(github.event.head_commit.message, 'chore(release): bump package versions for')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: https://registry.npmjs.org
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build and publish packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          CHANGED=$(git show --name-only --pretty=format: HEAD | grep '^packages/.*/package.json$' | cut -d/ -f2 | sort -u || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "No package.json changes in bump commit"
+            exit 0
+          fi
+
+          for workspace in $CHANGED; do
+            name=$(node -p "require('./packages/${workspace}/package.json').name")
+            version=$(node -p "require('./packages/${workspace}/package.json').version")
+
+            if npm view "${name}@${version}" version 2>/dev/null | grep -qx "$version"; then
+              echo "Already published: ${name}@${version}"
+              continue
+            fi
+
+            echo "Building ${name}@${version}"
+            yarn build --filter="${workspace}"
+
+            echo "Publishing ${name}@${version}"
+            yarn workspace "${workspace}" npm publish --access public
+          done

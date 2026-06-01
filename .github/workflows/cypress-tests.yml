@@ -229,6 +229,7 @@ jobs:
         with:
           name: cypress-screenshots
           path: packages/storefront/cypress/screenshots
+          if-no-files-found: ignore
           retention-days: 7
 
       - name: Upload Cypress videos
@@ -237,5 +238,6 @@ jobs:
         with:
           name: cypress-videos
           path: packages/storefront/cypress/videos
+          if-no-files-found: ignore
           retention-days: 7
 

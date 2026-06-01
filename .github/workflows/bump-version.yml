@@ -1,0 +1,164 @@
+name: Bump package versions
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+concurrency:
+  group: bump-version-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  verify-merge:
+    name: Verify merge eligibility
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      checks: read
+    outputs:
+      should_bump: ${{ steps.verify-checks.outputs.should_bump }}
+    steps:
+      - name: Verify required checks passed on PR head
+        id: verify-checks
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const requiredChecks = [
+              'Run Biome',
+              'Lint GitHub Actions Workflows',
+              'Run TypeScript Type Check',
+              'cypress-tests',
+            ];
+
+            const headSha = context.payload.pull_request.head.sha;
+            const checkRuns = await github.paginate(github.rest.checks.listForRef, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: headSha,
+              per_page: 100,
+            });
+
+            const latestByName = new Map();
+            for (const run of checkRuns) {
+              const existing = latestByName.get(run.name);
+              if (
+                !existing ||
+                new Date(run.started_at).getTime() >
+                  new Date(existing.started_at).getTime()
+              ) {
+                latestByName.set(run.name, run);
+              }
+            }
+
+            const missing = requiredChecks.filter((name) => !latestByName.has(name));
+            if (missing.length > 0) {
+              core.warning(
+                `Skipping version bump: missing required checks on ${headSha}: ${missing.join(', ')}. ` +
+                  'This usually means the merge bypassed branch protection or CI did not run.',
+              );
+              core.setOutput('should_bump', 'false');
+              return;
+            }
+
+            const failed = [];
+            const pending = [];
+
+            for (const name of requiredChecks) {
+              const run = latestByName.get(name);
+              if (run.status !== 'completed') {
+                pending.push(`${name} (${run.status})`);
+                continue;
+              }
+
+              if (run.conclusion !== 'success') {
+                failed.push(`${name} (${run.conclusion})`);
+              }
+            }
+
+            if (pending.length > 0 || failed.length > 0) {
+              core.warning(
+                'Skipping version bump: required checks did not all succeed on the merged PR head commit. ' +
+                  `Pending: ${pending.join(', ') || 'none'}. Failed: ${failed.join(', ') || 'none'}. ` +
+                  'Bypassed merges are not versioned.',
+              );
+              core.setOutput('should_bump', 'false');
+              return;
+            }
+
+            core.info(
+              `All required checks passed on ${headSha}. Proceeding with version bump.`,
+            );
+            core.setOutput('should_bump', 'true');
+
+  bump:
+    name: Bump versions on merge
+    needs: verify-merge
+    if: needs.verify-merge.outputs.should_bump == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Bump changed package versions
+        id: bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          PUBLISHABLE_PACKAGES="medusa-plugin-btcpay medusa-plugin-razorpay-v2"
+          CHANGED=$(git diff --name-only "$BASE_SHA" "$MERGE_SHA" | grep '^packages/' | cut -d/ -f2 | sort -u || true)
+
+          bumped=()
+          for workspace in $PUBLISHABLE_PACKAGES; do
+            if ! echo "$CHANGED" | grep -qx "$workspace"; then
+              echo "No changes in ${workspace}, skipping"
+              continue
+            fi
+
+            name=$(node -p "require('./packages/${workspace}/package.json').name")
+            old_version=$(node -p "require('./packages/${workspace}/package.json').version")
+            npm version patch --no-git-tag-version -w "packages/${workspace}"
+            new_version=$(node -p "require('./packages/${workspace}/package.json').version")
+
+            echo "Bumped ${name} from ${old_version} to ${new_version}"
+            bumped+=("${name}@${new_version}")
+          done
+
+          if [ "${#bumped[@]}" -eq 0 ]; then
+            echo "No publishable packages changed in this merge"
+            echo "bumped=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Bumped: ${bumped[*]}"
+          echo "bumped=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit version bumps
+        if: steps.bump.outputs.bumped == 'true'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/medusa-plugin-btcpay/package.json packages/medusa-plugin-razorpay-v2/package.json
+
+          git commit -m "chore(release): bump package versions for #${PR_NUMBER} [skip ci]"
+          git push origin master
