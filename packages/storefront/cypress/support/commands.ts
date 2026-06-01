@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { installConsoleCapture } from "./browser-console";
+
 // Custom iframe command
 Cypress.Commands.add("iframe", (iframeSelector: string) => {
     return cy
@@ -36,6 +38,27 @@ Cypress.Commands.add("iframe", (iframeSelector: string) => {
             return cy.wrap($body);
         });
 });
+
+Cypress.Commands.add(
+    "captureIframeConsole",
+    { prevSubject: "element" },
+    (subject) => {
+        const iframe = subject[0] as HTMLIFrameElement;
+        const win = iframe.contentWindow;
+        if (win) {
+            installConsoleCapture(win, "iframe");
+        }
+        return cy.wrap(subject);
+    },
+);
+
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            captureIframeConsole(): Chainable<JQuery<HTMLElement>>;
+        }
+    }
+}
 
 // declare global {
 //   namespace Cypress {

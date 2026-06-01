@@ -46,6 +46,7 @@ import type {
 import type { EntityManager } from "@mikro-orm/knex";
 import _ from "lodash";
 import type { BtcOptions } from "../types";
+import { stringifyWithMaskedPII } from "../utils/mask-pii";
 import {
     InvoicesApi as Btcpay,
     type CreateInvoiceRequest,
@@ -539,7 +540,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         const logger = this.logger;
 
         logger.info(
-            `Received Btcpay webhook body as object : ${JSON.stringify(
+            `Received Btcpay webhook body as object : ${stringifyWithMaskedPII(
                 webhookData.data
             )}`
         );

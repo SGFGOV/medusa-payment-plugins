@@ -55,6 +55,7 @@ import type {
     WebhookEventData
 } from "../types";
 import { getAmountFromSmallestUnit } from "../utils/get-smallest-unit";
+import { stringifyWithMaskedPII } from "../utils/mask-pii";
 import { updateRazorpayCustomerMetadataWorkflow } from "../workflows/update-razorpay-customer-metadata";
 
 class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
@@ -666,7 +667,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const data = webhookData.data;
 
         logger.info(
-            `Received Razorpay webhook body as object : ${JSON.stringify(
+            `Received Razorpay webhook body as object : ${stringifyWithMaskedPII(
                 webhookData.data
             )}`
         );
@@ -685,7 +686,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             }
         } catch (error) {
             logger.error(
-                `Razorpay webhook validation failed : ${JSON.stringify(error)}`
+                `Razorpay webhook validation failed : ${stringifyWithMaskedPII(error)}`
             );
 
             return { action: PaymentActions.FAILED };

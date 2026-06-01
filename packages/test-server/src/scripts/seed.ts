@@ -731,10 +731,30 @@ export default async function seedDemoData({
 
     logger.info("Seeding inventory levels.");
 
-    const { data: inventoryItems } = await query.graph({
-        entity: "inventory_item",
-        fields: ["id"]
-    });
+    // `query.graph` is paginated by default. If we don't page through results,
+    // only the first chunk of inventory items gets a level, and products created
+    // later in the seed can appear out of stock in the storefront.
+    const inventoryItems: { id: string }[] = [];
+    const take = 1000;
+    let skip = 0;
+    while (true) {
+        const { data } = await query.graph({
+            entity: "inventory_item",
+            fields: ["id"],
+            pagination: {
+                skip,
+                take
+            }
+        });
+
+        inventoryItems.push(...(data as { id: string }[]));
+
+        if (!data?.length || data.length < take) {
+            break;
+        }
+
+        skip += take;
+    }
 
     const inventoryLevels: CreateInventoryLevelInput[] = [];
     for (const inventoryItem of inventoryItems) {

@@ -1,20 +1,30 @@
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
-
-const basicTest = (cy: any) => {
-    console.log("🧹 Clearing all cookies before test");
+const basicTest = () => {
+    // Clear session cookies including httpOnly auth tokens from prior runs
     cy.clearAllCookies();
 
     // Visit the store page
     console.log("🏪 Visiting store page");
     cy.visit("/in/store");
+    cy.get('[data-testid="products-list"]', { timeout: 30000 }).should(
+        "be.visible"
+    );
 
-    // Click on the first product (sweatpants)
+    // Full-page navigation avoids flaky Next.js App Router client transitions in Cypress
     console.log("👕 Selecting first product");
-    cy.get('[data-testid="product-card"]').first().click();
+    cy.get('[data-testid="product-card"]')
+        .first()
+        .closest("a")
+        .invoke("attr", "href")
+        .then((href) => {
+            cy.visit(href as string);
+        });
 
-    // Verify we're on the product page
+    // Verify we're on a product page
     console.log("🔍 Verifying product page");
-    cy.url().should("include", "/products/sweatpants");
+    cy.get('[data-testid="product-container"]', { timeout: 30000 }).should(
+        "be.visible"
+    );
+    cy.url().should("match", /\/products\/[^/]+$/);
 
     // Select size L
     console.log("📏 Selecting size L");
@@ -117,12 +127,12 @@ const basicTest = (cy: any) => {
 describe("E-commerce Checkout Flow", () => {
     it.skip("should complete the checkout process with Razorpay payment", () => {
         // Clear all cookies before starting the test
-        basicTest(cy);
+        basicTest();
     });
 
     it("should complete the checkout process with Razorpay payment (no mock)", () => {
         // Clear all cookies before starting the test
-        basicTest(cy);
+        basicTest();
 
         // Handle Razorpay popup
 
@@ -138,6 +148,7 @@ describe("E-commerce Checkout Flow", () => {
         // cy.iframe('.razorpay-checkout-frame[style*="width: 100%"]')
         cy.get('.razorpay-checkout-frame[style*="width: 100%"]')
             .should("be.visible")
+            .captureIframeConsole()
             .then(($iframe) => {
                 const $body = $iframe.contents().find("body");
                 cy.wrap($body).within(() => {

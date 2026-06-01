@@ -1,6 +1,31 @@
 // Import commands.js using ES2015 syntax:
 import "./commands";
 import "cypress-iframe";
+import {
+    getBrowserConsoleLogs,
+    installConsoleCapture,
+    resetBrowserConsoleLogs,
+} from "./browser-console";
+
+Cypress.on("window:before:load", (win) => {
+    installConsoleCapture(win, "app");
+});
+
+afterEach(function () {
+    const test = this.currentTest;
+    if (test?.state === "failed") {
+        cy.task(
+            "writeBrowserConsoleLog",
+            {
+                spec: Cypress.spec.relative,
+                testTitle: test.titlePath?.join(" > ") ?? test.title,
+                logs: getBrowserConsoleLogs(),
+            },
+            { log: false },
+        );
+    }
+    resetBrowserConsoleLogs();
+});
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
