@@ -148,6 +148,7 @@ describe("E-commerce Checkout Flow", () => {
         // cy.iframe('.razorpay-checkout-frame[style*="width: 100%"]')
         cy.get('.razorpay-checkout-frame[style*="width: 100%"]')
             .should("be.visible")
+            .captureIframeConsole()
             .then(($iframe) => {
                 const $body = $iframe.contents().find("body");
                 cy.wrap($body).within(() => {

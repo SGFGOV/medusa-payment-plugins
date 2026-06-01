@@ -232,6 +232,15 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      - name: Upload Cypress browser console logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-console-logs
+          path: packages/storefront/cypress/logs
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Upload Cypress videos
         uses: actions/upload-artifact@v4
         if: always()
