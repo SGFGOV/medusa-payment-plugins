@@ -466,7 +466,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             !crypto.timingSafeEqual(digest, checksum)
         ) {
             this.logger.error(
-                `Request body digest (${digest}) did not match ${sigHeaderName} (${checksum})`
+                `Request body digest did not match ${sigHeaderName}`
             );
             return { action: PaymentActions.FAILED };
         }
@@ -539,9 +539,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         const logger = this.logger;
 
         logger.info(
-            `Received Btcpay webhook body as object : ${JSON.stringify(
-                webhookData.data
-            )}`
+            `Received Btcpay webhook event: ${(webhookData.data as { type?: string })?.type}`
         );
         const paymentEvent = webhookData.data as WebhookInvoiceEvent;
         const event = paymentEvent.type;

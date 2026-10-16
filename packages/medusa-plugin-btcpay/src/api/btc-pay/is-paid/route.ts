@@ -42,7 +42,7 @@ export const GET = async (req: MedusaRequest, response: MedusaResponse) => {
                 .json({ message: "Payment collection complete" });
         }
     } catch (error) {
-        logger.error("Error retrieving cart:", error);
+        logger.error(`Error retrieving cart: ${(error as Error)?.message}`);
         return response.status(500).json({ error: "Internal server error" });
     }
 };
