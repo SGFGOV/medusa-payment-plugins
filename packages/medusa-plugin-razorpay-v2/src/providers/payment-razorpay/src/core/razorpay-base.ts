@@ -475,9 +475,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         try {
             return await this.cancelPayment(input);
         } catch (e) {
-            this.logger.error(
-                `Error deleting Razorpay payment: ${e.message}`
-            );
+            this.logger.error(`Error deleting Razorpay payment: ${e.message}`);
             return {
                 data: {
                     razorpayOrder: input.data?.razorpayOrder

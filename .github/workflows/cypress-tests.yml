@@ -81,10 +81,10 @@ jobs:
           COOKIE_SECRET=supersecret
           STOREFRONT_URL=http://localhost:8000
           NODE_ENV=development
-          RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID }}
-          RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
-          RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT }}
-          RAZORPAY_TEST_WEBHOOK_SECRET=${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
+          RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
+          RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET || 'dummy_secret' }}
+          RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT || 'acc_dummy' }}
+          RAZORPAY_TEST_WEBHOOK_SECRET=${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET || 'dummy_webhook_secret' }}
           BTCPAY_TEST_URL=http://localhost:23000
           BTCPAY_TEST_API_KEY=test_api_key
           BTCPAY_TEST_STORE_ID=test_store_id
@@ -165,20 +165,20 @@ jobs:
           JWT_SECRET: supersecret
           COOKIE_SECRET: supersecret
           NODE_ENV: development
-          RAZORPAY_TEST_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID }}
-          RAZORPAY_TEST_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
-          RAZORPAY_TEST_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT }}
-          RAZORPAY_TEST_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_URL: ${{ secrets.BTCPAY_TEST_URL }}
-          BTCPAY_TEST_API_KEY: ${{ secrets.BTCPAY_TEST_API_KEY }}
-          BTCPAY_TEST_STORE_ID: ${{ secrets.BTCPAY_TEST_STORE_ID }}
-          BTCPAY_TEST_WEBHOOK_SECRET: ${{ secrets.BTCPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_CURRENCY: ${{ secrets.BTCPAY_TEST_CURRENCY }}
-          BTCPAY_TEST_AUTO_CAPTURE: ${{ secrets.BTCPAY_TEST_AUTO_CAPTURE }}
-          BTCPAY_TEST_AUTO_REFUND: ${{ secrets.BTCPAY_TEST_AUTO_REFUND }}
-          REFUND_POLICY: ${{ secrets.REFUND_POLICY }}
-          BTC_TEST_CHARGE: ${{ secrets.BTC_TEST_CHARGE }}
-          STOREFRONT_URL: ${{ secrets.STOREFRONT_URL }}
+          RAZORPAY_TEST_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
+          RAZORPAY_TEST_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET || 'dummy_secret' }}
+          RAZORPAY_TEST_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT || 'acc_dummy' }}
+          RAZORPAY_TEST_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET || 'dummy_webhook_secret' }}
+          BTCPAY_TEST_URL: ${{ secrets.BTCPAY_TEST_URL || 'http://localhost:23000' }}
+          BTCPAY_TEST_API_KEY: ${{ secrets.BTCPAY_TEST_API_KEY || 'test_api_key' }}
+          BTCPAY_TEST_STORE_ID: ${{ secrets.BTCPAY_TEST_STORE_ID || 'test_store_id' }}
+          BTCPAY_TEST_WEBHOOK_SECRET: ${{ secrets.BTCPAY_TEST_WEBHOOK_SECRET || 'test_webhook_secret' }}
+          BTCPAY_TEST_CURRENCY: ${{ secrets.BTCPAY_TEST_CURRENCY || 'usd' }}
+          BTCPAY_TEST_AUTO_CAPTURE: ${{ secrets.BTCPAY_TEST_AUTO_CAPTURE || 'false' }}
+          BTCPAY_TEST_AUTO_REFUND: ${{ secrets.BTCPAY_TEST_AUTO_REFUND || 'false' }}
+          REFUND_POLICY: ${{ secrets.REFUND_POLICY || 'OverpaidAmount' }}
+          BTC_TEST_CHARGE: ${{ secrets.BTC_TEST_CHARGE || '2.0' }}
+          STOREFRONT_URL: ${{ secrets.STOREFRONT_URL || 'http://localhost:8000' }}
 
       - name: Wait for Medusa server to be ready
         run: |
