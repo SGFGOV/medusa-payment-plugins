@@ -156,7 +156,7 @@ jobs:
       - name: Start Medusa server
         working-directory: ./packages/test-server
         run: |
-          npx medusa start &
+          npx medusa start > medusa-server.log 2>&1 &
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
           REDIS_URL: redis://localhost:6379
@@ -203,7 +203,7 @@ jobs:
       - name: Start storefront
         working-directory: ./packages/storefront
         run: |
-          yarn start &
+          yarn start > storefront.log 2>&1 &
         env:
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
           MEDUSA_BACKEND_URL: http://localhost:9000
@@ -220,6 +220,14 @@ jobs:
         working-directory: ./packages/storefront
         run: yarn cypress:run
         continue-on-error: false
+
+      - name: Print server logs on failure
+        if: failure()
+        run: |
+          echo "=== medusa-server.log (tail) ==="
+          tail -n 150 packages/test-server/medusa-server.log || true
+          echo "=== storefront.log (tail) ==="
+          tail -n 150 packages/storefront/storefront.log || true
 
       - name: Upload Cypress screenshots
         uses: actions/upload-artifact@v4
