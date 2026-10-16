@@ -8,9 +8,12 @@ const basicTest = (cy: any) => {
     console.log("🏪 Visiting store page");
     cy.visit("/in/store");
 
-    // Click on the first product (sweatpants)
-    console.log("👕 Selecting first product");
-    cy.get('[data-testid="product-card"]').first().click();
+    // Click on the sweatpants product (seeded products share a timestamp, so
+    // the default "newest first" order is not stable; select it explicitly)
+    console.log("👕 Selecting sweatpants product");
+    cy.get('a[href*="/products/sweatpants"] [data-testid="product-card"]')
+        .first()
+        .click();
 
     // Verify we're on the product page
     console.log("🔍 Verifying product page");
