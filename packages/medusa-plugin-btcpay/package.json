@@ -1,6 +1,6 @@
 {
     "name": "medusa-plugin-btcpay",
-    "version": "0.0.6",
+    "version": "0.1.0",
     "description": "A plugin to  receive for bitcoin payments in medusajss .",
     "author": "Medusa (https://medusajs.com)",
     "license": "MIT",

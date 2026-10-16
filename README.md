@@ -101,7 +101,7 @@ This repository includes comprehensive end-to-end (e2e) tests using Cypress to e
 Before running the e2e tests, make sure you have:
 
 1. **Docker and Docker Compose** installed and running
-2. **Node.js** (version 18 or higher)
+2. **Node.js** (version 20.19 or higher)
 3. **Yarn** package manager
 
 ### Setting Up the Test Environment
