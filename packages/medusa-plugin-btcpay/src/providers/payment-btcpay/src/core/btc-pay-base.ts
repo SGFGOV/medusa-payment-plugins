@@ -43,7 +43,7 @@ import type {
     UpdatePaymentOutput,
     WebhookActionResult
 } from "@medusajs/types/dist/payment";
-import type { EntityManager } from "@mikro-orm/knex";
+import type { EntityManager } from "@medusajs/framework/mikro-orm/knex";
 import _ from "lodash";
 import type { BtcOptions } from "../types";
 import {
