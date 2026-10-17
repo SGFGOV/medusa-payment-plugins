@@ -53,7 +53,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Prepare Yarn
@@ -68,6 +68,18 @@ jobs:
           yarn workspace medusa-plugin-razorpay-v2 build
           yarn workspace medusa-plugin-btcpay build
 
+      - name: Report which Razorpay secrets are available (presence only)
+        env:
+          S_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID }}
+          S_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
+          S_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT }}
+          S_WEBHOOK: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
+          S_PUBLIC_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID }}
+        run: |
+          for v in S_KEY_ID S_KEY_SECRET S_ACCOUNT S_WEBHOOK S_PUBLIC_KEY_ID; do
+            if [ -n "${!v}" ]; then echo "$v: set"; else echo "$v: EMPTY"; fi
+          done
+
       - name: Setup test server environment variables
         working-directory: ./packages/test-server
         run: |
@@ -81,10 +93,10 @@ jobs:
           COOKIE_SECRET=supersecret
           STOREFRONT_URL=http://localhost:8000
           NODE_ENV=development
-          RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID }}
-          RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
-          RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT }}
-          RAZORPAY_TEST_WEBHOOK_SECRET=${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
+          RAZORPAY_TEST_KEY_ID=${{ secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
+          RAZORPAY_TEST_KEY_SECRET=${{ secrets.RAZORPAY_TEST_KEY_SECRET || 'dummy_secret' }}
+          RAZORPAY_TEST_ACCOUNT=${{ secrets.RAZORPAY_TEST_ACCOUNT || 'acc_dummy' }}
+          RAZORPAY_TEST_WEBHOOK_SECRET=${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET || 'dummy_webhook_secret' }}
           BTCPAY_TEST_URL=http://localhost:23000
           BTCPAY_TEST_API_KEY=test_api_key
           BTCPAY_TEST_STORE_ID=test_store_id
@@ -101,6 +113,7 @@ jobs:
         run: |
           cat > .env.local << EOF
           NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+          MEDUSA_BACKEND_URL=http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=test_publishable_key
           NEXT_PUBLIC_BASE_URL=http://localhost:8000
           EOF
@@ -155,7 +168,7 @@ jobs:
       - name: Start Medusa server
         working-directory: ./packages/test-server
         run: |
-          npx medusa start &
+          npx medusa start > medusa-server.log 2>&1 &
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-docker
           REDIS_URL: redis://localhost:6379
@@ -165,20 +178,20 @@ jobs:
           JWT_SECRET: supersecret
           COOKIE_SECRET: supersecret
           NODE_ENV: development
-          RAZORPAY_TEST_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID }}
-          RAZORPAY_TEST_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
-          RAZORPAY_TEST_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT }}
-          RAZORPAY_TEST_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_URL: ${{ secrets.BTCPAY_TEST_URL }}
-          BTCPAY_TEST_API_KEY: ${{ secrets.BTCPAY_TEST_API_KEY }}
-          BTCPAY_TEST_STORE_ID: ${{ secrets.BTCPAY_TEST_STORE_ID }}
-          BTCPAY_TEST_WEBHOOK_SECRET: ${{ secrets.BTCPAY_TEST_WEBHOOK_SECRET }}
-          BTCPAY_TEST_CURRENCY: ${{ secrets.BTCPAY_TEST_CURRENCY }}
-          BTCPAY_TEST_AUTO_CAPTURE: ${{ secrets.BTCPAY_TEST_AUTO_CAPTURE }}
-          BTCPAY_TEST_AUTO_REFUND: ${{ secrets.BTCPAY_TEST_AUTO_REFUND }}
-          REFUND_POLICY: ${{ secrets.REFUND_POLICY }}
-          BTC_TEST_CHARGE: ${{ secrets.BTC_TEST_CHARGE }}
-          STOREFRONT_URL: ${{ secrets.STOREFRONT_URL }}
+          RAZORPAY_TEST_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
+          RAZORPAY_TEST_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET || 'dummy_secret' }}
+          RAZORPAY_TEST_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT || 'acc_dummy' }}
+          RAZORPAY_TEST_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET || 'dummy_webhook_secret' }}
+          BTCPAY_TEST_URL: ${{ secrets.BTCPAY_TEST_URL || 'http://localhost:23000' }}
+          BTCPAY_TEST_API_KEY: ${{ secrets.BTCPAY_TEST_API_KEY || 'test_api_key' }}
+          BTCPAY_TEST_STORE_ID: ${{ secrets.BTCPAY_TEST_STORE_ID || 'test_store_id' }}
+          BTCPAY_TEST_WEBHOOK_SECRET: ${{ secrets.BTCPAY_TEST_WEBHOOK_SECRET || 'test_webhook_secret' }}
+          BTCPAY_TEST_CURRENCY: ${{ secrets.BTCPAY_TEST_CURRENCY || 'usd' }}
+          BTCPAY_TEST_AUTO_CAPTURE: ${{ secrets.BTCPAY_TEST_AUTO_CAPTURE || 'false' }}
+          BTCPAY_TEST_AUTO_REFUND: ${{ secrets.BTCPAY_TEST_AUTO_REFUND || 'false' }}
+          REFUND_POLICY: ${{ secrets.REFUND_POLICY || 'OverpaidAmount' }}
+          BTC_TEST_CHARGE: ${{ secrets.BTC_TEST_CHARGE || '2.0' }}
+          STOREFRONT_URL: ${{ secrets.STOREFRONT_URL || 'http://localhost:8000' }}
 
       - name: Wait for Medusa server to be ready
         run: |
@@ -195,17 +208,21 @@ jobs:
         run: yarn build
         env:
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
+          MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
+          NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID || secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
 
       - name: Start storefront
         working-directory: ./packages/storefront
         run: |
-          yarn start &
+          yarn start > storefront.log 2>&1 &
         env:
           NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://localhost:9000
+          MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
+          NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID || secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
 
       - name: Wait for storefront to be ready
         run: |
@@ -217,6 +234,14 @@ jobs:
         working-directory: ./packages/storefront
         run: yarn cypress:run
         continue-on-error: false
+
+      - name: Print server logs on failure
+        if: failure()
+        run: |
+          echo "=== medusa-server.log (tail) ==="
+          tail -n 150 packages/test-server/medusa-server.log || true
+          echo "=== storefront.log (tail) ==="
+          tail -n 150 packages/storefront/storefront.log || true
 
       - name: Upload Cypress screenshots
         uses: actions/upload-artifact@v4

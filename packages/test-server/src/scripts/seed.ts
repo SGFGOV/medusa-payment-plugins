@@ -114,7 +114,8 @@ export default async function seedDemoData({
     logger.info("Seeding tax regions...");
     await createTaxRegionsWorkflow(container).run({
         input: [...countries, "us", "in"].map((country_code) => ({
-            country_code
+            country_code,
+            provider_id: "tp_system"
         }))
     });
     logger.info("Finished seeding tax regions.");

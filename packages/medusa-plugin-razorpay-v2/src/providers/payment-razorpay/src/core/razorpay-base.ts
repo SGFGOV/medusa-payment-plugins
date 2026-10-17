@@ -404,8 +404,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             };
         } catch (error) {
             this.logger.error(
-                `Error creating Razorpay order: ${error.message}`,
-                error
+                `Error creating Razorpay order: ${error.message}`
             );
             throw new MedusaError(
                 MedusaError.Types.INVALID_DATA,
@@ -476,10 +475,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         try {
             return await this.cancelPayment(input);
         } catch (e) {
-            this.logger.error(
-                `Error deleting Razorpay payment: ${e.message}`,
-                e
-            );
+            this.logger.error(`Error deleting Razorpay payment: ${e.message}`);
             return {
                 data: {
                     razorpayOrder: input.data?.razorpayOrder
@@ -603,8 +599,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
                 return refundResult;
             } catch (e) {
                 this.logger.error(
-                    `Error creating Razorpay refund: ${e.message}`,
-                    e
+                    `Error creating Razorpay refund: ${e.message}`
                 );
                 throw new MedusaError(
                     MedusaError.Types.INVALID_DATA,
@@ -666,9 +661,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
         const data = webhookData.data;
 
         logger.info(
-            `Received Razorpay webhook body as object : ${JSON.stringify(
-                webhookData.data
-            )}`
+            `Received Razorpay webhook event: ${(data as { event?: string })?.event}`
         );
         try {
             if (!webhookSignature || !webhookSecret) {
@@ -685,7 +678,7 @@ class RazorpayBase extends AbstractPaymentProvider<RazorpayOptions> {
             }
         } catch (error) {
             logger.error(
-                `Razorpay webhook validation failed : ${JSON.stringify(error)}`
+                `Razorpay webhook validation failed: ${(error as Error)?.message}`
             );
 
             return { action: PaymentActions.FAILED };

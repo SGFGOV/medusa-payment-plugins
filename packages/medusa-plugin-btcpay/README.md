@@ -20,6 +20,10 @@ Use the package manager npm to install Payment-BitcoinPayServer.
 yarn add medusa-plugin-btcpay
 ```
 
+## Compatibility
+
+Requires Medusa `>=2.12.3` (tested on `2.21.2`) and Node.js `>=20.19`.
+
 ## Usage
 
 Set up a [Bitcoin PayServer](https://docs.btcpayserver.org/) instance, either self-hosted or via a trusted host.

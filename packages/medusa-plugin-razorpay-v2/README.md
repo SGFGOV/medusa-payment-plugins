@@ -29,6 +29,10 @@ No hassle, no fuss! Install Payment-Razorpay effortlessly with npm:
 [RAZORPAY](https://razorpay.com) an immensely popular payment gateway with a host of features. 
 This provider enables the razorpay payment interface on [medusa](https://medusajs.com) commerce stack
 
+## Compatibility
+
+Requires Medusa `>=2.12.3` (tested on `2.21.2`) and Node.js `>=20.19`.
+
 ## Installation
 
 Use the package manager npm to install Payment-Razorpay.

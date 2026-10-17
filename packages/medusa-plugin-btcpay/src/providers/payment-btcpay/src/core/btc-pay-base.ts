@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import type { Query } from "@medusajs/framework";
+import type { EntityManager } from "@medusajs/framework/mikro-orm/knex";
 import type {
     ICustomerModuleService,
     MedusaContainer
@@ -43,7 +44,6 @@ import type {
     UpdatePaymentOutput,
     WebhookActionResult
 } from "@medusajs/types/dist/payment";
-import type { EntityManager } from "@mikro-orm/knex";
 import _ from "lodash";
 import type { BtcOptions } from "../types";
 import {
@@ -466,7 +466,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
             !crypto.timingSafeEqual(digest, checksum)
         ) {
             this.logger.error(
-                `Request body digest (${digest}) did not match ${sigHeaderName} (${checksum})`
+                `Request body digest did not match ${sigHeaderName}`
             );
             return { action: PaymentActions.FAILED };
         }
@@ -539,9 +539,7 @@ class BtcpayBase extends AbstractPaymentProvider<BtcOptions> {
         const logger = this.logger;
 
         logger.info(
-            `Received Btcpay webhook body as object : ${JSON.stringify(
-                webhookData.data
-            )}`
+            `Received Btcpay webhook event: ${(webhookData.data as { type?: string })?.type}`
         );
         const paymentEvent = webhookData.data as WebhookInvoiceEvent;
         const event = paymentEvent.type;

@@ -35,7 +35,6 @@ export default defineMiddlewares({
                     res: MedusaResponse,
                     _next: MedusaNextFunction
                 ) => {
-                    console.log("Received a request!");
                     res.header(
                         "Access-Control-Allow-Origin",
                         process.env.STOREFRONT_URL ?? "http://localhost:8000"
