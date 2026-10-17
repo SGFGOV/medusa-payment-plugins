@@ -68,6 +68,18 @@ jobs:
           yarn workspace medusa-plugin-razorpay-v2 build
           yarn workspace medusa-plugin-btcpay build
 
+      - name: Report which Razorpay secrets are available (presence only)
+        env:
+          S_KEY_ID: ${{ secrets.RAZORPAY_TEST_KEY_ID }}
+          S_KEY_SECRET: ${{ secrets.RAZORPAY_TEST_KEY_SECRET }}
+          S_ACCOUNT: ${{ secrets.RAZORPAY_TEST_ACCOUNT }}
+          S_WEBHOOK: ${{ secrets.RAZORPAY_TEST_WEBHOOK_SECRET }}
+          S_PUBLIC_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID }}
+        run: |
+          for v in S_KEY_ID S_KEY_SECRET S_ACCOUNT S_WEBHOOK S_PUBLIC_KEY_ID; do
+            if [ -n "${!v}" ]; then echo "$v: set"; else echo "$v: EMPTY"; fi
+          done
+
       - name: Setup test server environment variables
         working-directory: ./packages/test-server
         run: |
@@ -199,6 +211,7 @@ jobs:
           MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
+          NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID || secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
 
       - name: Start storefront
         working-directory: ./packages/storefront
@@ -209,6 +222,7 @@ jobs:
           MEDUSA_BACKEND_URL: http://localhost:9000
           NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${{ steps.get-publishable-key.outputs.publishable_key }}
           NEXT_PUBLIC_BASE_URL: http://localhost:8000
+          NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_TEST_KEY_ID || secrets.RAZORPAY_TEST_KEY_ID || 'rzp_test_dummy' }}
 
       - name: Wait for storefront to be ready
         run: |
